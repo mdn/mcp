@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    // general options:
+    "allowJs": true,
+    "checkJs": true,
+    "maxNodeModuleJsDepth": 0,
+    "noEmit": true,
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    // fix for badly-formed types in dependencies:
+    "skipLibCheck": true,
+    // rules:
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+  "exclude": ["node_modules"]
+}

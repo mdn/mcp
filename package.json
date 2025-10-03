@@ -1,0 +1,28 @@
+{
+  "name": "@mdn/mcp",
+  "version": "0.0.1",
+  "repository": "https://github.com/mdn/mcp",
+  "type": "module",
+  "author": "MDN Web Docs",
+  "license": "MPL-2.0",
+  "scripts": {
+    "start": "node index.js",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "express": "^5.1.0",
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "@types/turndown": "^5.0.5",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
