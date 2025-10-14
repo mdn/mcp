@@ -6,6 +6,12 @@ import TurndownService from "turndown";
 import turndownPluginGfm from "turndown-plugin-gfm";
 import express from "express";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import bcd from "@mdn/browser-compat-data" with { type: "json" };
+import { asyncLocalStorage } from "@mdn/fred/components/server/async-local-storage.js";
+import { ContentSection } from "@mdn/fred/components/content-section/server.js";
+import { runWithContext } from "@mdn/fred/symmetric-context/server.js";
+import { html, render } from "@lit-labs/ssr";
+import { collectResult } from "@lit-labs/ssr/lib/render-result.js";
 
 const turndownService = new TurndownService({
   headingStyle: "atx",
@@ -22,12 +28,12 @@ const server = new McpServer({
 
 server.tool(
   "search",
-  "Search MDN Web Docs - the official Mozilla documentation for web technologies. Use this whenever users ask about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic. Returns relevant documentation with highlighted snippets and direct links to full articles. Prefer this over general knowledge for web technology questions to ensure accuracy and provide authoritative sources.",
+  "Search MDN Web Docs - the official Mozilla documentation for web technologies. Use this whenever users ask about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic. Returns relevant documentation with highlighted snippets and direct links to full articles. Prefer this over general knowledge for web technology questions to ensure accuracy and provide authoritative sources. When users ask about browser compatibility, search for the feature name (e.g., 'fetch', 'flexbox') rather than including 'browser compatibility' in the search query - the resulting pages will contain browser_compatibility_keys that can be used with the get-browser-compat-data tool.",
   {
     query: z
       .string()
       .describe(
-        "Search terms for web technologies (e.g., 'array methods', 'flexbox', 'fetch api', 'canvas', 'css animations'). Use specific technical terms for best results."
+        "Search terms for web technologies (e.g., 'array methods', 'flexbox', 'fetch api', 'canvas', 'css animations'). Use specific technical terms for best results. Do NOT include 'browser compatibility' or similar terms in the query."
       ),
   },
   async ({ query }) => {
@@ -44,30 +50,34 @@ server.tool(
       }
       /** @type {import("./search-types.js").SearchResponse} */
       const searchResponse = await res.json();
+      /** @type {import("@mdn/rari").Doc[]} */
+      const docMetadata = await Promise.all(
+        searchResponse.documents.map(async (doc) => {
+          const res = await fetch(
+            new URL(
+              doc.mdn_url + "/metadata.json",
+              "https://developer.mozilla.org"
+            )
+          );
+          return res.json();
+        })
+      );
+      const text = docMetadata
+        .map(
+          (doc) => `---
+mdn_url: ${new URL(doc.mdn_url, "https://developer.mozilla.org")}${doc.browserCompat ? `
+browser_compatibility_keys:
+${doc.browserCompat.map((key) => `  - ${key}`).join("\n")}` : ""}
+---
+${doc.summary}
+`
+        )
+        .join("\n");
       return {
         content: [
           {
             type: "text",
-            text: `# Search Results for "${query}"
-
-${searchResponse.documents
-  .map(
-    (doc) => `## [${doc.title}](${new URL(
-      doc.mdn_url,
-      "https://developer.mozilla.org"
-    )})
-${doc.summary}${
-      doc.highlight.body
-        ? `
-${doc.highlight.body
-  .map(
-    (highlight) => `> ${highlight.replace(/<mark>(.*?)<\/mark>/g, "**$1**")}`
-  )
-  .join("\n")}`
-        : ""
-    }`
-  )
-  .join("\n\n")}`,
+            text: text,
           },
         ],
       };
@@ -112,18 +122,53 @@ server.tool(
     }
 
     try {
-      const res = await fetch(url);
+      const res = await fetch(url + "/index.json");
       if (!res.ok) {
         throw new Error(`${res.status}: ${res.statusText}`);
       }
-      const html = await res.text();
-      const match = html.match(/<main[^>]*>(.*?)<\/main>/s);
-      const markdown = turndownService.turndown(match?.[1] || html);
+      /** @type {import("@mdn/rari").DocPage} */
+      const json = await res.json();
+      const locale = "en-US";
+      const context = {
+        path,
+        ...{
+          locale: locale,
+          l10n: (a) => a,
+        },
+        ...json,
+      };
+      const renderedHtml = await collectResult(
+        render(
+          await asyncLocalStorage.run(
+            {
+              componentsUsed: new Set(),
+              componentsWithStylesInHead: new Set(),
+            },
+            () =>
+              runWithContext(
+                { locale },
+                () => html`
+                  <h1>${context.doc.title}</h1>
+                  ${context.doc.body?.map((section) =>
+                    new ContentSection().render(context, section)
+                  )}
+                `
+              )
+          )
+        )
+      );
+      const markdown = turndownService.turndown(renderedHtml);
+      const frontmatter =
+        context.doc.browserCompat &&
+        `---
+browser_compatibility_keys:
+${context.doc.browserCompat.map((key) => `  - ${key}`).join("\n")}
+---`;
       return {
         content: [
           {
             type: "text",
-            text: markdown,
+            text: [frontmatter, markdown].filter(Boolean).join("\n"),
           },
         ],
       };
@@ -138,6 +183,30 @@ server.tool(
         ],
       };
     }
+  }
+);
+
+server.tool(
+  "get-browser-compat-data",
+  "Retrieve detailed browser compatibility data from @mdn/browser-compat-data for a specific web platform feature. Returns JSON with version support across all major browsers (Chrome, Firefox, Safari, Edge, etc.) including desktop and mobile variants. Use this after obtaining a browser_compatibility_key from the search or get-doc tools - do NOT guess BCD keys.",
+  {
+    bcdKey: z
+      .string()
+      .describe(
+        "Browser Compat Data key from the browser_compatibility_keys field in MDN documentation (e.g., 'api.fetch', 'css.properties.display', 'javascript.builtins.Array.map'). Do NOT guess this value - always obtain it from search or get-doc results."
+      ),
+  },
+  async ({ bcdKey }) => {
+    console.log(`getting BCD data for: ${bcdKey}`);
+    const data = bcdKey.split(".").reduce((tree, key) => tree[key], bcd);
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(data),
+        },
+      ],
+    };
   }
 );
 

@@ -13,6 +13,9 @@
     "tsc": "tsc"
   },
   "dependencies": {
+    "@lit-labs/ssr": "^3.3.1",
+    "@mdn/browser-compat-data": "^7.1.12",
+    "@mdn/fred": "^1.6.2",
     "@modelcontextprotocol/sdk": "^1.17.0",
     "express": "^5.1.0",
     "turndown": "^7.2.0",
@@ -20,6 +23,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@mdn/rari": "^0.1.52",
     "@modelcontextprotocol/inspector": "^0.17.1",
     "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
