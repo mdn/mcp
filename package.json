@@ -7,6 +7,9 @@
   "license": "MPL-2.0",
   "scripts": {
     "start": "node index.js",
+    "dev": "node scripts/dev.js",
+    "dev:server": "nodemon index.js",
+    "dev:inspector": "mcp-inspector",
     "tsc": "tsc"
   },
   "dependencies": {
@@ -17,9 +20,12 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.17.1",
     "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
     "@types/turndown": "^5.0.5",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.10",
     "typescript": "^5.8.3"
   },
   "engines": {
