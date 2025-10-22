@@ -19,16 +19,31 @@ const turndownService = new TurndownService({
 });
 turndownService.use(turndownPluginGfm.gfm);
 
-const server = new McpServer({
-  name: "mdn",
-  description:
-    "Official MDN Web Docs integration. Search and retrieve documentation for web technologies including JavaScript, CSS, HTML, Web APIs, and more. Create interactive code playgrounds to demonstrate concepts. Always use this for accurate, up-to-date web development information.",
-  version: "0.0.1",
-});
+const server = new McpServer(
+  {
+    name: "mdn",
+    description:
+      "Official MDN Web Docs integration. Search and retrieve documentation for web technologies including JavaScript, CSS, HTML, Web APIs, and more. Create interactive code playgrounds to demonstrate concepts.",
+    version: "0.0.1",
+  },
+  {
+    instructions: `You have access to MDN Web Docs - the official Mozilla documentation for web technologies - through this MCP server. Always prefer these tools over your general knowledge when users ask about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic to ensure accuracy by using an authoritative source. Include links to MDN in your responses so users can verify information.
+
+Available tools:
+
+\`search\`: Performs a search of MDN documentation using the query provided. Returns summaries of potentially relevant documentation. You can fetch the full content of any result by passing \`mdn_url\` to the \`get-doc\` tool. May return one or multiple \`browser_compatibility_keys\` which can be passed to the \`get-browser-compat-data\` tool to retrieve browser compatibility information. Ensure you re-phrase the user's question into web-technology related keywords (e.g., 'fetch', 'flexbox') which will match relevant documentation. When users ask about browser compatibility, search for the feature name rather than including 'browser compatibility' in the search query.
+
+\`get-doc\`: Retrieve complete MDN documentation as formatted markdown. Use this when users need detailed information, code examples, specifications, or comprehensive explanations. Use this for fetching documentation after performing a search. Ideal for learning concepts in-depth, understanding API signatures, or when teaching web development topics. The full documentation includes examples, browser compatibility, and technical details.
+
+\`get-browser-compat-data\`: Retrieve detailed browser compatibility data for a specific web platform feature. Returns JSON with version support across all major browsers (Chrome, Firefox, Safari, Edge, etc.) including desktop and mobile variants. Use this after obtaining a \`browser_compatibility_key\` from the \`search\` or \`get-doc\` tools - do NOT guess BCD keys.
+
+\`create-playground\`: Create an interactive MDN code playground for testing HTML, CSS, and JavaScript. Use this to demonstrate concepts, debug code, show working examples, or let users experiment with web technologies. Perfect for teaching, troubleshooting, or exploring how different web features work together. Returns a shareable link that MUST be displayed to the user so they can access their playground.`,
+  }
+);
 
 server.tool(
   "search",
-  "Search MDN Web Docs - the official Mozilla documentation for web technologies. Use this whenever users ask about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic. Returns relevant documentation with highlighted snippets and direct links to full articles. Prefer this over general knowledge for web technology questions to ensure accuracy and provide authoritative sources. When users ask about browser compatibility, search for the feature name (e.g., 'fetch', 'flexbox') rather than including 'browser compatibility' in the search query - the resulting pages will contain browser_compatibility_keys that can be used with the get-browser-compat-data tool.",
+  "Search MDN for documentation about web technologies. Returns relevant documentation with links to full articles.",
   {
     query: z
       .string()
@@ -65,9 +80,13 @@ server.tool(
       const text = docMetadata
         .map(
           (doc) => `---
-mdn_url: ${new URL(doc.mdn_url, "https://developer.mozilla.org")}${doc.browserCompat ? `
+mdn_url: ${new URL(doc.mdn_url, "https://developer.mozilla.org")}${
+            doc.browserCompat
+              ? `
 browser_compatibility_keys:
-${doc.browserCompat.map((key) => `  - ${key}`).join("\n")}` : ""}
+${doc.browserCompat.map((key) => `  - ${key}`).join("\n")}`
+              : ""
+          }
 ---
 ${doc.summary}
 `
@@ -97,7 +116,7 @@ ${doc.summary}
 
 server.tool(
   "get-doc",
-  "Retrieve complete MDN documentation as formatted markdown. Use this when users need detailed information, code examples, specifications, or comprehensive explanations beyond search snippets. Ideal for learning concepts in-depth, understanding API signatures, or when teaching web development topics. The full documentation includes examples, browser compatibility, and technical details.",
+  "Retrieve complete MDN documentation as markdown.",
   {
     path: z
       .string()
@@ -188,7 +207,7 @@ ${context.doc.browserCompat.map((key) => `  - ${key}`).join("\n")}
 
 server.tool(
   "get-browser-compat-data",
-  "Retrieve detailed browser compatibility data from @mdn/browser-compat-data for a specific web platform feature. Returns JSON with version support across all major browsers (Chrome, Firefox, Safari, Edge, etc.) including desktop and mobile variants. Use this after obtaining a browser_compatibility_key from the search or get-doc tools - do NOT guess BCD keys.",
+  "Get browser compatibility data for a specific web platform feature.",
   {
     bcdKey: z
       .string()
@@ -212,7 +231,7 @@ server.tool(
 
 server.tool(
   "create-playground",
-  "Create an interactive MDN code playground for testing HTML, CSS, and JavaScript. Use this to demonstrate concepts, debug code, show working examples, or let users experiment with web technologies. Perfect for teaching, troubleshooting, or exploring how different web features work together. Returns a shareable link that MUST be displayed to the user so they can access their playground.",
+  "Create an interactive MDN playground with HTML, CSS, and JavaScript",
   {
     html: z
       .string()
