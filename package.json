@@ -5,6 +5,9 @@
   "type": "module",
   "author": "MDN Web Docs",
   "license": "MPL-2.0",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
   "engines": {
     "node": ">=22"
   }
