@@ -9,8 +9,17 @@
     "tsc": "tsc"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.4.0",
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^61.1.5",
+    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-unicorn": "^61.0.2",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2"
   },
   "engines": {
     "node": ">=22"
