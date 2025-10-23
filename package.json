@@ -1,0 +1,11 @@
+{
+  "name": "@mdn/mcp",
+  "version": "0.0.1",
+  "repository": "https://github.com/mdn/mcp",
+  "type": "module",
+  "author": "MDN Web Docs",
+  "license": "MPL-2.0",
+  "engines": {
+    "node": ">=22"
+  }
+}
