@@ -5,8 +5,12 @@
   "type": "module",
   "author": "MDN Web Docs",
   "license": "MPL-2.0",
+  "scripts": {
+    "tsc": "tsc"
+  },
   "devDependencies": {
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=22"
