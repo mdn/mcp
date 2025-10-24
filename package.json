@@ -6,11 +6,17 @@
   "author": "MDN Web Docs",
   "license": "MPL-2.0",
   "scripts": {
+    "start": "node index.js",
     "tsc": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.38.0",
+    "@types/express": "^5.0.4",
     "@types/node": "^22.18.12",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
