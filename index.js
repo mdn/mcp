@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+
 import express from "express";
 
 import handleRequest from "./transport.js";
@@ -8,6 +10,14 @@ app.use(express.json());
 app.post("/mcp", handleRequest);
 
 const PORT = Number.parseInt(process.env.PORT || "3002");
-app.listen(PORT, () => {
-  console.log(`MDN MCP server running on http://localhost:${PORT}/mcp`);
-});
+
+/** @param {number} port */
+export default function listen(port) {
+  return app.listen(port, () => {
+    console.log(`MDN MCP server running on http://localhost:${port}/mcp`);
+  });
+}
+
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
+  listen(PORT);
+}

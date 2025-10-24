@@ -10,7 +10,8 @@
     "dev": "node scripts/dev.js",
     "dev:server": "nodemon index.js",
     "dev:inspector": "mcp-inspector --config mcp.json",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "test": "node --test test/**/*.test.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.2",
