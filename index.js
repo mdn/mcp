@@ -18,6 +18,8 @@ export default function listen(port) {
   });
 }
 
+/* node:coverage disable */
 if (fileURLToPath(import.meta.url) === process.argv[1]) {
   listen(PORT);
 }
+/* node:coverage enable */
