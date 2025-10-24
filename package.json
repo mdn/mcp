@@ -7,6 +7,7 @@
   "license": "MPL-2.0",
   "scripts": {
     "start": "node index.js",
+    "inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.38.0",
+    "@modelcontextprotocol/inspector": "^0.17.2",
     "@types/express": "^5.0.4",
     "@types/node": "^22.18.12",
     "eslint": "^9.38.0",
