@@ -6,12 +6,23 @@
   "author": "MDN Web Docs",
   "license": "MPL-2.0",
   "scripts": {
+    "start": "node index.js",
+    "dev": "node scripts/dev.js",
+    "dev:server": "nodemon index.js",
+    "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.38.0",
+    "@modelcontextprotocol/inspector": "^0.17.2",
+    "@types/express": "^5.0.4",
     "@types/node": "^22.18.12",
+    "concurrently": "^9.2.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -19,6 +30,7 @@
     "eslint-plugin-n": "^17.23.1",
     "eslint-plugin-unicorn": "^61.0.2",
     "lefthook": "^2.0.0",
+    "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"
