@@ -10,7 +10,7 @@ on:
 permissions: {}
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,3 +39,6 @@ jobs:
 
       - name: Run tsc
         run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm run test
