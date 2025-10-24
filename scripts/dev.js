@@ -12,6 +12,11 @@ concurrently(
       name: "inspector",
       prefixColor: "blue",
     },
+    {
+      command: `npm run test:watch`,
+      name: "tests",
+      prefixColor: "red",
+    },
   ],
   {
     killOthersOn: ["failure", "success"],
