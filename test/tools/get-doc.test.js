@@ -14,9 +14,12 @@ describe("get-doc tool", () => {
     client = await createClient(server.port);
   });
 
-  it("should be callable", async () => {
+  it("should take a path argument", async () => {
     const { content } = await client.callTool({
       name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/MDN/Kitchensink",
+      },
     });
     assert.deepEqual(content, []);
   });
