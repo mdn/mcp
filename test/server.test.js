@@ -4,14 +4,14 @@ import { after, before, describe, it } from "node:test";
 import { createClient, createServer } from "./helpers/client.js";
 
 describe("server", () => {
-  /** @type {ReturnType<createServer>} */
+  /** @type {Awaited<ReturnType<createServer>>} */
   let server;
   /** @type {Awaited<ReturnType<createClient>>} */
   let client;
 
   before(async () => {
-    server = createServer(3003);
-    client = await createClient(3003);
+    server = await createServer();
+    client = await createClient(server.port);
   });
 
   it("should be named mdn", async () => {
@@ -25,6 +25,6 @@ describe("server", () => {
   });
 
   after(() => {
-    server.close();
+    server.listener.close();
   });
 });
