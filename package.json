@@ -11,7 +11,7 @@
     "dev:server": "nodemon index.js",
     "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc",
-    "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude test/**/* --test-coverage-exclude test/**/*.test.js test/**/*.test.js",
+    "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
     "test:watch": "node --test --watch test/**/*.test.js"
   },
   "dependencies": {
