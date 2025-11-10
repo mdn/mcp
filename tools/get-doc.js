@@ -6,9 +6,18 @@ import { ContentSection } from "@mdn/fred/components/content-section/server.js";
 import { asyncLocalStorage } from "@mdn/fred/components/server/async-local-storage.js";
 // @ts-expect-error
 import { runWithContext } from "@mdn/fred/symmetric-context/server.js";
+import TurndownService from "turndown";
+// @ts-expect-error
+import turndownPluginGfm from "turndown-plugin-gfm";
 import z from "zod";
 
 import server from "../server.js";
+
+const turndownService = new TurndownService({
+  headingStyle: "atx",
+  codeBlockStyle: "fenced",
+});
+turndownService.use(turndownPluginGfm.gfm);
 
 server.registerTool(
   "get-doc",
@@ -43,12 +52,12 @@ server.registerTool(
         ),
       ),
     );
-
+    const markdown = turndownService.turndown(renderedHtml);
     return {
       content: [
         {
           type: "text",
-          text: renderedHtml,
+          text: markdown,
         },
       ],
     };

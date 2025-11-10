@@ -43,7 +43,7 @@ describe("get-doc tool", () => {
     });
     /** @type {string} */
     const text = content[0].text;
-    assert.ok(text.includes("<h1>The MDN Content Kitchensink</h1>"));
+    assert.ok(text.startsWith("# The MDN Content Kitchensink"));
   });
 
   after(() => {
