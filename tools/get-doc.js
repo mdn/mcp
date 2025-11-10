@@ -23,6 +23,7 @@ server.registerTool(
   "get-doc",
   {
     title: "Get documentation",
+    description: "Retrieve a page of MDN documentation as markdown.",
     inputSchema: {
       path: z.string(),
     },
