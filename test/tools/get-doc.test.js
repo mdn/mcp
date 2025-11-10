@@ -12,19 +12,22 @@ describe("get-doc tool", () => {
   let server;
   /** @type {Awaited<ReturnType<createClient>>} */
   let client;
-  /** @type {MockAgent} */
-  let agent;
+  /** @type {import("undici").MockPool} */
+  let mockPool;
 
   before(async () => {
     server = await createServer();
     client = await createClient(server.port);
+
+    const agent = new MockAgent();
+    setGlobalDispatcher(agent);
+    // only allow unmocked requests to the mcp server:
+    agent.enableNetConnect(`localhost:${server.port}`);
+    mockPool = agent.get("https://developer.mozilla.org");
   });
 
   beforeEach(() => {
-    agent = new MockAgent();
-    setGlobalDispatcher(agent);
-    agent
-      .get("https://developer.mozilla.org")
+    mockPool
       .intercept({
         path: "/en-US/docs/MDN/Kitchensink/index.json",
         method: "GET",
@@ -73,6 +76,17 @@ describe("get-doc tool", () => {
     });
 
     it("should accept path without locale", async () => {
+      mockPool
+        .intercept({
+          path: "/docs/MDN/Kitchensink/index.json",
+          method: "GET",
+        })
+        .reply(302, "", {
+          headers: {
+            location: "/en-US/docs/MDN/Kitchensink/index.json",
+          },
+        });
+
       /** @type {any} */
       const { content } = await client.callTool({
         name: "get-doc",
