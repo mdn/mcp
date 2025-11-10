@@ -31,6 +31,11 @@ server.registerTool(
     if (url.host !== "developer.mozilla.org") {
       throw new Error(`Error: ${url} doesn't look like an MDN url`);
     }
+    if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
+      throw new Error(
+        `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
+      );
+    }
     if (!url.pathname.endsWith("/index.json")) {
       url.pathname += "/index.json";
     }

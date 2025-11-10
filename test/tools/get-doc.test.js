@@ -99,6 +99,19 @@ describe("get-doc tool", () => {
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
+    it("should accept path without leading slash", async () => {
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "en-US/docs/MDN/Kitchensink",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(text.startsWith("# The MDN Content Kitchensink"));
+    });
+
     it("should reject wrong base url", async () => {
       const path = "https://example.com/en-US/docs/MDN/Kitchensink";
       /** @type {any} */
@@ -133,6 +146,23 @@ describe("get-doc tool", () => {
       /** @type {string} */
       const text = content[0].text;
       assert.deepEqual(text, `404: Not Found for ${path}`);
+    });
+
+    it("should reject non-doc path", async () => {
+      const path = "/en-US/observatory";
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.deepEqual(
+        text,
+        `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
+      );
     });
   });
 
