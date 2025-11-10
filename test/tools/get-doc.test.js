@@ -41,8 +41,9 @@ describe("get-doc tool", () => {
         path: "/en-US/docs/MDN/Kitchensink",
       },
     });
-    const { mdn_url } = JSON.parse(content[0].text);
-    assert.strictEqual(mdn_url, "/en-US/docs/MDN/Kitchensink");
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.includes("<h1>The MDN Content Kitchensink</h1>"));
   });
 
   after(() => {
