@@ -25,7 +25,9 @@ server.registerTool(
     title: "Get documentation",
     description: "Retrieve a page of MDN documentation as markdown.",
     inputSchema: {
-      path: z.string(),
+      path: z
+        .string()
+        .describe("path or full URL: e.g. '/en-US/docs/Web/API/Headers'"),
     },
   },
   async ({ path }) => {
