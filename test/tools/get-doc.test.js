@@ -112,6 +112,28 @@ describe("get-doc tool", () => {
       const text = content[0].text;
       assert.deepEqual(text, `Error: ${path} doesn't look like an MDN url`);
     });
+
+    it("should handle path to missing doc", async () => {
+      const path = "/en-US/docs/MDN/Knisnehctik";
+
+      mockPool
+        .intercept({
+          path: path + "/index.json",
+          method: "GET",
+        })
+        .reply(404);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.deepEqual(text, `404: Not Found for ${path}`);
+    });
   });
 
   after(() => {

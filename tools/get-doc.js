@@ -36,6 +36,10 @@ server.registerTool(
     }
 
     const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`${res.status}: ${res.statusText} for ${path}`);
+    }
+
     /** @type {import("@mdn/rari").DocPage} */
     const context = await res.json();
     // TODO: expose better API for this from fred
