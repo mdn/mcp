@@ -25,6 +25,17 @@ describe("all tools", () => {
     );
   });
 
+  it("should have a description", async () => {
+    const { tools } = await client.listTools();
+    const without = tools
+      .filter((tool) => !("description" in tool))
+      .map(({ name }) => name);
+    assert.ok(
+      without.length === 0,
+      `${without.join(", ")} tool(s) don't have a description`,
+    );
+  });
+
   after(() => {
     server.listener.close();
   });
