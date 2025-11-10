@@ -23,9 +23,6 @@ describe("get-doc tool", () => {
   beforeEach(() => {
     agent = new MockAgent();
     setGlobalDispatcher(agent);
-  });
-
-  it("should fetch requested document from mock", async () => {
     agent
       .get("https://developer.mozilla.org")
       .intercept({
@@ -33,17 +30,74 @@ describe("get-doc tool", () => {
         method: "GET",
       })
       .reply(200, docFixture);
+  });
 
-    /** @type {any} */
-    const { content } = await client.callTool({
-      name: "get-doc",
-      arguments: {
-        path: "/en-US/docs/MDN/Kitchensink",
-      },
+  describe("path param", () => {
+    it("should accept normal path", async () => {
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/MDN/Kitchensink",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
-    /** @type {string} */
-    const text = content[0].text;
-    assert.ok(text.startsWith("# The MDN Content Kitchensink"));
+
+    it("should accept full path", async () => {
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "https://developer.mozilla.org/en-US/docs/MDN/Kitchensink",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(text.startsWith("# The MDN Content Kitchensink"));
+    });
+
+    it("should accept path with index.json", async () => {
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/MDN/Kitchensink/index.json",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(text.startsWith("# The MDN Content Kitchensink"));
+    });
+
+    it("should accept path without locale", async () => {
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/docs/MDN/Kitchensink",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(text.startsWith("# The MDN Content Kitchensink"));
+    });
+
+    it("should reject wrong base url", async () => {
+      const path = "https://example.com/en-US/docs/MDN/Kitchensink";
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.deepEqual(text, `Error: ${path} doesn't look like an MDN url`);
+    });
   });
 
   after(() => {

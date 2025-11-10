@@ -28,7 +28,14 @@ server.registerTool(
   },
   async ({ path }) => {
     const url = new URL(path, "https://developer.mozilla.org");
-    const res = await fetch(url + "/index.json");
+    if (url.host !== "developer.mozilla.org") {
+      throw new Error(`Error: ${url} doesn't look like an MDN url`);
+    }
+    if (!url.pathname.endsWith("/index.json")) {
+      url.pathname += "/index.json";
+    }
+
+    const res = await fetch(url);
     /** @type {import("@mdn/rari").DocPage} */
     const context = await res.json();
     // TODO: expose better API for this from fred
