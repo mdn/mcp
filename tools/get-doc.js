@@ -22,6 +22,7 @@ turndownService.use(turndownPluginGfm.gfm);
 server.registerTool(
   "get-doc",
   {
+    title: "Get documentation",
     inputSchema: {
       path: z.string(),
     },
