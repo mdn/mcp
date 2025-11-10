@@ -1,6 +1,8 @@
 /* eslint-disable jsdoc/reject-any-type */
 import assert from "node:assert/strict";
-import { after, before, describe, it } from "node:test";
+import { after, before, beforeEach, describe, it } from "node:test";
+
+import { MockAgent, setGlobalDispatcher } from "undici";
 
 import { createClient, createServer } from "../helpers/client.js";
 
@@ -9,13 +11,32 @@ describe("get-doc tool", () => {
   let server;
   /** @type {Awaited<ReturnType<createClient>>} */
   let client;
+  /** @type {MockAgent} */
+  let agent;
 
   before(async () => {
     server = await createServer();
     client = await createClient(server.port);
   });
 
-  it("should fetch requested document", async () => {
+  beforeEach(() => {
+    agent = new MockAgent();
+    setGlobalDispatcher(agent);
+  });
+
+  it("should fetch requested document from mock", async () => {
+    agent
+      .get("https://developer.mozilla.org")
+      .intercept({
+        path: "/en-US/docs/MDN/Kitchensink/index.json",
+        method: "GET",
+      })
+      .reply(200, {
+        doc: {
+          mdn_url: "mock",
+        },
+      });
+
     /** @type {any} */
     const { content } = await client.callTool({
       name: "get-doc",
@@ -24,7 +45,7 @@ describe("get-doc tool", () => {
       },
     });
     const { mdn_url } = JSON.parse(content[0].text);
-    assert.strictEqual(mdn_url, "/en-US/docs/MDN/Kitchensink");
+    assert.strictEqual(mdn_url, "mock");
   });
 
   after(() => {
