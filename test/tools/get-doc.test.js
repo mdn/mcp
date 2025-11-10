@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/reject-any-type */
 import assert from "node:assert/strict";
 import { after, before, describe, it } from "node:test";
 
@@ -14,14 +15,16 @@ describe("get-doc tool", () => {
     client = await createClient(server.port);
   });
 
-  it("should take a path argument", async () => {
+  it("should fetch requested document", async () => {
+    /** @type {any} */
     const { content } = await client.callTool({
       name: "get-doc",
       arguments: {
         path: "/en-US/docs/MDN/Kitchensink",
       },
     });
-    assert.deepEqual(content, []);
+    const { mdn_url } = JSON.parse(content[0].text);
+    assert.strictEqual(mdn_url, "/en-US/docs/MDN/Kitchensink");
   });
 
   after(() => {
