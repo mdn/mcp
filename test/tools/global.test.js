@@ -36,6 +36,24 @@ describe("all tools", () => {
     );
   });
 
+  it("should have arguments with descriptions", async () => {
+    const { tools } = await client.listTools();
+    for (const tool of tools) {
+      const { properties } = tool.inputSchema;
+      if (properties === undefined) throw new Error("arguments are undefined");
+      const without = Object.entries(properties)
+        .filter(
+          // eslint-disable-next-line jsdoc/reject-any-type
+          ([_, schema]) => !("description" in /** @type {any} */ (schema)),
+        )
+        .map(([name]) => name);
+      assert.ok(
+        without.length === 0,
+        `${without.join(", ")} argument(s) don't have a description in tool ${tool.name}`,
+      );
+    }
+  });
+
   after(() => {
     server.listener.close();
   });
