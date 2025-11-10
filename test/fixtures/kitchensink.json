@@ -1,0 +1,326 @@
+{
+  "doc": {
+    "body": [
+      {
+        "type": "prose",
+        "value": {
+          "id": null,
+          "title": null,
+          "isH3": false,
+          "content": "<div class=\"notecard warning\">\n<p><strong>Warning:</strong>\nDon't delete this page. It's used by <a href=\"https://github.com/mdn/yari\" class=\"external\" target=\"_blank\">mdn/yari</a> for its automation.</p>\n</div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "about_this_page",
+          "title": "About this page",
+          "isH3": false,
+          "content": "<p>The <strong>kitchensink</strong> is a page that <em>attempts</em> to incorporate every possible content element and Yari macro.</p>\n<p>This page attempts to be the complete intersection of every other page. Not in terms of the text but in terms of the styles and macros.\nLet's start with some notes…</p>\n<p>Text that uses the <code>&lt;kbd&gt;</code> tag: <kbd>Shift</kbd></p>\n<div class=\"notecard note\">\n<p><strong>Note:</strong>\nHere's a block indicator note.</p>\n</div>\n<div class=\"notecard warning\">\n<p><strong>Warning:</strong>\nHere's a block indicator warning.</p>\n</div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "prevnext_buttons",
+          "title": "Prev/Next buttons",
+          "isH3": false,
+          "content": "<ul class=\"prev-next\"><li class=\"prev\"><a class=\"button secondary\" href=\"/en-US/docs/Games/Techniques/Control_mechanisms/Desktop_with_mouse_and_keyboard\"><span class=\"button-wrap\"> Previous </span></a></li><li class=\"menu\"><a class=\"button secondary\" href=\"/en-US/docs/Games/Techniques/Control_mechanisms\"><span class=\"button-wrap\"> Overview: Implementing game control mechanisms</span></a></li><li class=\"next\"><a class=\"button secondary\" href=\"/en-US/docs/Games/Techniques/Control_mechanisms/Other\"><span class=\"button-wrap\"> Next  </span></a></li></ul>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "another_one…",
+          "title": "Another one…",
+          "isH3": true,
+          "content": "<ul class=\"prev-next\"><li class=\"prev\"><a class=\"button secondary\" href=\"/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Extra_lives\"><span class=\"button-wrap\"> Previous </span></a></li><li class=\"next\"><a class=\"button secondary\" href=\"/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser/Buttons\"><span class=\"button-wrap\"> Next  </span></a></li></ul>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "code_snippets",
+          "title": "Code snippets",
+          "isH3": false,
+          "content": ""
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "plain_text",
+          "title": "Plain text",
+          "isH3": true,
+          "content": "<pre class=\"brush: plain notranslate\">  ___________________________\n&lt; I'm an expert in my field. &gt;\n  ---------------------------\n         \\   ^__^\n          \\  (oo)\\_______\n             (__)\\       )\\/\\\n                 ||----w |\n                 ||     ||\n</pre>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "html",
+          "title": "HTML",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">html</span></div><pre class=\"brush: html notranslate\"><code>&lt;pre&gt;&lt;/pre&gt;\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "javascript",
+          "title": "JavaScript",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">js</span></div><pre class=\"brush: js notranslate\"><code>const f = () =&gt; {\n  return Math.random();\n};\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "css",
+          "title": "CSS",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">css</span></div><pre class=\"brush: css notranslate\"><code>:root {\n  --first-color: #488cff;\n  --second-color: #ffff8c;\n}\n\n#firstParagraph {\n  background-color: var(--first-color);\n  color: var(--second-color);\n}\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "webassembly",
+          "title": "WebAssembly",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">wat</span></div><pre class=\"brush: wat notranslate\"><code>(func (param i32) (param f32) (local f64)\n  local.get 0\n  local.get 1\n  local.get 2)\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "rust",
+          "title": "Rust",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">rust</span></div><pre class=\"brush: rust notranslate\"><code>#[cfg(test)]\nmod tests {\n    #[test]\n    fn it_works() {\n        assert_eq!(2 + 2, 4);\n    }\n}\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "python",
+          "title": "Python",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">python</span></div><pre class=\"brush: python notranslate\"><code>class BookListView(generic.ListView):\n    model = Book\n    # your own name for the list as a template variable\n    context_object_name = 'my_book_list'\n    queryset = Book.objects.filter(title__icontains='war')[:5]\n    template_name = 'books/my_arbitrary_template_name_list.html'\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "interactive_examples",
+          "title": "Interactive examples",
+          "isH3": false,
+          "content": ""
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "try_it",
+          "title": "Try it",
+          "isH3": false,
+          "content": "<interactive-example name=\"HTML Demo: &amp;lt;data&amp;gt;\" height=\"tabbed-shorter\"></interactive-example>\n<div class=\"code-example\"><pre class=\"brush: html interactive-example notranslate\"><code>&lt;p&gt;New Products:&lt;/p&gt;\n&lt;ul&gt;\n  &lt;li&gt;&lt;data value=\"398\"&gt;Mini Ketchup&lt;/data&gt;&lt;/li&gt;\n  &lt;li&gt;&lt;data value=\"399\"&gt;Jumbo Ketchup&lt;/data&gt;&lt;/li&gt;\n  &lt;li&gt;&lt;data value=\"400\"&gt;Mega Jumbo Ketchup&lt;/data&gt;&lt;/li&gt;\n&lt;/ul&gt;\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example notranslate\"><code>data:hover::after {\n  content: \" (ID \" attr(value) \")\";\n  font-size: 0.7em;\n}\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "try_it_2",
+          "title": "Try it",
+          "isH3": false,
+          "content": "<interactive-example name=\"JavaScript Demo: Set.prototype[Symbol.iterator]()\"></interactive-example>\n<div class=\"code-example\"><pre class=\"brush: js interactive-example notranslate\"><code>const set = new Set();\n\nset.add(42);\nset.add(\"forty two\");\n\nconst iterator = set[Symbol.iterator]();\n\nconsole.log(iterator.next().value);\n// Expected output: 42\n\nconsole.log(iterator.next().value);\n// Expected output: \"forty two\"\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "try_it_3",
+          "title": "Try it",
+          "isH3": false,
+          "content": "<interactive-example name=\"CSS Demo: filter\"></interactive-example>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: url(\"/shared-assets/images/examples/shadow.svg#element-id\");\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: blur(5px);\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: contrast(200%);\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: grayscale(80%);\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: hue-rotate(90deg);\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example-choice notranslate\"><code>filter: drop-shadow(16px 16px 20px red) invert(75%);\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: html interactive-example notranslate\"><code>&lt;section id=\"default-example\"&gt;\n  &lt;div class=\"example-container\"&gt;\n    &lt;img\n      id=\"example-element\"\n      src=\"/shared-assets/images/examples/firefox-logo.svg\"\n      width=\"200\" /&gt;\n  &lt;/div&gt;\n&lt;/section&gt;\n</code></pre></div>\n<div class=\"code-example\"><pre class=\"brush: css interactive-example notranslate\"><code>.example-container {\n  background-color: white;\n  width: 260px;\n  height: 260px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n#example-element {\n  flex: 1;\n  padding: 30px;\n}\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "tables",
+          "title": "Tables",
+          "isH3": false,
+          "content": ""
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "markdown_table",
+          "title": "Markdown table",
+          "isH3": true,
+          "content": "<figure class=\"table-container\"><table>\n<thead>\n<tr>\n<th>Constant name</th>\n<th>Value</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>QUERY_COUNTER_BITS_EXT</code></td>\n<td>0x8864</td>\n<td>The number of bits used to hold the query result for the given target.</td>\n</tr>\n<tr>\n<td><code>CURRENT_QUERY_EXT</code></td>\n<td>0x8865</td>\n<td>The currently active query.</td>\n</tr>\n<tr>\n<td><code>QUERY_RESULT_EXT</code></td>\n<td>0x8866</td>\n<td>The query result.</td>\n</tr>\n<tr>\n<td><code>QUERY_RESULT_AVAILABLE_EXT</code></td>\n<td>0x8867</td>\n<td>A Boolean indicating whether a query result is available.</td>\n</tr>\n<tr>\n<td><code>TIME_ELAPSED_EXT</code></td>\n<td>0x88BF</td>\n<td>Elapsed time (in nanoseconds).</td>\n</tr>\n<tr>\n<td><code>TIMESTAMP_EXT</code></td>\n<td>0x8E28</td>\n<td>The current time.</td>\n</tr>\n<tr>\n<td><code>GPU_DISJOINT_EXT</code></td>\n<td>0x8FBB</td>\n<td>A Boolean indicating whether the GPU performed any disjoint operation.</td>\n</tr>\n</tbody>\n</table></figure>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "html_table",
+          "title": "HTML table",
+          "isH3": true,
+          "content": "<figure class=\"table-container\"><table class=\"properties\">\n  <tbody>\n    <tr>\n      <th scope=\"row\">\n        <a href=\"/en-US/docs/Web/HTML/Guides/Content_categories\">Content categories</a>\n      </th>\n      <td>\n        <a href=\"/en-US/docs/Web/HTML/Guides/Content_categories#flow_content\">Flow content</a>,\n        <a href=\"/en-US/docs/Web/HTML/Guides/Content_categories#phrasing_content\">phrasing content</a>, palpable content.\n      </td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Permitted content</th>\n      <td>\n        <a href=\"/en-US/docs/Web/HTML/Guides/Content_categories#phrasing_content\">Phrasing content</a>.\n      </td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Tag omission</th>\n      <td>None, both the starting and ending tag are mandatory.</td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Permitted parents</th>\n      <td>\n        Any element that accepts <a href=\"/en-US/docs/Web/HTML/Guides/Content_categories#phrasing_content\">phrasing content</a>.\n      </td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Implicit ARIA role</th>\n      <td>\n        <a href=\"https://w3c.github.io/html-aria/#dfn-no-corresponding-role\" class=\"external\" target=\"_blank\">No corresponding role</a>\n      </td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Permitted ARIA roles</th>\n      <td>Any</td>\n    </tr>\n    <tr>\n      <th scope=\"row\">DOM interface</th>\n      <td><a href=\"/en-US/docs/Web/API/HTMLElement\"><code>HTMLElement</code></a></td>\n    </tr>\n  </tbody>\n</table></figure>\n<figure class=\"table-container\"><table class=\"fullwidth-table\">\n  <caption>\n    Values for the content of <code>&lt;meta name=\"viewport\"&gt;</code>\n  </caption>\n  <thead>\n    <tr>\n      <th scope=\"col\">Value</th>\n      <th scope=\"col\">Possible subvalues</th>\n      <th scope=\"col\">Description</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><code>width</code></td>\n      <td>A positive integer number, or the text <code>device-width</code></td>\n      <td>\n        Defines the pixel width of the viewport that you want the website to be\n        rendered at.\n      </td>\n    </tr>\n    <tr>\n      <td><code>user-scalable</code> <span class=\"badge inline readonly\" title=\"This value may not be changed.\">Read only</span></td>\n      <td><code>yes</code> or <code>no</code></td>\n      <td>\n        If set to <code>no</code>, the user is not able to zoom in the webpage.\n        The default is <code>yes</code>. Browser settings can ignore this rule,\n        and iOS10+ ignores it by default.\n      </td>\n    </tr>\n    <tr>\n      <td><code>viewport-fit</code></td>\n      <td><code>auto</code>, <code>contain</code> or <code>cover</code></td>\n      <td>\n        <p>\n          The <code>auto</code> value doesn't affect the initial layout viewport, and the whole web page is viewable.\n        </p>\n        <p>\n          The <code>contain</code> value means that the viewport is scaled to\n          fit the largest rectangle inscribed within the display.\n        </p>\n        <p>\n          The <code>cover</code> value means that the viewport is scaled to fill the device display.\n          It is highly recommended to make use of the <a href=\"/en-US/docs/Web/CSS/Reference/Values/env\">safe area inset</a> variables to\n          ensure that important content doesn't end up outside the display.\n        </p>\n      </td>\n    </tr>\n  </tbody>\n</table></figure>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "every_macro_under_the_sun",
+          "title": "Every macro under the sun",
+          "isH3": false,
+          "content": "<p><strong>Well, almost every macro. Hopefully only the ones that are in active use.</strong></p>\n<p>An <a href=\"/en-US/docs/Glossary/HTTP\">HTTP</a> error code meaning \"Bad Gateway\".</p>\n<p>A <a href=\"/en-US/docs/Glossary/Server\">server</a> can act as a gateway or proxy (go-between) between a client (like your Web browser) and another, upstream server.\nWhen you request to access a <a href=\"/en-US/docs/Glossary/URL\">URL</a>, the gateway server can relay your request to the upstream server.\n\"502\" means that the upstream server has returned an invalid response.</p>\n<ul>\n<li>JavaScript <a href=\"/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array\"><code>Array</code></a> on MDN</li>\n</ul>\n<p>Listening for mouse movement is even easier than listening for key presses: all we need is the listener for the <a href=\"/en-US/docs/Web/API/Element/mousemove_event\" title=\"mousemove\"><code>mousemove</code></a> event.</p>"
+        }
+      },
+      {
+        "type": "browser_compatibility",
+        "value": {
+          "id": "browser_compatibility",
+          "title": "Browser compatibility",
+          "isH3": false,
+          "query": "html.elements.video"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "axis-aligned_bounding_box",
+          "title": "Axis-Aligned Bounding Box",
+          "isH3": false,
+          "content": "<p>One of the simpler forms of collision detection is between two rectangles that are axis aligned — meaning no rotation.\nThe algorithm works by ensuring there is no gap between any of the 4 sides of the rectangles.\nAny gap means a collision does not exist.</p>\n<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">js</span></div><pre class=\"brush: js notranslate\"><code>var rect1 = { x: 5, y: 5, width: 50, height: 50 };\nvar rect2 = { x: 20, y: 10, width: 10, height: 10 };\n\nif (\n  rect1.x &lt; rect2.x + rect2.width &amp;&amp;\n  rect1.x + rect1.width &gt; rect2.x &amp;&amp;\n  rect1.y &lt; rect2.y + rect2.height &amp;&amp;\n  rect1.y + rect1.height &gt; rect2.y\n) {\n  // collision detected!\n}\n\n// filling in the values =&gt;\n\nif (5 &lt; 30 &amp;&amp; 55 &gt; 20 &amp;&amp; 5 &lt; 20 &amp;&amp; 55 &gt; 10) {\n  // collision detected!\n}\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "rect_code",
+          "title": "Rect code",
+          "isH3": true,
+          "content": "<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">html</span></div><pre class=\"brush: html notranslate live-sample---rect_code\"><code>&lt;div id=\"cr-stage\"&gt;&lt;/div&gt;\n&lt;p&gt;\n  Move the rectangle with arrow keys. Green means collision, blue means no\n  collision.\n&lt;/p&gt;\n&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/crafty/0.5.4/crafty-min.js\"&gt;&lt;/script&gt;\n</code></pre></div>\n<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">js</span></div><pre class=\"brush: js notranslate live-sample---rect_code\"><code>Crafty.init(200, 200);\n\nvar dim1 = { x: 5, y: 5, w: 50, h: 50 };\nvar dim2 = { x: 20, y: 10, w: 60, h: 40 };\n\nvar rect1 = Crafty.e(\"2D, Canvas, Color\").attr(dim1).color(\"red\");\n\nvar rect2 = Crafty.e(\"2D, Canvas, Color, Keyboard, Fourway\")\n  .fourway(2)\n  .attr(dim2)\n  .color(\"blue\");\n\nrect2.bind(\"EnterFrame\", function () {\n  if (\n    rect1.x &gt; rect2.x + rect2.w &amp;&amp;\n    rect1.x + rect1.w &gt; rect2.x &amp;&amp;\n    rect1.y &gt; rect2.y + rect2.h &amp;&amp;\n    rect1.h + rect1.y &gt; rect2.y\n  ) {\n    // collision detected!\n    this.color(\"green\");\n  } else {\n    // no collision\n    this.color(\"blue\");\n  }\n});\n</code></pre></div>\n<div class=\"code-example\"><div class=\"example-header\"></div><iframe class=\"sample-code-frame\" title=\"Rect code sample\" id=\"frame_rect_code\" width=\"700\" height=\"300\" src=\"about:blank\" data-live-path=\"/en-US/docs/MDN/Kitchensink/\" data-live-id=\"rect_code\" sandbox=\"allow-same-origin allow-scripts\" loading=\"lazy\"></iframe></div>\n<div class=\"notecard experimental\"><p><strong>Experimental:</strong> <strong>This is an <a href=\"/en-US/docs/MDN/Writing_guidelines/Experimental_deprecated_obsolete#experimental\">experimental technology</a></strong><br>Check the <a href=\"#browser_compatibility\">Browser compatibility table</a> carefully before using this in production.</p></div>\n<a href=\"/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/MutedInfo\"><code>tabs.mutedInfo</code></a>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "obsolete_cssom_interfaces_deprecated",
+          "title": "Obsolete CSSOM interfaces <abbr class=\"icon icon-deprecated\" title=\"Deprecated. Not for use in new websites.\">\n<span class=\"visually-hidden\">Deprecated</span>\n</abbr>",
+          "isH3": true,
+          "content": "<svg viewBox=\"-1 -1 650 42\" preserveAspectRatio=\"xMinYMin meet\"><a style=\"text-decoration: none;\" href=\"/en-US/docs/Web/API/Event\">\n        <rect x=\"0\" y=\"0\" width=\"75\" height=\"25\" fill=\"#fff\" stroke=\"#D4DDE4\" stroke-width=\"2px\"></rect>\n        <text x=\"37.5\" y=\"16\" font-size=\"10px\" fill=\"#4D4E53\" text-anchor=\"middle\">\n          Event\n        </text>\n      </a><line x1=\"75\" y1=\"14\" x2=\"105\" y2=\"14\" stroke=\"#D4DDE4\"></line><polyline points=\"75,14 85,9 85,19 75,14\" stroke=\"#D4DDE4\" fill=\"#fff\"></polyline><a style=\"text-decoration: none;\" href=\"/en-US/docs/Web/API/UIEvent\">\n        <rect x=\"105\" y=\"0\" width=\"75\" height=\"25\" fill=\"#fff\" stroke=\"#D4DDE4\" stroke-width=\"2px\"></rect>\n        <text x=\"142.5\" y=\"16\" font-size=\"10px\" fill=\"#4D4E53\" text-anchor=\"middle\">\n          UIEvent\n        </text>\n      </a><line x1=\"180\" y1=\"14\" x2=\"210\" y2=\"14\" stroke=\"#D4DDE4\"></line><polyline points=\"180,14 190,9 190,19 180,14\" stroke=\"#D4DDE4\" fill=\"#fff\"></polyline><a style=\"text-decoration: none;\" href=\"/en-US/docs/Web/API/MouseEvent\">\n        <rect x=\"210\" y=\"0\" width=\"80\" height=\"25\" fill=\"#fff\" stroke=\"#D4DDE4\" stroke-width=\"2px\"></rect>\n        <text x=\"250\" y=\"16\" font-size=\"10px\" fill=\"#4D4E53\" text-anchor=\"middle\">\n          MouseEvent\n        </text>\n      </a><line x1=\"290\" y1=\"14\" x2=\"320\" y2=\"14\" stroke=\"#D4DDE4\"></line><polyline points=\"290,14 300,9 300,19 290,14\" stroke=\"#D4DDE4\" fill=\"#fff\"></polyline><a style=\"text-decoration: none;\" href=\"/en-US/docs/Web/API/WheelEvent\">\n        <rect x=\"320\" y=\"0\" width=\"80\" height=\"25\" fill=\"#F4F7F8\" stroke=\"#D4DDE4\" stroke-width=\"2px\"></rect>\n        <text x=\"360\" y=\"16\" font-size=\"10px\" fill=\"#4D4E53\" text-anchor=\"middle\">\n          WheelEvent\n        </text>\n      </a></svg>\n<iframe width=\"100%\" height=\"820\" src=\"https://mdn.github.io/web-tech-games/index.html\" loading=\"lazy\"></iframe>\n<ul>\n<li><a href=\"/en-US/docs/Web/Accessibility\">Accessibility resources at MDN</a></li>\n<li><a href=\"https://en.wikipedia.org/wiki/Web_accessibility\" class=\"external\" target=\"_blank\">Web accessibility</a> on Wikipedia</li>\n</ul>\n<p>The <a href=\"https://github.com/mdn/rari/blob/main/crates/rari-doc/src/templ/templs/banners.rs\" class=\"external\" target=\"_blank\"><code>AvailableInWorkers</code></a> macro inserts a localized note box indicating that a feature is available in a <a href=\"/en-US/docs/Web/API/Web_Workers_API\">Web worker</a> context.</p>\n<div class=\"notecard note\"><p><strong>Note:</strong> This feature is available in <a href=\"/en-US/docs/Web/API/Web_Workers_API\">Web Workers</a>.</p></div>\n<ul>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role\"><code>button</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/checkbox_role\"><code>checkbox</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/menuitem_role\"><code>menuitem</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/menuitemcheckbox_role\"><code>menuitemcheckbox</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/menuitemradio_role\"><code>menuitemradio</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/option_role\"><code>option</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/radio_role\"><code>radio</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/switch_role\"><code>switch</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tab_role\"><code>tab</code></a></li>\n<li><a href=\"/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/treeitem_role\"><code>treeitem</code></a></li>\n</ul>\n<!--  -->\n<ul>\n<li>Create a <a href=\"/en-US/docs/Web/HTML/Reference/Elements/canvas\"><code>&lt;canvas&gt;</code></a> element and set its <code>width</code> and <code>height</code> attributes to the original, smaller resolution.</li>\n<li>Set its CSS <a href=\"/en-US/docs/Web/CSS/Reference/Properties/width\"><code>width</code></a> and <a href=\"/en-US/docs/Web/CSS/Reference/Properties/height\"><code>height</code></a> properties to be 2x or 4x the value of the HTML <code>width</code> and <code>height</code>.\nIf the canvas was created with a 128 pixel width, for example, we would set the CSS <code>width</code> to <code>512px</code> if we wanted a 4x scale.</li>\n<li>Set the <a href=\"/en-US/docs/Web/HTML/Reference/Elements/canvas\"><code>&lt;canvas&gt;</code></a> element's <code>image-rendering</code> CSS property to some value that does not make the image blurry.\nEither <code>crisp-edges</code> or <code>pixelated</code> will work. Check out the <a href=\"/en-US/docs/Web/CSS/Reference/Properties/image-rendering\"><code>image-rendering</code></a> article for more information on the differences between these values, and which prefixes to use depending on the browser.</li>\n</ul>\n<!--  -->\n<ul>\n<li>\n<p><a href=\"/en-US/docs/Glossary\">MDN Web Docs Glossary</a>:</p>\n<ul>\n<li><a href=\"/en-US/docs/Glossary/XMLHttpRequest\">XHR</a></li>\n</ul>\n</li>\n<li>\n<p><a href=\"https://en.wikipedia.org/wiki/AJAX\" class=\"external\" target=\"_blank\">AJAX</a> on Wikipedia</p>\n</li>\n<li>\n<p><a href=\"/en-US/docs/Learn_web_development/Core/Scripting/Network_requests\">Learn: Making network requests with JavaScript</a></p>\n</li>\n<li><a href=\"/en-US/docs/Web/API/XMLHttpRequest\"><code>XMLHttpRequest</code></a></li>\n<li><a href=\"/en-US/docs/Web/API/Fetch_API\"><code>Fetch API</code></a></li>\n<li>\n<p><a href=\"/en-US/docs/Web/API/Fetch_API/Using_Fetch\">Using Fetch API</a></p>\n</li>\n<li>\n<p><a href=\"https://peoplesofttutorial.com/difference-between-synchronous-and-asynchronous-messaging/\" class=\"external\" target=\"_blank\">Synchronous vs. Asynchronous Communications</a></p>\n</li>\n</ul>\n<!--  -->\n<ul>\n<li><a href=\"/en-US/docs/Web/SVG/Reference/Element/feGaussianBlur\"><code>&lt;feGaussianBlur&gt;</code></a></li>\n<li><a href=\"/en-US/docs/Web/SVG/Reference/Attribute/keySplines\"><code>keySplines</code></a> SVG attribute</li>\n<li><a href=\"/en-US/docs/Web/HTML/Reference/Global_attributes#dir\">dir</a></li>\n<li><a href=\"/en-US/docs/Web/HTML/Reference/Global_attributes#lang\">lang</a></li>\n<li><a href=\"/en-US/docs/Web/CSS/Reference/Selectors/:dir\"><code>:dir</code></a></li>\n<li><a href=\"/en-US/docs/Web/CSS/Reference/Properties/direction\"><code>direction</code></a></li>\n</ul>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "types",
+          "title": "Types",
+          "isH3": false,
+          "content": "<dl>\n<dt id=\"alarms.alarm\"><a href=\"/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms/Alarm\"><code>alarms.Alarm</code></a></dt>\n<dd>\n<p>Information about a particular alarm.</p>\n</dd>\n</dl>\n<div class=\"notecard nonstandard\"><p><strong>Non-standard:</strong> This feature is not standardized. We do not recommend using non-standard features in production, as they have limited browser support, and may change or be removed. However, they can be a suitable alternative in specific cases where no standard option exists.</p></div>\n<div class=\"notecard deprecated\"><p><strong>Deprecated:</strong> This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the <a href=\"#browser_compatibility\">compatibility table</a> at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.</p></div>\n<a href=\"iceberg.jpg\"><img src=\"/en-US/docs/MDN/Kitchensink/iceberg.jpg\" alt=\"Iceberg pic\" width=\"1400\" height=\"1050\" loading=\"lazy\"></a>"
+        }
+      }
+    ],
+    "isActive": true,
+    "isMarkdown": true,
+    "isTranslated": false,
+    "locale": "en-US",
+    "mdn_url": "/en-US/docs/MDN/Kitchensink",
+    "modified": "2025-11-06T14:49:20.000Z",
+    "native": "English (US)",
+    "noIndexing": true,
+    "other_translations": [
+      {
+        "locale": "en-US",
+        "title": "The MDN Content Kitchensink",
+        "native": "English (US)"
+      },
+      {
+        "locale": "de",
+        "title": "Der MDN Content Kitchensink",
+        "native": "Deutsch"
+      }
+    ],
+    "pageTitle": "The MDN Content Kitchensink - MDN Web Docs | MDN",
+    "parents": [
+      { "uri": "/en-US/docs/MDN", "title": "MDN Web Docs" },
+      {
+        "uri": "/en-US/docs/MDN/Kitchensink",
+        "title": "The MDN Content Kitchensink"
+      }
+    ],
+    "popularity": 0.00026709990444047106,
+    "short_title": "The MDN Content Kitchensink",
+    "source": {
+      "folder": "en-us/mdn/kitchensink",
+      "github_url": "https://github.com/mdn/content/blob/main/files/en-us/mdn/kitchensink/index.md",
+      "last_commit_url": "https://github.com/mdn/content/commit/f69b6693212029ce4b9fa0c753729044577af548",
+      "filename": "index.md"
+    },
+    "summary": "The kitchensink is a page that attempts to incorporate every possible content element and Yari macro.",
+    "title": "The MDN Content Kitchensink",
+    "toc": [
+      { "text": "About this page", "id": "about_this_page" },
+      { "text": "Prev/Next buttons", "id": "prevnext_buttons" },
+      { "text": "Code snippets", "id": "code_snippets" },
+      { "text": "Interactive examples", "id": "interactive_examples" },
+      { "text": "Try it", "id": "try_it" },
+      { "text": "Try it", "id": "try_it_2" },
+      { "text": "Try it", "id": "try_it_3" },
+      { "text": "Tables", "id": "tables" },
+      {
+        "text": "Every macro under the sun",
+        "id": "every_macro_under_the_sun"
+      },
+      { "text": "Browser compatibility", "id": "browser_compatibility" },
+      {
+        "text": "Axis-Aligned Bounding Box",
+        "id": "axis-aligned_bounding_box"
+      },
+      { "text": "Types", "id": "types" }
+    ],
+    "baseline": {
+      "baseline": "high",
+      "baseline_low_date": "2015-07-29",
+      "baseline_high_date": "2018-01-29",
+      "support": {
+        "chrome": "3",
+        "chrome_android": "18",
+        "edge": "12",
+        "firefox": "3.5",
+        "firefox_android": "4",
+        "safari": "3.1",
+        "safari_ios": "3"
+      },
+      "asterisk": true,
+      "feature": {
+        "status": {
+          "baseline": "high",
+          "baseline_low_date": "2015-07-29",
+          "baseline_high_date": "2018-01-29",
+          "support": {
+            "chrome": "3",
+            "chrome_android": "18",
+            "edge": "12",
+            "firefox": "3.5",
+            "firefox_android": "4",
+            "safari": "3.1",
+            "safari_ios": "3"
+          }
+        },
+        "description_html": "The <code>&#x3C;video></code> element plays videos or movies, optionally with controls provided by the browser.",
+        "name": "<video>"
+      }
+    },
+    "browserCompat": ["html.elements.video"],
+    "pageType": "guide"
+  },
+  "url": "/en-US/docs/MDN/Kitchensink",
+  "renderer": "Doc"
+}

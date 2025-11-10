@@ -4,6 +4,7 @@ import { after, before, beforeEach, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import docFixture from "../fixtures/kitchensink.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
 
 describe("get-doc tool", () => {
@@ -31,11 +32,7 @@ describe("get-doc tool", () => {
         path: "/en-US/docs/MDN/Kitchensink/index.json",
         method: "GET",
       })
-      .reply(200, {
-        doc: {
-          mdn_url: "mock",
-        },
-      });
+      .reply(200, docFixture);
 
     /** @type {any} */
     const { content } = await client.callTool({
@@ -45,7 +42,7 @@ describe("get-doc tool", () => {
       },
     });
     const { mdn_url } = JSON.parse(content[0].text);
-    assert.strictEqual(mdn_url, "mock");
+    assert.strictEqual(mdn_url, "/en-US/docs/MDN/Kitchensink");
   });
 
   after(() => {
