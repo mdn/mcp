@@ -55,7 +55,7 @@ server.registerTool(
       ...json,
       // @ts-expect-error
       l10n: (x) => x,
-    }
+    };
     // TODO: expose better API for this from fred
     const renderedHtml = await collectResult(
       render(
