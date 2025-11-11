@@ -4,6 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 3
+      exclude:
+        - "@mdn/*"
     groups:
       prod:
         dependency-type: production
