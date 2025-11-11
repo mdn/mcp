@@ -25,6 +25,18 @@ describe("all tools", () => {
     );
   });
 
+  it("should be described in the MCP instructions", async () => {
+    const instructions = client.getInstructions();
+    const { tools } = await client.listTools();
+    const without = tools
+      .filter((tool) => !instructions?.includes(`\`${tool.name}\`: `))
+      .map(({ name }) => name);
+    assert.ok(
+      without.length === 0,
+      `${without.join(", ")} tool(s) aren't explained in the MCP instructions`,
+    );
+  });
+
   it("should have a description", async () => {
     const { tools } = await client.listTools();
     const without = tools
