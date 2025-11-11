@@ -50,7 +50,12 @@ server.registerTool(
     }
 
     /** @type {import("@mdn/rari").DocPage} */
-    const context = await res.json();
+    const json = await res.json();
+    const context = {
+      ...json,
+      // @ts-expect-error
+      l10n: (x) => x,
+    }
     // TODO: expose better API for this from fred
     const renderedHtml = await collectResult(
       render(
