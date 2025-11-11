@@ -1,0 +1,173 @@
+{
+  "doc": {
+    "body": [
+      {
+        "type": "prose",
+        "value": {
+          "id": null,
+          "title": null,
+          "isH3": false,
+          "content": " \n<div class=\"notecard note\"><p><strong>Note:</strong> This feature is available in <a href=\"/en-US/docs/Web/API/Web_Workers_API\">Web Workers</a>.</p></div>\n<p>The <strong><code>Headers</code></strong> interface of the <a href=\"/en-US/docs/Web/API/Fetch_API\">Fetch API</a> allows you to perform various actions on <a href=\"/en-US/docs/Web/HTTP/Reference/Headers\">HTTP request and response headers</a>. These actions include retrieving, setting, adding to, and removing headers from the list of the request's headers.</p>\n<p>You can retrieve a <code>Headers</code> object via the <a href=\"/en-US/docs/Web/API/Request/headers\"><code>Request.headers</code></a> and <a href=\"/en-US/docs/Web/API/Response/headers\"><code>Response.headers</code></a> properties, and create a new <code>Headers</code> object using the <a href=\"/en-US/docs/Web/API/Headers/Headers\" title=\"Headers()\"><code>Headers()</code></a> constructor. Compared to using plain objects, using <code>Headers</code> objects to send requests provides some additional input sanitization. For example, it normalizes header names to lowercase, strips leading and trailing whitespace from header values, and prevents certain headers from being set.</p>\n<div class=\"notecard note\">\n<p><strong>Note:</strong>\nYou can find out more about the available headers by reading our <a href=\"/en-US/docs/Web/HTTP/Reference/Headers\">HTTP headers</a> reference.</p>\n</div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "description",
+          "title": "Description",
+          "isH3": false,
+          "content": "<p>A <code>Headers</code> object has an associated header list, which is initially empty and consists of zero or more name and value pairs. You can add to this using methods like <a href=\"/en-US/docs/Web/API/Headers/append\" title=\"append()\"><code>append()</code></a> (see <a href=\"#examples\">Examples</a>.) In all methods of this interface, header names are matched by case-insensitive byte sequence.</p>\n<p>An object implementing <code>Headers</code> can directly be used in a <a href=\"/en-US/docs/Web/JavaScript/Reference/Statements/for...of\"><code>for...of</code></a> structure, instead of <a href=\"/en-US/docs/Web/API/Headers/entries\" title=\"entries()\"><code>entries()</code></a>: <code>for (const p of myHeaders)</code> is equivalent to <code>for (const p of myHeaders.entries())</code>.</p>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "modification_restrictions",
+          "title": "Modification restrictions",
+          "isH3": true,
+          "content": "<p>Some <code>Headers</code> objects have restrictions on whether the <a href=\"/en-US/docs/Web/API/Headers/set\" title=\"set()\"><code>set()</code></a>, <a href=\"/en-US/docs/Web/API/Headers/delete\" title=\"delete()\"><code>delete()</code></a>, and <a href=\"/en-US/docs/Web/API/Headers/append\" title=\"append()\"><code>append()</code></a> methods can mutate the header. The modification restrictions are set depending on how the <code>Headers</code> object is created.</p>\n<ul>\n<li>For headers created with <a href=\"/en-US/docs/Web/API/Headers/Headers\" title=\"Headers()\"><code>Headers()</code></a> constructor, there are no modification restrictions.</li>\n<li>For headers of <a href=\"/en-US/docs/Web/API/Request\"><code>Request</code></a> objects:\n<ul>\n<li>If the request's <a href=\"/en-US/docs/Web/API/Request/mode\" title=\"mode\"><code>mode</code></a> is <code>no-cors</code>, you can modify any <a href=\"/en-US/docs/Glossary/CORS-safelisted_request_header\">CORS-safelisted request header</a> name/value.</li>\n<li>Otherwise, you can modify any <a href=\"/en-US/docs/Glossary/Forbidden_request_header\">non-forbidden request header</a> name/value.</li>\n</ul>\n</li>\n<li>For headers of <a href=\"/en-US/docs/Web/API/Response\"><code>Response</code></a> objects:\n<ul>\n<li>If the response is created using <a href=\"/en-US/docs/Web/API/Response/error_static\" title=\"Response.error()\"><code>Response.error()</code></a> or <a href=\"/en-US/docs/Web/API/Response/redirect_static\" title=\"Response.redirect()\"><code>Response.redirect()</code></a>, or received from a <a href=\"/en-US/docs/Web/API/Window/fetch\" title=\"fetch()\"><code>fetch()</code></a> call, the headers are immutable and cannot be modified.</li>\n<li>Otherwise, if the response is created using <a href=\"/en-US/docs/Web/API/Response/Response\" title=\"Response()\"><code>Response()</code></a> or <a href=\"/en-US/docs/Web/API/Response/json_static\" title=\"Response.json()\"><code>Response.json()</code></a>, you can modify any <a href=\"/en-US/docs/Glossary/Forbidden_response_header_name\">non-forbidden response header</a> name/value.</li>\n</ul>\n</li>\n</ul>\n<p>All of the Headers methods will throw a <a href=\"/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError\"><code>TypeError</code></a> if you try to pass in a reference to a name that isn't a <a href=\"https://fetch.spec.whatwg.org/#concept-header-name\" class=\"external\" target=\"_blank\">valid HTTP Header name</a>. The mutation operations will throw a <code>TypeError</code> if the header is immutable. In any other failure case they fail silently.</p>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "constructor",
+          "title": "Constructor",
+          "isH3": false,
+          "content": "<dl>\n<dt id=\"headers\"><a href=\"/en-US/docs/Web/API/Headers/Headers\" title=\"Headers()\"><code>Headers()</code></a></dt>\n<dd>\n<p>Creates a new <code>Headers</code> object.</p>\n</dd>\n</dl>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "instance_methods",
+          "title": "Instance methods",
+          "isH3": false,
+          "content": "<dl>\n<dt id=\"headers.append\"><a href=\"/en-US/docs/Web/API/Headers/append\"><code>Headers.append()</code></a></dt>\n<dd>\n<p>Appends a new value onto an existing header inside a <code>Headers</code> object, or adds the header if it does not already exist.</p>\n</dd>\n<dt id=\"headers.delete\"><a href=\"/en-US/docs/Web/API/Headers/delete\"><code>Headers.delete()</code></a></dt>\n<dd>\n<p>Deletes a header from a <code>Headers</code> object.</p>\n</dd>\n<dt id=\"headers.entries\"><a href=\"/en-US/docs/Web/API/Headers/entries\"><code>Headers.entries()</code></a></dt>\n<dd>\n<p>Returns an <a href=\"/en-US/docs/Web/JavaScript/Reference/Iteration_protocols\"><code>iterator</code></a> allowing to go through all key/value pairs contained in this object.</p>\n</dd>\n<dt id=\"headers.foreach\"><a href=\"/en-US/docs/Web/API/Headers/forEach\"><code>Headers.forEach()</code></a></dt>\n<dd>\n<p>Executes a provided function once for each key/value pair in this <code>Headers</code> object.</p>\n</dd>\n<dt id=\"headers.get\"><a href=\"/en-US/docs/Web/API/Headers/get\"><code>Headers.get()</code></a></dt>\n<dd>\n<p>Returns a <a href=\"/en-US/docs/Web/JavaScript/Reference/Global_Objects/String\"><code>String</code></a> sequence of all the values of a header within a <code>Headers</code> object with a given name.</p>\n</dd>\n<dt id=\"headers.getsetcookie\"><a href=\"/en-US/docs/Web/API/Headers/getSetCookie\"><code>Headers.getSetCookie()</code></a></dt>\n<dd>\n<p>Returns an array containing the values of all <a href=\"/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie\"><code>Set-Cookie</code></a> headers associated with a response.</p>\n</dd>\n<dt id=\"headers.has\"><a href=\"/en-US/docs/Web/API/Headers/has\"><code>Headers.has()</code></a></dt>\n<dd>\n<p>Returns a boolean stating whether a <code>Headers</code> object contains a certain header.</p>\n</dd>\n<dt id=\"headers.keys\"><a href=\"/en-US/docs/Web/API/Headers/keys\"><code>Headers.keys()</code></a></dt>\n<dd>\n<p>Returns an <a href=\"/en-US/docs/Web/JavaScript/Reference/Iteration_protocols\"><code>iterator</code></a> allowing you to go through all keys of the key/value pairs contained in this object.</p>\n</dd>\n<dt id=\"headers.set\"><a href=\"/en-US/docs/Web/API/Headers/set\"><code>Headers.set()</code></a></dt>\n<dd>\n<p>Sets a new value for an existing header inside a <code>Headers</code> object, or adds the header if it does not already exist.</p>\n</dd>\n<dt id=\"headers.values\"><a href=\"/en-US/docs/Web/API/Headers/values\"><code>Headers.values()</code></a></dt>\n<dd>\n<p>Returns an <a href=\"/en-US/docs/Web/JavaScript/Reference/Iteration_protocols\"><code>iterator</code></a> allowing you to go through all values of the key/value pairs contained in this object.</p>\n</dd>\n</dl>\n<div class=\"notecard note\">\n<p><strong>Note:</strong>\nTo be clear, the difference between <a href=\"/en-US/docs/Web/API/Headers/set\"><code>Headers.set()</code></a> and <a href=\"/en-US/docs/Web/API/Headers/append\"><code>Headers.append()</code></a> is that if the specified header does already exist and does accept multiple values, <a href=\"/en-US/docs/Web/API/Headers/set\"><code>Headers.set()</code></a> will overwrite the existing value with the new one, whereas <a href=\"/en-US/docs/Web/API/Headers/append\"><code>Headers.append()</code></a> will append the new value onto the end of the set of values. See their dedicated pages for example code.</p>\n</div>\n<div class=\"notecard note\">\n<p><strong>Note:</strong>\nWhen Header values are iterated over, they are automatically sorted in lexicographical order, and values from duplicate header names are combined.</p>\n</div>"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "examples",
+          "title": "Examples",
+          "isH3": false,
+          "content": "<p>In the following snippet, we create a new header using the <code>Headers()</code> constructor, add a new header to it using <code>append()</code>, then return that header value using <code>get()</code>:</p>\n<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">js</span></div><pre class=\"brush: js notranslate\"><code>const myHeaders = new Headers();\n\nmyHeaders.append(\"Content-Type\", \"text/xml\");\nmyHeaders.get(\"Content-Type\"); // should return 'text/xml'\n</code></pre></div>\n<p>The same can be achieved by passing an array of arrays or an object literal to the constructor:</p>\n<div class=\"code-example\"><div class=\"example-header\"><span class=\"language-name\">js</span></div><pre class=\"brush: js notranslate\"><code>let myHeaders = new Headers({\n  \"Content-Type\": \"text/xml\",\n});\n\n// or, using an array of arrays:\nmyHeaders = new Headers([[\"Content-Type\", \"text/xml\"]]);\n\nmyHeaders.get(\"Content-Type\"); // should return 'text/xml'\n</code></pre></div>"
+        }
+      },
+      {
+        "type": "specifications",
+        "value": {
+          "id": "specifications",
+          "title": "Specifications",
+          "isH3": false,
+          "specifications": [
+            {
+              "bcdSpecificationURL": "https://fetch.spec.whatwg.org/#headers-class",
+              "title": "Fetch"
+            }
+          ],
+          "query": "api.Headers"
+        }
+      },
+      {
+        "type": "browser_compatibility",
+        "value": {
+          "id": "browser_compatibility",
+          "title": "Browser compatibility",
+          "isH3": false,
+          "query": "api.Headers"
+        }
+      },
+      {
+        "type": "prose",
+        "value": {
+          "id": "see_also",
+          "title": "See also",
+          "isH3": false,
+          "content": "<ul>\n<li><a href=\"/en-US/docs/Web/API/Service_Worker_API\">ServiceWorker API</a></li>\n<li><a href=\"/en-US/docs/Web/HTTP/Guides/CORS\">HTTP access control (CORS)</a></li>\n<li><a href=\"/en-US/docs/Web/HTTP\">HTTP</a></li>\n</ul>"
+        }
+      }
+    ],
+    "isActive": true,
+    "isMarkdown": true,
+    "isTranslated": false,
+    "locale": "en-US",
+    "mdn_url": "/en-US/docs/Web/API/Headers",
+    "modified": "2025-03-13T12:48:23.000Z",
+    "native": "English (US)",
+    "noIndexing": false,
+    "other_translations": [
+      { "locale": "en-US", "title": "Headers", "native": "English (US)" },
+      { "locale": "de", "title": "Headers", "native": "Deutsch" },
+      { "locale": "es", "title": "Headers", "native": "Español" },
+      { "locale": "fr", "title": "Headers", "native": "Français" },
+      { "locale": "ja", "title": "Headers", "native": "日本語" },
+      { "locale": "ko", "title": "Headers", "native": "한국어" },
+      { "locale": "zh-CN", "title": "Headers", "native": "中文 (简体)" }
+    ],
+    "pageTitle": "Headers - Web APIs | MDN",
+    "parents": [
+      { "uri": "/en-US/docs/Web", "title": "Web" },
+      { "uri": "/en-US/docs/Web/API", "title": "Web APIs" },
+      { "uri": "/en-US/docs/Web/API/Headers", "title": "Headers" }
+    ],
+    "popularity": 0.0048434548205698045,
+    "short_title": "Headers",
+    "sidebarHTML": "<ol><li class=\"section\"><a href=\"/en-US/docs/Web/API/Fetch_API\">Fetch API</a></li><li class=\"section\"><em><a href=\"/en-US/docs/Web/API/Headers\" aria-current=\"page\"><code>Headers</code></a></em></li><li><details open=\"\"><summary><span>Constructor</span></summary><ol><li><a href=\"/en-US/docs/Web/API/Headers/Headers\"><code>Headers()</code></a></li></ol></details></li><li><details open=\"\"><summary><span>Instance methods</span></summary><ol><li><a href=\"/en-US/docs/Web/API/Headers/append\"><code>append()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/delete\"><code>delete()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/entries\"><code>entries()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/forEach\"><code>forEach()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/get\"><code>get()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/getSetCookie\"><code>getSetCookie()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/has\"><code>has()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/keys\"><code>keys()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/set\"><code>set()</code></a></li><li><a href=\"/en-US/docs/Web/API/Headers/values\"><code>values()</code></a></li></ol></details></li><li><details open=\"\"><summary><span>Related pages for Fetch API</span></summary><ol><li><a href=\"/en-US/docs/Web/API/Request\"><code>Request</code></a></li><li><a href=\"/en-US/docs/Web/API/RequestInit\"><code>RequestInit</code></a></li><li><a href=\"/en-US/docs/Web/API/Response\"><code>Response</code></a></li><li><a href=\"/en-US/docs/Web/API/Window/fetch\"><code>Window<wbr>.fetch()</code></a></li><li><a href=\"/en-US/docs/Web/API/WorkerGlobalScope/fetch\"><code>WorkerGlobalScope<wbr>.fetch()</code></a></li></ol></details></li><li><details open=\"\"><summary><span>Guides</span></summary><ol><li><a href=\"/en-US/docs/Web/API/Fetch_API/Using_Fetch\">Using the Fetch API</a></li></ol></details></li></ol>",
+    "source": {
+      "folder": "en-us/web/api/headers",
+      "github_url": "https://github.com/mdn/content/blob/main/files/en-us/web/api/headers/index.md",
+      "last_commit_url": "https://github.com/mdn/content/commit/4d929bb0a021c7130d5a71a4bf505bcb8070378d",
+      "filename": "index.md"
+    },
+    "summary": "The Headers interface of the Fetch API allows you to perform various actions on HTTP request and response headers. These actions include retrieving, setting, adding to, and removing headers from the list of the request's headers.",
+    "title": "Headers",
+    "toc": [
+      { "text": "Description", "id": "description" },
+      { "text": "Constructor", "id": "constructor" },
+      { "text": "Instance methods", "id": "instance_methods" },
+      { "text": "Examples", "id": "examples" },
+      { "text": "Specifications", "id": "specifications" },
+      { "text": "Browser compatibility", "id": "browser_compatibility" },
+      { "text": "See also", "id": "see_also" }
+    ],
+    "baseline": {
+      "baseline": "high",
+      "baseline_low_date": "2017-03-27",
+      "baseline_high_date": "2019-09-27",
+      "support": {
+        "chrome": "42",
+        "chrome_android": "42",
+        "edge": "14",
+        "firefox": "39",
+        "firefox_android": "39",
+        "safari": "10.1",
+        "safari_ios": "10.3"
+      },
+      "asterisk": true,
+      "feature": {
+        "status": {
+          "baseline": "high",
+          "baseline_low_date": "2017-03-27",
+          "baseline_high_date": "2019-09-27",
+          "support": {
+            "chrome": "42",
+            "chrome_android": "42",
+            "edge": "14",
+            "firefox": "39",
+            "firefox_android": "39",
+            "safari": "10.1",
+            "safari_ios": "10.3"
+          }
+        },
+        "description_html": "The <code>fetch()</code> method makes asynchronous HTTP requests.",
+        "name": "Fetch"
+      }
+    },
+    "browserCompat": ["api.Headers"],
+    "pageType": "web-api-interface"
+  },
+  "url": "/en-US/docs/Web/API/Headers",
+  "renderer": "Doc"
+}

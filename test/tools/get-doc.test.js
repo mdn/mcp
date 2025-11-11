@@ -4,7 +4,8 @@ import { after, before, beforeEach, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
-import docFixture from "../fixtures/kitchensink.json" with { type: "json" };
+import headersDoc from "../fixtures/headers.json" with { type: "json" };
+import kitchensinkDoc from "../fixtures/kitchensink.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
 
 describe("get-doc tool", () => {
@@ -26,16 +27,16 @@ describe("get-doc tool", () => {
     mockPool = agent.get("https://developer.mozilla.org");
   });
 
-  beforeEach(() => {
-    mockPool
-      .intercept({
-        path: "/en-US/docs/MDN/Kitchensink/index.json",
-        method: "GET",
-      })
-      .reply(200, docFixture);
-  });
-
   describe("path param", () => {
+    beforeEach(() => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/MDN/Kitchensink/index.json",
+          method: "GET",
+        })
+        .reply(200, kitchensinkDoc);
+    });
+
     it("should accept normal path", async () => {
       /** @type {any} */
       const { content } = await client.callTool({
@@ -164,6 +165,27 @@ describe("get-doc tool", () => {
         `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
       );
     });
+  });
+
+  it("should work with real document", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/Web/API/Headers",
+      },
+    });
+    assert.equal(isError, undefined);
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.startsWith("# Headers"));
   });
 
   after(() => {
