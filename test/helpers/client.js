@@ -3,9 +3,9 @@ import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/
 
 import listen from "../../index.js";
 
-/** @param {number} port */
-export function createServer(port) {
-  return listen(port);
+export function createServer() {
+  // auto-assign port
+  return listen(0);
 }
 
 /** @param {number} port */

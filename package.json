@@ -11,12 +11,16 @@
     "dev:server": "nodemon index.js",
     "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc",
-    "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude test/**/* --test-coverage-exclude test/**/*.test.js test/**/*.test.js",
+    "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
     "test:watch": "node --test --watch test/**/*.test.js"
   },
   "dependencies": {
+    "@lit-labs/ssr": "^3.3.1",
+    "@mdn/fred": "^1.8.1",
     "@modelcontextprotocol/sdk": "^1.20.2",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "turndown": "^7.2.2",
+    "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
@@ -24,6 +28,7 @@
     "@modelcontextprotocol/inspector": "^0.17.2",
     "@types/express": "^5.0.4",
     "@types/node": "^22.18.12",
+    "@types/turndown": "^5.0.6",
     "concurrently": "^9.2.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
@@ -35,7 +40,9 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.2"
+    "typescript-eslint": "^8.46.2",
+    "undici": "^7.16.0",
+    "zod": "^3.25.76"
   },
   "engines": {
     "node": ">=22"
