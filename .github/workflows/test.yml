@@ -40,9 +40,6 @@ jobs:
       - name: Run tsc
         run: npx tsc --noEmit
 
-      - name: Run tests
-        run: npm run test
-
   test:
     runs-on: ubuntu-latest
 
