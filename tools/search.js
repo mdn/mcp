@@ -12,11 +12,22 @@ server.registerTool(
     },
   },
   async ({ query }) => {
+    const url = new URL(`https://developer.mozilla.org/api/v1/search`);
+    url.searchParams.set("q", query);
+
+    const res = await fetch(url);
+    /** @type {import("@mdn/fred/components/site-search/types.js").SearchResponse} */
+    const searchResponse = await res.json();
+
+    const text = searchResponse.documents
+      .map((document) => `- ${document.mdn_url}`)
+      .join("\n");
+
     return {
       content: [
         {
           type: "text",
-          text: query,
+          text,
         },
       ],
     };

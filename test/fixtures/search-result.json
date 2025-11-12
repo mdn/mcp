@@ -1,0 +1,180 @@
+{
+  "documents": [
+    {
+      "mdn_url": "/en-US/docs/Web/XML/EXSLT/Reference/regexp/test",
+      "score": 48.32241,
+      "title": "regexp:test()",
+      "locale": "en-us",
+      "slug": "web/xml/exslt/reference/regexp/test",
+      "popularity": 0.0,
+      "summary": "regexp:test() tests to see whether a string matches a specified regular expression.",
+      "highlight": {
+        "body": [
+          "regexp:<mark>test</mark>() tests to see whether a string matches a specified regular expression.\nregexp:<mark>test</mark>(<mark>test</mark>String, regExpString[",
+          ", flagsString])\n<mark>test</mark>String\nThe string to <mark>test</mark>.\nregExpString\nThe JavaScript style regular expression to evaluate.\nflagsString",
+          "EXSLT - REGEXP:<mark>TEST</mark>"
+        ],
+        "title": ["regexp:<mark>test</mark>()"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Glossary/Smoke_Test",
+      "score": 47.71466,
+      "title": "Smoke test",
+      "locale": "en-us",
+      "slug": "glossary/smoke_test",
+      "popularity": 0.0003072945502543284,
+      "summary": "A smoke test consists of functional or unit tests of critical software functionality. Smoke testing comes before further, in-depth testing.",
+      "highlight": {
+        "body": [
+          "A smoke <mark>test</mark> consists of functional or unit tests of critical software functionality.",
+          "&quot;Can you save a simple blank new <mark>test</mark> user account?&quot;"
+        ],
+        "title": ["Smoke <mark>test</mark>"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/API/XRHitTestResult",
+      "score": 44.079105,
+      "title": "XRHitTestResult",
+      "locale": "en-us",
+      "slug": "web/api/xrhittestresult",
+      "popularity": 0.0,
+      "summary": "The XRHitTestResult interface of the WebXR Device API contains a single result of a hit test. You can get an array of XRHitTestResult objects for a frame by calling XRFrame.getHitTestResults().",
+      "highlight": {
+        "body": [
+          ") =&gt; {\nhit<mark>Test</mark>Source = viewerHit<mark>Test</mark>Source;\n});\n&#x2F;&#x2F; frame loop\nfunction onXRFrame(time, xrFrame) {\nlet hit<mark>Test</mark>Results = xrFrame.getHit<mark>Test</mark>Results",
+          "(hit<mark>Test</mark>Source);\n&#x2F;&#x2F; do things with the hit <mark>test</mark> results\n}\nUse getPose() to query the result&#x27;s pose.\njslet hit<mark>Test</mark>Results",
+          "= xrFrame.getHit<mark>Test</mark>Results(hit<mark>Test</mark>Source);\nif (hit<mark>Test</mark>Results.length &gt; 0) {\nlet pose = hit<mark>Test</mark>Results[0].getPose(referenceSpace"
+        ],
+        "title": ["XRHit<mark>Test</mark>Result"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/API/XRHitTestSource",
+      "score": 44.071663,
+      "title": "XRHitTestSource",
+      "locale": "en-us",
+      "slug": "web/api/xrhittestsource",
+      "popularity": 0.0,
+      "summary": "The XRHitTestSource interface of the WebXR Device API handles hit test subscriptions. You can get an XRHitTestSource object by using the XRSession.requestHitTestSource() method.",
+      "highlight": {
+        "body": [
+          ") =&gt; {\nhit<mark>Test</mark>Source = viewerHit<mark>Test</mark>Source;\n});\n&#x2F;&#x2F; frame loop\nfunction onXRFrame(time, xrFrame) {\nlet hit<mark>Test</mark>Results = xrFrame.getHit<mark>Test</mark>Results",
+          "(hit<mark>Test</mark>Source);\n&#x2F;&#x2F; do things with the hit <mark>test</mark> results\n}\nTo unsubscribe from a hit <mark>test</mark> source, call XRHit<mark>Test</mark>Source.cancel",
+          "();\nhit<mark>Test</mark>Source = null;\nXRTransientInputHit<mark>Test</mark>Source"
+        ],
+        "title": ["XRHit<mark>Test</mark>Source"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/API/URLPattern/test",
+      "score": 44.055794,
+      "title": "URLPattern: test() method",
+      "locale": "en-us",
+      "slug": "web/api/urlpattern/test",
+      "popularity": 0.00009919001305677688,
+      "summary": "The test() method of the URLPattern interface takes a URL string or object of URL parts, and returns a boolean indicating if the given input matches the current pattern.",
+      "highlight": {
+        "body": [
+          "if the given input matches the current pattern.\njstest(input)\n<mark>test</mark>(url)\n<mark>test</mark>(url, baseURL)\ninput\nAn object providing the",
+          "The first matches but the second doesn&#x27;t, because the <mark>test</mark> URL is not a subdomain of example.com.\njsconsole.log(pattern.<mark>test</mark>",
+          "(pattern.<mark>test</mark>(&quot;&#x2F;books&#x2F;123&quot;)); &#x2F;&#x2F; false\nThis <mark>test</mark> does not match because the base URL is not a valid URL, and together with"
+        ],
+        "title": ["URLPattern: <mark>test</mark>() method"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test",
+      "score": 40.51537,
+      "title": "RegExp.prototype.test()",
+      "locale": "en-us",
+      "slug": "web/javascript/reference/global_objects/regexp/test",
+      "popularity": 0.004748154611946626,
+      "summary": "The test() method of RegExp instances executes a search with this regular expression for a match between a regular expression and a specified string. Returns true if there is a match; false otherwise.",
+      "highlight": {
+        "body": [
+          "success of the <mark>test</mark>:\njsfunction <mark>test</mark>Input(re, str) {\nconst midString = re.<mark>test</mark>(str) ?",
+          "(&quot;foo&quot;); &#x2F;&#x2F; true\n&#x2F;&#x2F; regex.lastIndex is now at 3\nregex.<mark>test</mark>(&quot;foo&quot;); &#x2F;&#x2F; false\n&#x2F;&#x2F; regex.lastIndex is at 0\nregex.<mark>test</mark>(&quot;barfoo",
+          "&quot;); &#x2F;&#x2F; true\n&#x2F;&#x2F; regex.lastIndex is at 6\nregex.<mark>test</mark>(&quot;foobar&quot;); &#x2F;&#x2F; false\n&#x2F;&#x2F; regex.lastIndex is at 0\nregex.<mark>test</mark>(&quot;foobarfoo&quot;);"
+        ],
+        "title": ["RegExp.prototype.<mark>test</mark>()"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Learn_web_development/Core/Scripting/Test_your_skills/Math",
+      "score": 40.379963,
+      "title": "Test your skills: Math",
+      "locale": "en-us",
+      "slug": "learn_web_development/core/scripting/test_your_skills/math",
+      "popularity": 0.00125900003500824,
+      "summary": "The aim of the tests on this page is to help you assess whether you've understood the Basic math in JavaScript — numbers and operators article.",
+      "highlight": {
+        "body": [
+          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
+          ";\nconst pwd<mark>Test</mark> = pwdMatch\n?",
+          "para2.textContent = height<mark>Test</mark>;\nsection.appendChild(para2);\npara3.textContent = pwd<mark>Test</mark>;\nsection.appendChild(para3);\nClick"
+        ],
+        "title": ["<mark>Test</mark> your skills: Math"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Learn_web_development/Core/Accessibility/Test_your_skills",
+      "score": 40.226967,
+      "title": "Test your skills: Accessibility",
+      "locale": "en-us",
+      "slug": "learn_web_development/core/accessibility/test_your_skills",
+      "popularity": 0.0003721246241476466,
+      "summary": "This page lists Accessibility tests you can try so you can verify if you've understood the content in this module.",
+      "highlight": {
+        "body": [
+          "<mark>Test</mark> your skills: CSS and JavaScript accessibilityThe aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve understood",
+          "our CSS and JavaScript accessibility best practices article.<mark>Test</mark> your skills: HTML accessibilityThe aim of this skill <mark>test</mark>",
+          "aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve understood our WAI-ARIA basics article."
+        ],
+        "title": ["<mark>Test</mark> your skills: Accessibility"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Learn_web_development/Core/Scripting/Test_your_skills/Loops",
+      "score": 40.080944,
+      "title": "Test your skills: Loops",
+      "locale": "en-us",
+      "slug": "learn_web_development/core/scripting/test_your_skills/loops",
+      "popularity": 0.0009173455455904528,
+      "summary": "The aim of this skill test is to help you assess whether you've understood our Looping code article.",
+      "highlight": {
+        "body": [
+          "Previous  Overview: Dynamic scripting with JavaScript Next\nThe aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve",
+          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
+          "every number from 500 down to 2 to see which ones are prime numbers, using the provided <mark>test</mark> function, printing out the"
+        ],
+        "title": ["<mark>Test</mark> your skills: Loops"]
+      }
+    },
+    {
+      "mdn_url": "/en-US/docs/Learn_web_development/Core/Styling_basics/Test_your_skills/Sizing",
+      "score": 39.934277,
+      "title": "Test your skills: Sizing",
+      "locale": "en-us",
+      "slug": "learn_web_development/core/styling_basics/test_your_skills/sizing",
+      "popularity": 0.0007066478054371686,
+      "summary": "The aim of this skill test is to help you assess whether you understand the different ways of sizing items in CSS.",
+      "highlight": {
+        "body": [
+          "Previous  Overview: CSS styling basics Next\nThe aim of this skill <mark>test</mark> is to help you assess whether you understand the different",
+          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
+          "<mark>Test</mark> this box by removing the content from the HTML to make sure you still get a 100px tall box even with no content."
+        ],
+        "title": ["<mark>Test</mark> your skills: Sizing"]
+      }
+    }
+  ],
+  "metadata": {
+    "took_ms": 8,
+    "size": 10,
+    "page": 1,
+    "total": { "value": 908, "relation": "eq" }
+  },
+  "suggestions": []
+}
