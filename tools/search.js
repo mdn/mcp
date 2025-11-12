@@ -20,8 +20,12 @@ server.registerTool(
     const searchResponse = await res.json();
 
     const text = searchResponse.documents
-      .map((document) => `- ${document.mdn_url}`)
-      .join("\n");
+      .map(
+        (document) => `# ${document.title}
+\`path\`: \`${document.mdn_url}\`
+${document.summary}`,
+      )
+      .join("\n\n");
 
     return {
       content: [

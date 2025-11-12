@@ -26,7 +26,7 @@ describe("search tool", () => {
     mockPool = agent.get("https://developer.mozilla.org");
   });
 
-  it("should pass query to search api", async () => {
+  it("should return results", async () => {
     mockPool
       .intercept({
         path: "/api/v1/search?q=test",
@@ -46,6 +46,13 @@ describe("search tool", () => {
     assert.ok(
       text.includes("/en-US/docs/Web/XML/EXSLT/Reference/regexp/test"),
       "includes result url",
+    );
+    assert.ok(text.includes("# regexp:test()"), "includes result title");
+    assert.ok(
+      text.includes(
+        "regexp:test() tests to see whether a string matches a specified regular expression.",
+      ),
+      "includes result summary",
     );
   });
 
