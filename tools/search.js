@@ -19,13 +19,16 @@ server.registerTool(
     /** @type {import("@mdn/fred/components/site-search/types.js").SearchResponse} */
     const searchResponse = await res.json();
 
-    const text = searchResponse.documents
-      .map(
-        (document) => `# ${document.title}
+    const text =
+      searchResponse.metadata.total.value === 0
+        ? `No results found for query "${query}", perhaps try something else.`
+        : searchResponse.documents
+            .map(
+              (document) => `# ${document.title}
 \`path\`: \`${document.mdn_url}\`
 ${document.summary}`,
-      )
-      .join("\n\n");
+            )
+            .join("\n\n");
 
     return {
       content: [

@@ -4,6 +4,7 @@ import { after, before, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import searchResultEmpty from "../fixtures/search-result-empty.json" with { type: "json" };
 import searchResult from "../fixtures/search-result.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
 
@@ -53,6 +54,31 @@ describe("search tool", () => {
         "regexp:test() tests to see whether a string matches a specified regular expression.",
       ),
       "includes result summary",
+    );
+  });
+
+  it("should gracefully handle no results", async () => {
+    const query = "testempty";
+    mockPool
+      .intercept({
+        path: `/api/v1/search?q=${query}`,
+        method: "GET",
+      })
+      .reply(200, searchResultEmpty);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "search",
+      arguments: {
+        query,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.includes(query), "response includes query");
+    assert.ok(
+      text.toLowerCase().includes("no results"),
+      "response mentions no results",
     );
   });
 
