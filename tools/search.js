@@ -16,6 +16,12 @@ server.registerTool(
     url.searchParams.set("q", query);
 
     const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(
+        `${res.status}: ${res.statusText} for "${query}", perhaps try again.`,
+      );
+    }
+
     /** @type {import("@mdn/fred/components/site-search/types.js").SearchResponse} */
     const searchResponse = await res.json();
 

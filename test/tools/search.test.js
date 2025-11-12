@@ -82,6 +82,29 @@ describe("search tool", () => {
     );
   });
 
+  it("should gracefully handle server error", async () => {
+    const query = "error";
+    mockPool
+      .intercept({
+        path: `/api/v1/search?q=${query}`,
+        method: "GET",
+      })
+      .reply(502);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "search",
+      arguments: {
+        query,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.includes("502"), "response includes error code");
+    assert.ok(text.includes(query), "response includes query");
+    assert.ok(text.includes("try again"), "response suggests next action");
+  });
+
   after(() => {
     server.listener.close();
   });
