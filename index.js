@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import express from "express";
 
 import "./tools/get-doc.js";
+import "./tools/get-browser-compat.js";
 import handleRequest from "./transport.js";
 
 const app = express();
