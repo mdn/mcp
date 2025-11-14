@@ -1,3 +1,4 @@
+import bcd from "@mdn/browser-compat-data" with { type: "json" };
 import z from "zod";
 
 import server from "../server.js";
@@ -12,11 +13,23 @@ server.registerTool(
     },
   },
   async ({ key }) => {
+    const [rootKey, ...subKeys] = key.split(".");
+    let data;
+    if (rootKey && rootKey in bcd) {
+      const typedRootKey = /** @type {keyof typeof bcd} */ (rootKey);
+      if (typedRootKey !== "__meta" && typedRootKey !== "browsers") {
+        data = bcd[typedRootKey];
+        for (const subKey of subKeys) {
+          if (!data) break;
+          data = data[subKey];
+        }
+      }
+    }
     return {
       content: [
         {
           type: "text",
-          text: key,
+          text: JSON.stringify(data),
         },
       ],
     };

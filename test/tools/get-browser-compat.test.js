@@ -15,17 +15,18 @@ describe("get-browser-compat tool", () => {
     client = await createClient(server.port);
   });
 
-  it("should be callable", async () => {
+  it("should return bcd data", async () => {
     /** @type {any} */
     const { content } = await client.callTool({
       name: "get-browser-compat",
       arguments: {
-        key: "api.fetch",
+        key: "javascript.builtins.Array.Array",
       },
     });
     /** @type {string} */
     const text = content[0].text;
-    assert.ok(text.includes("api.fetch"), "includes key");
+    const data = JSON.parse(text);
+    assert.deepEqual(data.__compat.support.firefox.version_added, "1");
   });
 
   after(() => {
