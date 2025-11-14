@@ -45,8 +45,7 @@ describe("get-doc tool", () => {
           path: "/en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -58,8 +57,7 @@ describe("get-doc tool", () => {
           path: "https://developer.mozilla.org/en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -71,8 +69,7 @@ describe("get-doc tool", () => {
           path: "/en-US/docs/MDN/Kitchensink/index.json",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -95,8 +92,7 @@ describe("get-doc tool", () => {
           path: "/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -108,8 +104,7 @@ describe("get-doc tool", () => {
           path: "en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -183,12 +178,46 @@ describe("get-doc tool", () => {
       },
     });
     assert.equal(isError, undefined);
-    /** @type {string} */
-    const text = content[0].text;
+    const [_, text] = frontmatterSplit(content[0].text);
     assert.ok(text.startsWith("# Headers"));
+  });
+
+  it("should include a single bcd key", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/Web/API/Headers",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [frontmatter] = frontmatterSplit(content[0].text);
+    assert.ok(
+      frontmatter?.split("\n").includes("bcd_key: api.Headers"),
+      "frontmatter includes bcd key",
+    );
   });
 
   after(() => {
     server.listener.close();
   });
 });
+
+/**
+ * @param {string} text
+ * @returns {[string?, string]}
+ */
+function frontmatterSplit(text) {
+  const delim = "---\n";
+  const [frontmatter, ...remainder] = text.split(delim).slice(1);
+  return text.startsWith(delim)
+    ? [frontmatter, remainder.join(delim)]
+    : [undefined, text];
+}

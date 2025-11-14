@@ -78,11 +78,17 @@ server.registerTool(
       ),
     );
     const markdown = turndownService.turndown(renderedHtml);
+    const frontmatter = context.doc.browserCompat
+      ? `---
+bcd_key: ${context.doc.browserCompat[0]}
+---
+`
+      : "";
     return {
       content: [
         {
           type: "text",
-          text: markdown,
+          text: frontmatter + markdown,
         },
       ],
     };
