@@ -29,6 +29,41 @@ describe("get-browser-compat tool", () => {
     assert.deepEqual(data.__compat.support.firefox.version_added, "1");
   });
 
+  it("should handle invalid key", async () => {
+    const key = "javascript.builtins.Array.foobar";
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "get-browser-compat",
+      arguments: {
+        key,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.startsWith("Error:"), "response starts with 'Error:'");
+    assert.ok(text.includes(key), "response includes key");
+    assert.ok(
+      text.includes(`"javascript.builtins.Array"`),
+      "response includes last valid key",
+    );
+  });
+
+  it("should handle invalid root key", async () => {
+    const key = "foobar";
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "get-browser-compat",
+      arguments: {
+        key,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(text.startsWith("Error:"), "response starts with 'Error:'");
+    assert.ok(text.includes(key), "response includes key");
+    assert.ok(!text.includes(`""`), "response doesn't include last valid key");
+  });
+
   after(() => {
     server.listener.close();
   });
