@@ -4,6 +4,7 @@ import { after, before, beforeEach, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import clipboardDoc from "../fixtures/clipboard-api.json" with { type: "json" };
 import glossaryDoc from "../fixtures/glossary.json" with { type: "json" };
 import headersDoc from "../fixtures/headers.json" with { type: "json" };
 import kitchensinkDoc from "../fixtures/kitchensink.json" with { type: "json" };
@@ -228,6 +229,31 @@ describe("get-doc tool", () => {
         frontmatter?.split("\n").includes("bcd_key: api.Headers"),
         "frontmatter includes bcd key",
       );
+    });
+
+    it("should have multiple", async () => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Web/API/Clipboard_API/index.json",
+          method: "GET",
+        })
+        .reply(200, clipboardDoc);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/Web/API/Clipboard_API",
+        },
+      });
+      const [frontmatter] = frontmatterSplit(content[0].text);
+      const lines = frontmatter?.split("\n");
+      assert.partialDeepStrictEqual(lines, [
+        "bcd_keys:",
+        "  - api.Clipboard",
+        "  - api.ClipboardEvent",
+        "  - api.ClipboardItem",
+      ]);
     });
   });
 

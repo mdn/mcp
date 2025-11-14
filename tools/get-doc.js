@@ -78,12 +78,20 @@ server.registerTool(
       ),
     );
     const markdown = turndownService.turndown(renderedHtml);
-    const frontmatter = context.doc.browserCompat
-      ? `---
-bcd_key: ${context.doc.browserCompat[0]}
----
-`
-      : "";
+
+    let frontmatter = "";
+    const { browserCompat } = context.doc;
+    if (browserCompat) {
+      frontmatter += "---\n";
+      if (browserCompat.length > 1) {
+        frontmatter += "bcd_keys:\n";
+        frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
+      } else {
+        frontmatter += `bcd_key: ${browserCompat[0]}\n`;
+      }
+      frontmatter += "---\n";
+    }
+
     return {
       content: [
         {
