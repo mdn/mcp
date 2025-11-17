@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url";
 
 import express from "express";
 
+import "./tools/search.js";
 import "./tools/get-doc.js";
 import handleRequest from "./transport.js";
 
