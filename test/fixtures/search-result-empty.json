@@ -1,0 +1,10 @@
+{
+  "documents": [],
+  "metadata": {
+    "took_ms": 17,
+    "size": 10,
+    "page": 1,
+    "total": { "value": 0, "relation": "eq" }
+  },
+  "suggestions": []
+}
