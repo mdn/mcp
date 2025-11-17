@@ -4,7 +4,7 @@ import express from "express";
 
 import "./tools/search.js";
 import "./tools/get-doc.js";
-import "./tools/get-browser-compat.js";
+import "./tools/get-compat.js";
 import handleRequest from "./transport.js";
 
 const app = express();

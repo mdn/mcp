@@ -4,7 +4,7 @@ import { after, before, describe, it } from "node:test";
 
 import { createClient, createServer } from "../helpers/client.js";
 
-describe("get-browser-compat tool", () => {
+describe("get-compat tool", () => {
   /** @type {Awaited<ReturnType<createServer>>} */
   let server;
   /** @type {Awaited<ReturnType<createClient>>} */
@@ -18,7 +18,7 @@ describe("get-browser-compat tool", () => {
   it("should return bcd data", async () => {
     /** @type {any} */
     const { content } = await client.callTool({
-      name: "get-browser-compat",
+      name: "get-compat",
       arguments: {
         key: "javascript.builtins.Array.Array",
       },
@@ -33,7 +33,7 @@ describe("get-browser-compat tool", () => {
     const key = "javascript.builtins.Array.foobar";
     /** @type {any} */
     const { content } = await client.callTool({
-      name: "get-browser-compat",
+      name: "get-compat",
       arguments: {
         key,
       },
@@ -52,7 +52,7 @@ describe("get-browser-compat tool", () => {
     const key = "foobar";
     /** @type {any} */
     const { content } = await client.callTool({
-      name: "get-browser-compat",
+      name: "get-compat",
       arguments: {
         key,
       },
