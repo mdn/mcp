@@ -30,7 +30,7 @@ describe("search tool", () => {
   it("should return results", async () => {
     mockPool
       .intercept({
-        path: "/api/v1/search?q=test",
+        path: "/api/v1/search?q=clipboard+api",
         method: "GET",
       })
       .reply(200, searchResult);
@@ -39,19 +39,19 @@ describe("search tool", () => {
     const { content } = await client.callTool({
       name: "search",
       arguments: {
-        query: "test",
+        query: "clipboard api",
       },
     });
     /** @type {string} */
     const text = content[0].text;
     assert.ok(
-      text.includes("/en-US/docs/Web/XML/EXSLT/Reference/regexp/test"),
+      text.includes("/en-US/docs/Web/API/Clipboard_API"),
       "includes result url",
     );
-    assert.ok(text.includes("# regexp:test()"), "includes result title");
+    assert.ok(text.includes("# Clipboard API"), "includes result title");
     assert.ok(
       text.includes(
-        "regexp:test() tests to see whether a string matches a specified regular expression.",
+        "The Clipboard API provides the ability to respond to clipboard commands (cut, copy, and paste), as well as to asynchronously read from and write to the system clipboard.",
       ),
       "includes result summary",
     );

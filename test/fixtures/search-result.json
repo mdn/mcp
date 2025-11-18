@@ -1,180 +1,187 @@
 {
   "documents": [
     {
-      "mdn_url": "/en-US/docs/Web/XML/EXSLT/Reference/regexp/test",
-      "score": 48.32241,
-      "title": "regexp:test()",
+      "mdn_url": "/en-US/docs/Web/API/Clipboard_API",
+      "score": 251.86737,
+      "title": "Clipboard API",
       "locale": "en-us",
-      "slug": "web/xml/exslt/reference/regexp/test",
-      "popularity": 0.0,
-      "summary": "regexp:test() tests to see whether a string matches a specified regular expression.",
+      "slug": "web/api/clipboard_api",
+      "popularity": 0.003453498036297062,
+      "summary": "The Clipboard API provides the ability to respond to clipboard commands (cut, copy, and paste), as well as to asynchronously read from and write to the system clipboard.",
       "highlight": {
         "body": [
-          "regexp:<mark>test</mark>() tests to see whether a string matches a specified regular expression.\nregexp:<mark>test</mark>(<mark>test</mark>String, regExpString[",
-          ", flagsString])\n<mark>test</mark>String\nThe string to <mark>test</mark>.\nregExpString\nThe JavaScript style regular expression to evaluate.\nflagsString",
-          "EXSLT - REGEXP:<mark>TEST</mark>"
+          "The specification refers to this as the &#x27;Async <mark>Clipboard</mark> <mark>API</mark>&#x27;.",
+          "The specification refers to this as the &#x27;<mark>Clipboard</mark> Event <mark>API</mark>&#x27;.",
+          "The <mark>Clipboard</mark> <mark>API</mark> extends the following APIs, adding the listed features."
         ],
-        "title": ["regexp:<mark>test</mark>()"]
+        "title": ["<mark>Clipboard</mark> <mark>API</mark>"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Glossary/Smoke_Test",
-      "score": 47.71466,
-      "title": "Smoke test",
+      "mdn_url": "/en-US/docs/Mozilla/Add-ons/WebExtensions/API/clipboard",
+      "score": 91.86381,
+      "title": "clipboard",
       "locale": "en-us",
-      "slug": "glossary/smoke_test",
-      "popularity": 0.0003072945502543284,
-      "summary": "A smoke test consists of functional or unit tests of critical software functionality. Smoke testing comes before further, in-depth testing.",
+      "slug": "mozilla/add-ons/webextensions/api/clipboard",
+      "popularity": 0.0003085911517321947,
+      "summary": "The WebExtension clipboard API (which is different from the standard Clipboard API) enables an extension to copy items to the system clipboard. Currently the WebExtension clipboard API only supports copying images, but it's intended to support copying text and HTML in the future.",
       "highlight": {
         "body": [
-          "A smoke <mark>test</mark> consists of functional or unit tests of critical software functionality.",
-          "&quot;Can you save a simple blank new <mark>test</mark> user account?&quot;"
+          "The WebExtension <mark>clipboard</mark> <mark>API</mark> (which is different from the standard <mark>Clipboard</mark> <mark>API</mark>) enables an extension to copy items to",
+          "The WebExtension <mark>clipboard</mark> <mark>API</mark> may be deprecated once the standard <mark>Clipboard</mark> <mark>API</mark>&#x27;s support for non-text <mark>clipboard</mark> contents",
+          "Note:\nThis <mark>API</mark> is based on Chromium&#x27;s chrome.<mark>clipboard</mark> <mark>API</mark>."
         ],
-        "title": ["Smoke <mark>test</mark>"]
+        "title": ["<mark>clipboard</mark>"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Web/API/XRHitTestResult",
-      "score": 44.079105,
-      "title": "XRHitTestResult",
+      "mdn_url": "/en-US/docs/Web/API/Clipboard",
+      "score": 88.80422,
+      "title": "Clipboard",
       "locale": "en-us",
-      "slug": "web/api/xrhittestresult",
-      "popularity": 0.0,
-      "summary": "The XRHitTestResult interface of the WebXR Device API contains a single result of a hit test. You can get an array of XRHitTestResult objects for a frame by calling XRFrame.getHitTestResults().",
+      "slug": "web/api/clipboard",
+      "popularity": 0.003337452204028022,
+      "summary": "The Clipboard interface of the Clipboard API provides read and write access to the contents of the system clipboard.\nThis allows a web application to implement cut, copy, and paste features.",
       "highlight": {
         "body": [
-          ") =&gt; {\nhit<mark>Test</mark>Source = viewerHit<mark>Test</mark>Source;\n});\n&#x2F;&#x2F; frame loop\nfunction onXRFrame(time, xrFrame) {\nlet hit<mark>Test</mark>Results = xrFrame.getHit<mark>Test</mark>Results",
-          "(hit<mark>Test</mark>Source);\n&#x2F;&#x2F; do things with the hit <mark>test</mark> results\n}\nUse getPose() to query the result&#x27;s pose.\njslet hit<mark>Test</mark>Results",
-          "= xrFrame.getHit<mark>Test</mark>Results(hit<mark>Test</mark>Source);\nif (hit<mark>Test</mark>Results.length &gt; 0) {\nlet pose = hit<mark>Test</mark>Results[0].getPose(referenceSpace"
+          "The <mark>Clipboard</mark> interface of the <mark>Clipboard</mark> <mark>API</mark> provides read and write access to the contents of the system <mark>clipboard</mark>.",
+          "All of the <mark>Clipboard</mark> <mark>API</mark> methods operate asynchronously; they return a Promise which is resolved once the <mark>clipboard</mark> access",
+          "Additional requirements for using the <mark>API</mark> are discussed in the Security consideration section of the <mark>API</mark> overview topic."
         ],
-        "title": ["XRHit<mark>Test</mark>Result"]
+        "title": ["<mark>Clipboard</mark>"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Web/API/XRHitTestSource",
-      "score": 44.071663,
-      "title": "XRHitTestSource",
+      "mdn_url": "/en-US/docs/Web/API/ClipboardItem/ClipboardItem",
+      "score": 84.08948,
+      "title": "ClipboardItem: ClipboardItem() constructor",
       "locale": "en-us",
-      "slug": "web/api/xrhittestsource",
-      "popularity": 0.0,
-      "summary": "The XRHitTestSource interface of the WebXR Device API handles hit test subscriptions. You can get an XRHitTestSource object by using the XRSession.requestHitTestSource() method.",
+      "slug": "web/api/clipboarditem/clipboarditem",
+      "popularity": 0.00015559217734396373,
+      "summary": "The ClipboardItem() constructor creates a new ClipboardItem object, which represents data to be stored or retrieved via the Clipboard API clipboard.write() and clipboard.read() methods, respectively.",
       "highlight": {
         "body": [
-          ") =&gt; {\nhit<mark>Test</mark>Source = viewerHit<mark>Test</mark>Source;\n});\n&#x2F;&#x2F; frame loop\nfunction onXRFrame(time, xrFrame) {\nlet hit<mark>Test</mark>Results = xrFrame.getHit<mark>Test</mark>Results",
-          "(hit<mark>Test</mark>Source);\n&#x2F;&#x2F; do things with the hit <mark>test</mark> results\n}\nTo unsubscribe from a hit <mark>test</mark> source, call XRHit<mark>Test</mark>Source.cancel",
-          "();\nhit<mark>Test</mark>Source = null;\nXRTransientInputHit<mark>Test</mark>Source"
+          "<mark>Clipboard</mark> <mark>API</mark> <mark>clipboard</mark>.write() and <mark>clipboard</mark>.read() methods, respectively.",
+          "See the browser compatibility table for the <mark>Clipboard</mark> interface.\njsnew <mark>Clipboard</mark>Item(data)\nnew <mark>Clipboard</mark>Item(data, options",
+          "not supported&quot;);\n}\n} catch (err) {\nconsole.error(err.name, err.message);\n}\n}\n<mark>Clipboard</mark> <mark>API</mark>\nImage support for Async <mark>Clipboard</mark>"
         ],
-        "title": ["XRHit<mark>Test</mark>Source"]
+        "title": [
+          "<mark>Clipboard</mark>Item: <mark>Clipboard</mark>Item() constructor"
+        ]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Web/API/URLPattern/test",
-      "score": 44.055794,
-      "title": "URLPattern: test() method",
+      "mdn_url": "/en-US/docs/Web/API/ClipboardItem",
+      "score": 83.07362,
+      "title": "ClipboardItem",
       "locale": "en-us",
-      "slug": "web/api/urlpattern/test",
-      "popularity": 0.00009919001305677688,
-      "summary": "The test() method of the URLPattern interface takes a URL string or object of URL parts, and returns a boolean indicating if the given input matches the current pattern.",
+      "slug": "web/api/clipboarditem",
+      "popularity": 0.0008777992005155287,
+      "summary": "The ClipboardItem interface of the Clipboard API represents a single item format, used when reading or writing clipboard data using Clipboard.read() and Clipboard.write() respectively.",
       "highlight": {
         "body": [
-          "if the given input matches the current pattern.\njstest(input)\n<mark>test</mark>(url)\n<mark>test</mark>(url, baseURL)\ninput\nAn object providing the",
-          "The first matches but the second doesn&#x27;t, because the <mark>test</mark> URL is not a subdomain of example.com.\njsconsole.log(pattern.<mark>test</mark>",
-          "(pattern.<mark>test</mark>(&quot;&#x2F;books&#x2F;123&quot;)); &#x2F;&#x2F; false\nThis <mark>test</mark> does not match because the base URL is not a valid URL, and together with"
+          "The <mark>Clipboard</mark>Item interface of the <mark>Clipboard</mark> <mark>API</mark> represents a single item format, used when reading or writing <mark>clipboard</mark>",
+          "If it is, we fetch an SVG image with the Fetch <mark>API</mark>, and then read it into a Blob, which we can use to create a <mark>Clipboard</mark>Item",
+          "now use blob here\n}\n}\n} catch (err) {\nconsole.error(err.name, err.message);\n}\n}\n<mark>Clipboard</mark> <mark>API</mark>\nImage support for Async <mark>Clipboard</mark>"
         ],
-        "title": ["URLPattern: <mark>test</mark>() method"]
+        "title": ["<mark>Clipboard</mark>Item"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test",
-      "score": 40.51537,
-      "title": "RegExp.prototype.test()",
+      "mdn_url": "/en-US/docs/Web/API/ClipboardEvent",
+      "score": 82.68033,
+      "title": "ClipboardEvent",
       "locale": "en-us",
-      "slug": "web/javascript/reference/global_objects/regexp/test",
-      "popularity": 0.004748154611946626,
-      "summary": "The test() method of RegExp instances executes a search with this regular expression for a match between a regular expression and a specified string. Returns true if there is a match; false otherwise.",
+      "slug": "web/api/clipboardevent",
+      "popularity": 0.0005341998088809421,
+      "summary": "The ClipboardEvent interface of the Clipboard API represents events providing information related to modification of the clipboard, that is cut, copy, and paste events.",
       "highlight": {
         "body": [
-          "success of the <mark>test</mark>:\njsfunction <mark>test</mark>Input(re, str) {\nconst midString = re.<mark>test</mark>(str) ?",
-          "(&quot;foo&quot;); &#x2F;&#x2F; true\n&#x2F;&#x2F; regex.lastIndex is now at 3\nregex.<mark>test</mark>(&quot;foo&quot;); &#x2F;&#x2F; false\n&#x2F;&#x2F; regex.lastIndex is at 0\nregex.<mark>test</mark>(&quot;barfoo",
-          "&quot;); &#x2F;&#x2F; true\n&#x2F;&#x2F; regex.lastIndex is at 6\nregex.<mark>test</mark>(&quot;foobar&quot;); &#x2F;&#x2F; false\n&#x2F;&#x2F; regex.lastIndex is at 0\nregex.<mark>test</mark>(&quot;foobarfoo&quot;);"
+          "The <mark>Clipboard</mark>Event interface of the <mark>Clipboard</mark> <mark>API</mark> represents events providing information related to modification of the",
+          "Event\n<mark>Clipboard</mark>Event\n<mark>Clipboard</mark>Event()\nCreates a <mark>Clipboard</mark>Event event with the given parameters.",
+          "Copy-related events: copy, cut, paste\n<mark>Clipboard</mark> <mark>API</mark>\nImage support for Async <mark>Clipboard</mark> article"
         ],
-        "title": ["RegExp.prototype.<mark>test</mark>()"]
+        "title": ["<mark>Clipboard</mark>Event"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Learn_web_development/Core/Scripting/Test_your_skills/Math",
-      "score": 40.379963,
-      "title": "Test your skills: Math",
+      "mdn_url": "/en-US/docs/Web/API/ClipboardEvent/ClipboardEvent",
+      "score": 80.660736,
+      "title": "ClipboardEvent: ClipboardEvent() constructor",
       "locale": "en-us",
-      "slug": "learn_web_development/core/scripting/test_your_skills/math",
-      "popularity": 0.00125900003500824,
-      "summary": "The aim of the tests on this page is to help you assess whether you've understood the Basic math in JavaScript — numbers and operators article.",
+      "slug": "web/api/clipboardevent/clipboardevent",
+      "popularity": 0.00009400360714531144,
+      "summary": "The ClipboardEvent() constructor returns a new ClipboardEvent, representing an event providing information related to modification of the clipboard, that is cut, copy, and paste events.",
       "highlight": {
         "body": [
-          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
-          ";\nconst pwd<mark>Test</mark> = pwdMatch\n?",
-          "para2.textContent = height<mark>Test</mark>;\nsection.appendChild(para2);\npara3.textContent = pwd<mark>Test</mark>;\nsection.appendChild(para3);\nClick"
+          "The <mark>Clipboard</mark>Event() constructor returns a new <mark>Clipboard</mark>Event, representing an event providing information related to modification",
+          "of the <mark>clipboard</mark>, that is cut, copy, and paste events.\njsnew <mark>Clipboard</mark>Event(type)\nnew <mark>Clipboard</mark>Event(type, options)\ntype",
+          "<mark>Clipboard</mark> <mark>API</mark>"
         ],
-        "title": ["<mark>Test</mark> your skills: Math"]
+        "title": [
+          "<mark>Clipboard</mark>Event: <mark>Clipboard</mark>Event() constructor"
+        ]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Learn_web_development/Core/Accessibility/Test_your_skills",
-      "score": 40.226967,
-      "title": "Test your skills: Accessibility",
+      "mdn_url": "/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard",
+      "score": 80.57492,
+      "title": "Interact with the clipboard",
       "locale": "en-us",
-      "slug": "learn_web_development/core/accessibility/test_your_skills",
-      "popularity": 0.0003721246241476466,
-      "summary": "This page lists Accessibility tests you can try so you can verify if you've understood the content in this module.",
+      "slug": "mozilla/add-ons/webextensions/interact_with_the_clipboard",
+      "popularity": 0.0016285314562001535,
+      "summary": "Working with the clipboard in extensions is transitioning from the Web API document.execCommand method (which is deprecated) to the navigator.clipboard method.",
       "highlight": {
         "body": [
-          "<mark>Test</mark> your skills: CSS and JavaScript accessibilityThe aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve understood",
-          "our CSS and JavaScript accessibility best practices article.<mark>Test</mark> your skills: HTML accessibilityThe aim of this skill <mark>test</mark>",
-          "aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve understood our WAI-ARIA basics article."
+          "The <mark>Clipboard</mark> <mark>API</mark> writes arbitrary data to the <mark>clipboard</mark> from your extension.",
+          "Using the <mark>API</mark> requires the permission &quot;<mark>clipboard</mark>Read&quot; or &quot;<mark>clipboard</mark>Write&quot; in your manifest.json file.",
+          "<mark>Clipboard</mark> <mark>API</mark>\nPermissions <mark>API</mark>\nMake content editable"
         ],
-        "title": ["<mark>Test</mark> your skills: Accessibility"]
+        "title": ["Interact with the <mark>clipboard</mark>"]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Learn_web_development/Core/Scripting/Test_your_skills/Loops",
-      "score": 40.080944,
-      "title": "Test your skills: Loops",
+      "mdn_url": "/en-US/docs/Web/API/ClipboardEvent/clipboardData",
+      "score": 80.278946,
+      "title": "ClipboardEvent: clipboardData property",
       "locale": "en-us",
-      "slug": "learn_web_development/core/scripting/test_your_skills/loops",
-      "popularity": 0.0009173455455904528,
-      "summary": "The aim of this skill test is to help you assess whether you've understood our Looping code article.",
+      "slug": "web/api/clipboardevent/clipboarddata",
+      "popularity": 0.0007040546024814359,
+      "summary": "The clipboardData property of the ClipboardEvent interface holds a DataTransfer object, which can be used to:",
       "highlight": {
         "body": [
-          "Previous  Overview: Dynamic scripting with JavaScript Next\nThe aim of this skill <mark>test</mark> is to help you assess whether you&#x27;ve",
-          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
-          "every number from 500 down to 2 to see which ones are prime numbers, using the provided <mark>test</mark> function, printing out the"
+          "The <mark>clipboard</mark>Data property of the <mark>Clipboard</mark>Event interface holds a DataTransfer object, which can be used to:\nspecify what",
+          "data should be put into the <mark>clipboard</mark> from the cut and copy event handlers, typically with a setData(format, data) call;",
+          "Copy-related events: copy, cut, paste\nThe <mark>Clipboard</mark>Event interface it belongs to.\n<mark>Clipboard</mark> <mark>API</mark>"
         ],
-        "title": ["<mark>Test</mark> your skills: Loops"]
+        "title": [
+          "<mark>Clipboard</mark>Event: <mark>clipboard</mark>Data property"
+        ]
       }
     },
     {
-      "mdn_url": "/en-US/docs/Learn_web_development/Core/Styling_basics/Test_your_skills/Sizing",
-      "score": 39.934277,
-      "title": "Test your skills: Sizing",
+      "mdn_url": "/en-US/docs/Web/API/Clipboard/read",
+      "score": 78.55516,
+      "title": "Clipboard: read() method",
       "locale": "en-us",
-      "slug": "learn_web_development/core/styling_basics/test_your_skills/sizing",
-      "popularity": 0.0007066478054371686,
-      "summary": "The aim of this skill test is to help you assess whether you understand the different ways of sizing items in CSS.",
+      "slug": "web/api/clipboard/read",
+      "popularity": 0.0009063244330285888,
+      "summary": "The read() method of the Clipboard interface requests a copy of the clipboard's contents, fulfilling the returned Promise with the data.",
       "highlight": {
         "body": [
-          "Previous  Overview: CSS styling basics Next\nThe aim of this skill <mark>test</mark> is to help you assess whether you understand the different",
-          "Note:\nTo get help, read our <mark>Test</mark> your skills usage guide.",
-          "<mark>Test</mark> this box by removing the content from the HTML to make sure you still get a 100px tall box even with no content."
+          "Additional security requirements are covered in the Security consideration section of the <mark>API</mark> overview topic.",
+          "<mark>Clipboard</mark> <mark>API</mark>\nUnblocking <mark>clipboard</mark> access on web.dev\nUnsanitized HTML in the Async <mark>Clipboard</mark> <mark>API</mark> on developer.chrome.com",
+          "<mark>Clipboard</mark>.readText()\n<mark>Clipboard</mark>.writeText()\n<mark>Clipboard</mark>.write()"
         ],
-        "title": ["<mark>Test</mark> your skills: Sizing"]
+        "title": ["<mark>Clipboard</mark>: read() method"]
       }
     }
   ],
   "metadata": {
-    "took_ms": 8,
+    "took_ms": 23,
     "size": 10,
     "page": 1,
-    "total": { "value": 908, "relation": "eq" }
+    "total": { "value": 4197, "relation": "eq" }
   },
   "suggestions": []
 }
