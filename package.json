@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@lit-labs/ssr": "^3.3.1",
-    "@mdn/browser-compat-data": "^7.1.21",
     "@mdn/fred": "^1.8.1",
     "@modelcontextprotocol/sdk": "^1.21.1",
     "express": "^5.1.0",

@@ -1,4 +1,3 @@
-import bcd from "@mdn/browser-compat-data" with { type: "json" };
 import z from "zod";
 
 import server from "../server.js";
@@ -13,32 +12,27 @@ server.registerTool(
     },
   },
   async ({ key }) => {
-    const [rootKey, ...subKeys] = key.split(".");
-    let data;
-    let usedKeys = [];
-    if (rootKey && rootKey in bcd) {
-      const typedRootKey = /** @type {keyof typeof bcd} */ (rootKey);
-      if (typedRootKey !== "__meta" && typedRootKey !== "browsers") {
-        usedKeys.push(typedRootKey);
-        data = bcd[typedRootKey];
-        for (const subKey of subKeys) {
-          if (!data) break;
-          usedKeys.push(subKey);
-          data = data[subKey];
-        }
+    const url = new URL(
+      `${key}.json`,
+      "https://bcd.developer.mozilla.org/bcd/api/v0/current/",
+    );
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error(
+          `Error: We couldn't find "${key}" in the Browser Compatibility Data.`,
+        );
       }
+      throw new Error(`Error: ${res.status}: ${res.statusText}`);
     }
-    const lastValidKey = usedKeys.slice(0, -1).join(".");
+
+    const json = await res.json();
     return {
       content: [
         {
           type: "text",
-          text: data
-            ? JSON.stringify(data)
-            : `Error: We couldn't find "${key}" in the Browser Compatibility Data.` +
-              (lastValidKey
-                ? ` However, "${lastValidKey}" appears to be a valid key.`
-                : ""),
+          text: JSON.stringify(json.data),
         },
       ],
     };
