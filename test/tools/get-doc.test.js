@@ -226,7 +226,7 @@ describe("get-doc tool", () => {
       assert.equal(isError, undefined);
       const [frontmatter] = frontmatterSplit(content[0].text);
       assert.ok(
-        frontmatter?.split("\n").includes("bcd_key: api.Headers"),
+        frontmatter?.split("\n").includes("compat-key: api.Headers"),
         "frontmatter includes bcd key",
       );
     });
@@ -249,7 +249,7 @@ describe("get-doc tool", () => {
       const [frontmatter] = frontmatterSplit(content[0].text);
       const lines = frontmatter?.split("\n");
       assert.partialDeepStrictEqual(lines, [
-        "bcd_keys:",
+        "compat-keys:",
         "  - api.Clipboard",
         "  - api.ClipboardEvent",
         "  - api.ClipboardItem",

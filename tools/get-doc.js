@@ -84,10 +84,10 @@ server.registerTool(
     if (browserCompat) {
       frontmatter += "---\n";
       if (browserCompat.length > 1) {
-        frontmatter += "bcd_keys:\n";
+        frontmatter += "compat-keys:\n";
         frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
       } else {
-        frontmatter += `bcd_key: ${browserCompat[0]}\n`;
+        frontmatter += `compat-key: ${browserCompat[0]}\n`;
       }
       frontmatter += "---\n";
     }
