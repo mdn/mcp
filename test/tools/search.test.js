@@ -36,6 +36,12 @@ describe("search tool", () => {
         method: "GET",
       })
       .reply(200, searchResult);
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Clipboard/metadata.json",
+        method: "GET",
+      })
+      .reply(500);
 
     /** @type {any} */
     const { content } = await client.callTool({

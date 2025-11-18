@@ -40,6 +40,9 @@ server.registerTool(
         );
         try {
           const metadataRes = await fetch(metadataUrl);
+          if (!metadataRes.ok) {
+            return searchDoc;
+          }
           /** @type {Doc} */
           const doc = await metadataRes.json();
           return doc;
