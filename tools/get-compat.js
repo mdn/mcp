@@ -8,7 +8,7 @@ server.registerTool(
     title: "Get browser compatibility data",
     description: "Retrieve MDN's Browser Compatibility Data.",
     inputSchema: {
-      key: z.string().describe("BCD key from MDN (e.g., 'api.fetch')"),
+      key: z.string().describe("BCD feature path from MDN (e.g., 'api.fetch')"),
     },
   },
   async ({ key }) => {
