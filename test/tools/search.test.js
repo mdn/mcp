@@ -4,6 +4,7 @@ import { after, before, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import clipboardMetadata from "../fixtures/clipboard-metadata.json" with { type: "json" };
 import searchResultEmpty from "../fixtures/search-result-empty.json" with { type: "json" };
 import searchResult from "../fixtures/search-result.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
@@ -103,6 +104,35 @@ describe("search tool", () => {
     assert.ok(text.includes("502"), "response includes error code");
     assert.ok(text.includes(query), "response includes query");
     assert.ok(text.includes("try again"), "response suggests next action");
+  });
+
+  it("should include single compat key", async () => {
+    mockPool
+      .intercept({
+        path: "/api/v1/search?q=clipboard+api",
+        method: "GET",
+      })
+      .reply(200, searchResult);
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Clipboard/metadata.json",
+        method: "GET",
+      })
+      .reply(200, clipboardMetadata);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "search",
+      arguments: {
+        query: "clipboard api",
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(
+      text.includes("`compat-key`: `api.Clipboard`"),
+      "includes compat key",
+    );
   });
 
   after(() => {
