@@ -1,0 +1,39 @@
+{
+  "isActive": true,
+  "isMarkdown": true,
+  "isTranslated": false,
+  "locale": "en-US",
+  "mdn_url": "/en-US/docs/Web/API/Clipboard_API",
+  "modified": "2025-10-11T10:55:14.000Z",
+  "native": "English (US)",
+  "noIndexing": false,
+  "other_translations": [
+    { "locale": "en-US", "title": "Clipboard API", "native": "English (US)" },
+    { "locale": "de", "title": "Clipboard API", "native": "Deutsch" },
+    { "locale": "es", "title": "API del portapapeles", "native": "Español" },
+    { "locale": "fr", "title": "API Clipboard", "native": "Français" },
+    { "locale": "ja", "title": "クリップボード API", "native": "日本語" },
+    { "locale": "ko", "title": "Clipboard API", "native": "한국어" },
+    { "locale": "ru", "title": "Clipboard API", "native": "Русский" },
+    { "locale": "zh-CN", "title": "Clipboard API", "native": "中文 (简体)" }
+  ],
+  "pageTitle": "Clipboard API - Web APIs | MDN",
+  "parents": [
+    { "uri": "/en-US/docs/Web", "title": "Web" },
+    { "uri": "/en-US/docs/Web/API", "title": "Web APIs" },
+    { "uri": "/en-US/docs/Web/API/Clipboard_API", "title": "Clipboard API" }
+  ],
+  "popularity": 0.003453498036297062,
+  "short_title": "Clipboard API",
+  "source": {
+    "folder": "en-us/web/api/clipboard_api",
+    "github_url": "https://github.com/mdn/content/blob/main/files/en-us/web/api/clipboard_api/index.md",
+    "last_commit_url": "https://github.com/mdn/content/commit/8452b3bfba185a471bc75f796f1b4f7f32cb453c",
+    "filename": "index.md"
+  },
+  "summary": "The Clipboard API provides the ability to respond to clipboard commands (cut, copy, and paste), as well as to asynchronously read from and write to the system clipboard.",
+  "title": "Clipboard API",
+  "browserCompat": ["api.Clipboard", "api.ClipboardEvent", "api.ClipboardItem"],
+  "pageType": "web-api-overview",
+  "hash": "f3f513dbbb649bbfbf997beac635b5afa95260cc6e6c7c9258237275b7b1e3f3"
+}

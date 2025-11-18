@@ -23,7 +23,7 @@ server.registerTool(
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(
-        `${res.status}: ${res.statusText} for "${query}", perhaps try again.`
+        `${res.status}: ${res.statusText} for "${query}", perhaps try again.`,
       );
     }
 
@@ -36,7 +36,7 @@ server.registerTool(
         const { mdn_url } = searchDoc;
         const metadataUrl = new URL(
           mdn_url + "/metadata.json",
-          "https://developer.mozilla.org"
+          "https://developer.mozilla.org",
         );
         try {
           const metadataRes = await fetch(metadataUrl);
@@ -46,7 +46,7 @@ server.registerTool(
         } catch {
           return searchDoc;
         }
-      })
+      }),
     );
 
     const text =
@@ -56,7 +56,7 @@ server.registerTool(
             .map(
               (document) => `# ${document.title}
 \`path\`: \`${document.mdn_url}\`
-${getBrowserCompat(document)}${document.summary}`
+${getBrowserCompat(document)}${document.summary}`,
             )
             .join("\n\n");
 
@@ -68,19 +68,22 @@ ${getBrowserCompat(document)}${document.summary}`
         },
       ],
     };
-  }
+  },
 );
 
 /**
- * @param {SearchDocument | Doc} doc 
+ * @param {SearchDocument | Doc} doc
  * @returns {string}
  */
 function getBrowserCompat(doc) {
   if ("browserCompat" in doc) {
     const { browserCompat } = doc;
     if (browserCompat) {
-      return `\`compat-key\`: \`${browserCompat}\`\n`
+      if (browserCompat.length > 1) {
+        return `\`compat-keys\`: ${browserCompat.map((key) => `\`${key}\``).join(", ")}\n`;
+      }
+      return `\`compat-key\`: \`${browserCompat}\`\n`;
     }
   }
-  return ""
+  return "";
 }

@@ -4,6 +4,7 @@ import { after, before, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import clipboardApiMetadata from "../fixtures/clipboard-api-metadata.json" with { type: "json" };
 import clipboardMetadata from "../fixtures/clipboard-metadata.json" with { type: "json" };
 import searchResultEmpty from "../fixtures/search-result-empty.json" with { type: "json" };
 import searchResult from "../fixtures/search-result.json" with { type: "json" };
@@ -132,6 +133,37 @@ describe("search tool", () => {
     assert.ok(
       text.includes("`compat-key`: `api.Clipboard`"),
       "includes compat key",
+    );
+  });
+
+  it("should include multiple compat keys", async () => {
+    mockPool
+      .intercept({
+        path: "/api/v1/search?q=clipboard+api",
+        method: "GET",
+      })
+      .reply(200, searchResult);
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Clipboard_API/metadata.json",
+        method: "GET",
+      })
+      .reply(200, clipboardApiMetadata);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "search",
+      arguments: {
+        query: "clipboard api",
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(
+      text.includes(
+        "`compat-keys`: `api.Clipboard`, `api.ClipboardEvent`, `api.ClipboardItem`",
+      ),
+      "includes compat keys",
     );
   });
 
