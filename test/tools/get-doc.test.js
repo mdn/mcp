@@ -4,6 +4,8 @@ import { after, before, beforeEach, describe, it } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import clipboardDoc from "../fixtures/clipboard-api.json" with { type: "json" };
+import glossaryDoc from "../fixtures/glossary.json" with { type: "json" };
 import headersDoc from "../fixtures/headers.json" with { type: "json" };
 import kitchensinkDoc from "../fixtures/kitchensink.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
@@ -45,8 +47,7 @@ describe("get-doc tool", () => {
           path: "/en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -58,8 +59,7 @@ describe("get-doc tool", () => {
           path: "https://developer.mozilla.org/en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -71,8 +71,7 @@ describe("get-doc tool", () => {
           path: "/en-US/docs/MDN/Kitchensink/index.json",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -95,8 +94,7 @@ describe("get-doc tool", () => {
           path: "/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -108,8 +106,7 @@ describe("get-doc tool", () => {
           path: "en-US/docs/MDN/Kitchensink",
         },
       });
-      /** @type {string} */
-      const text = content[0].text;
+      const [_, text] = frontmatterSplit(content[0].text);
       assert.ok(text.startsWith("# The MDN Content Kitchensink"));
     });
 
@@ -183,12 +180,96 @@ describe("get-doc tool", () => {
       },
     });
     assert.equal(isError, undefined);
-    /** @type {string} */
-    const text = content[0].text;
+    const [_, text] = frontmatterSplit(content[0].text);
     assert.ok(text.startsWith("# Headers"));
+  });
+
+  describe("bcd keys", () => {
+    it("should have none", async () => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Glossary/index.json",
+          method: "GET",
+        })
+        .reply(200, glossaryDoc);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/Glossary",
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.ok(
+        text.startsWith("# Glossary of web terms"),
+        "has no frontmatter",
+      );
+    });
+
+    it("should have one", async () => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Web/API/Headers/index.json",
+          method: "GET",
+        })
+        .reply(200, headersDoc);
+
+      /** @type {any} */
+      const { content, isError } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/Web/API/Headers",
+        },
+      });
+      assert.equal(isError, undefined);
+      const [frontmatter] = frontmatterSplit(content[0].text);
+      assert.ok(
+        frontmatter?.split("\n").includes("compat-key: api.Headers"),
+        "frontmatter includes bcd key",
+      );
+    });
+
+    it("should have multiple", async () => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Web/API/Clipboard_API/index.json",
+          method: "GET",
+        })
+        .reply(200, clipboardDoc);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/Web/API/Clipboard_API",
+        },
+      });
+      const [frontmatter] = frontmatterSplit(content[0].text);
+      const lines = frontmatter?.split("\n");
+      assert.partialDeepStrictEqual(lines, [
+        "compat-keys:",
+        "  - api.Clipboard",
+        "  - api.ClipboardEvent",
+        "  - api.ClipboardItem",
+      ]);
+    });
   });
 
   after(() => {
     server.listener.close();
   });
 });
+
+/**
+ * @param {string} text
+ * @returns {[string?, string]}
+ */
+function frontmatterSplit(text) {
+  const delim = "---\n";
+  const [frontmatter, ...remainder] = text.split(delim).slice(1);
+  return text.startsWith(delim)
+    ? [frontmatter, remainder.join(delim)]
+    : [undefined, text];
+}
