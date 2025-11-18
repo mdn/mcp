@@ -8,6 +8,8 @@ const server = new McpServer(
   {
     instructions: `Available tools:
 
+\`search\`: Performs a search of MDN documentation using the query provided. You can fetch the full content of any result by passing \`path\` to the \`get-doc\` tool. Ensure you re-phrase the user's question into web-technology related keywords (e.g. 'fetch', 'flexbox') which will match relevant documentation. When users ask about browser compatibility, search for the feature name rather than including 'browser compatibility' in the search query.
+
 \`get-doc\`: Retrieve complete MDN documentation as formatted markdown. Use this when users need detailed information, code examples, specifications, or comprehensive explanations. Ideal for learning concepts in-depth, understanding API signatures, or when teaching web development topics.`,
   },
 );
