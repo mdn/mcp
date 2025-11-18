@@ -78,11 +78,25 @@ server.registerTool(
       ),
     );
     const markdown = turndownService.turndown(renderedHtml);
+
+    let frontmatter = "";
+    const { browserCompat } = context.doc;
+    if (browserCompat) {
+      frontmatter += "---\n";
+      if (browserCompat.length > 1) {
+        frontmatter += "compat-keys:\n";
+        frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
+      } else {
+        frontmatter += `compat-key: ${browserCompat[0]}\n`;
+      }
+      frontmatter += "---\n";
+    }
+
     return {
       content: [
         {
           type: "text",
-          text: markdown,
+          text: frontmatter + markdown,
         },
       ],
     };
