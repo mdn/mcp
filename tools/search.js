@@ -2,6 +2,8 @@ import z from "zod";
 
 import server from "../server.js";
 
+/** @import { SearchResponse, SearchDocument } from "@mdn/fred/components/site-search/types.js"; */
+
 server.registerTool(
   "search",
   {
@@ -22,13 +24,16 @@ server.registerTool(
       );
     }
 
-    /** @type {import("@mdn/fred/components/site-search/types.js").SearchResponse} */
+    /** @type {SearchResponse} */
     const searchResponse = await res.json();
 
+    /** @type {SearchDocument[]} */
+    const docs = searchResponse.documents;
+
     const text =
-      searchResponse.metadata.total.value === 0
+      docs.length === 0
         ? `No results found for query "${query}", perhaps try something else.`
-        : searchResponse.documents
+        : docs
             .map(
               (document) => `# ${document.title}
 \`path\`: \`${document.mdn_url}\`
