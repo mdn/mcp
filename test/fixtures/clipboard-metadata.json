@@ -1,0 +1,68 @@
+{
+  "isActive": true,
+  "isMarkdown": true,
+  "isTranslated": false,
+  "locale": "en-US",
+  "mdn_url": "/en-US/docs/Web/API/Clipboard",
+  "modified": "2024-01-09T04:36:06.000Z",
+  "native": "English (US)",
+  "noIndexing": false,
+  "other_translations": [
+    { "locale": "en-US", "title": "Clipboard", "native": "English (US)" },
+    { "locale": "de", "title": "Clipboard", "native": "Deutsch" },
+    { "locale": "fr", "title": "Clipboard", "native": "Français" },
+    { "locale": "ja", "title": "Clipboard", "native": "日本語" },
+    { "locale": "zh-CN", "title": "Clipboard", "native": "中文 (简体)" }
+  ],
+  "pageTitle": "Clipboard - Web APIs | MDN",
+  "parents": [
+    { "uri": "/en-US/docs/Web", "title": "Web" },
+    { "uri": "/en-US/docs/Web/API", "title": "Web APIs" },
+    { "uri": "/en-US/docs/Web/API/Clipboard", "title": "Clipboard" }
+  ],
+  "popularity": 0.003337452204028022,
+  "short_title": "Clipboard",
+  "source": {
+    "folder": "en-us/web/api/clipboard",
+    "github_url": "https://github.com/mdn/content/blob/main/files/en-us/web/api/clipboard/index.md",
+    "last_commit_url": "https://github.com/mdn/content/commit/7087ffd50a4d81d1b91fe603c26456e9ce398574",
+    "filename": "index.md"
+  },
+  "summary": "The Clipboard interface of the Clipboard API provides read and write access to the contents of the system clipboard.\nThis allows a web application to implement cut, copy, and paste features.",
+  "title": "Clipboard",
+  "baseline": {
+    "baseline": "high",
+    "baseline_low_date": "2020-03-24",
+    "baseline_high_date": "2022-09-24",
+    "support": {
+      "chrome": "66",
+      "chrome_android": "66",
+      "edge": "79",
+      "firefox": "63",
+      "firefox_android": "63",
+      "safari": "13.1",
+      "safari_ios": "13.4"
+    },
+    "asterisk": true,
+    "feature": {
+      "status": {
+        "baseline": "low",
+        "baseline_low_date": "2024-06-11",
+        "support": {
+          "chrome": "76",
+          "chrome_android": "76",
+          "edge": "79",
+          "firefox": "127",
+          "firefox_android": "127",
+          "safari": "13.1",
+          "safari_ios": "13.4"
+        }
+      },
+      "description_html": "The <code>navigator.clipboard</code> API asynchronously reads and writes to the system clipboard.",
+      "name": "Async clipboard"
+    }
+  },
+  "browserCompat": ["api.Clipboard"],
+  "pageType": "web-api-interface",
+  "hash": "3c15dae7979d10c231d9403b06e248125738985ac339190494cb61d921750a49"
+}
