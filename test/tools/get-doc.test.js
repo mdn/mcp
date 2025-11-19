@@ -143,7 +143,29 @@ describe("get-doc tool", () => {
       });
       /** @type {string} */
       const text = content[0].text;
-      assert.deepEqual(text, `404: Not Found for ${path}`);
+      assert.deepEqual(text, `Error: We couldn't find ${path}`);
+    });
+
+    it("should handle upstream server error", async () => {
+      const path = "/en-US/docs/MDN/Knisnehctik";
+
+      mockPool
+        .intercept({
+          path: path + "/index.json",
+          method: "GET",
+        })
+        .reply(500);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.deepEqual(text, `500: Internal Server Error for ${path}`);
     });
 
     it("should reject non-doc path", async () => {

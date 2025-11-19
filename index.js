@@ -1,5 +1,9 @@
+// sentry init must come first
+import "./sentry/init.js";
+
 import { fileURLToPath } from "node:url";
 
+import * as Sentry from "@sentry/node";
 import express from "express";
 
 import "./tools/search.js";
@@ -11,6 +15,8 @@ const app = express();
 app.use(express.json());
 
 app.post("/mcp", handleRequest);
+
+Sentry.setupExpressErrorHandler(app);
 
 const PORT = Number.parseInt(process.env.PORT || "3002");
 
