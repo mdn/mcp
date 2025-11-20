@@ -11,6 +11,7 @@ import TurndownService from "turndown";
 import turndownPluginGfm from "turndown-plugin-gfm";
 import z from "zod";
 
+import { NonSentryError } from "../sentry/error.js";
 import server from "../server.js";
 
 const turndownService = new TurndownService({
@@ -33,10 +34,10 @@ server.registerTool(
   async ({ path }) => {
     const url = new URL(path, "https://developer.mozilla.org");
     if (url.host !== "developer.mozilla.org") {
-      throw new Error(`Error: ${url} doesn't look like an MDN url`);
+      throw new NonSentryError(`Error: ${url} doesn't look like an MDN url`);
     }
     if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
-      throw new Error(
+      throw new NonSentryError(
         `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
       );
     }
@@ -46,6 +47,9 @@ server.registerTool(
 
     const res = await fetch(url);
     if (!res.ok) {
+      if (res.status === 404) {
+        throw new NonSentryError(`Error: We couldn't find ${path}`);
+      }
       throw new Error(`${res.status}: ${res.statusText} for ${path}`);
     }
 
