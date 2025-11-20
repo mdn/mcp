@@ -1,5 +1,6 @@
 import z from "zod";
 
+import { NonSentryError } from "../sentry/error.js";
 import server from "../server.js";
 
 server.registerTool(
@@ -20,7 +21,7 @@ server.registerTool(
 
     if (!res.ok) {
       if (res.status === 404) {
-        throw new Error(
+        throw new NonSentryError(
           `Error: We couldn't find "${key}" in the Browser Compatibility Data.`,
         );
       }
