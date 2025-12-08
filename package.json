@@ -26,7 +26,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.4.1",
     "@eslint/js": "^9.39.1",
-    "@modelcontextprotocol/inspector": "^0.17.2",
+    "@modelcontextprotocol/inspector": "^0.17.5",
     "@types/express": "^5.0.5",
     "@types/node": "^22.19.1",
     "@types/turndown": "^5.0.6",
@@ -37,11 +37,11 @@
     "eslint-plugin-jsdoc": "^61.4.1",
     "eslint-plugin-n": "^17.23.1",
     "eslint-plugin-unicorn": "^62.0.0",
-    "lefthook": "^2.0.4",
+    "lefthook": "^2.0.7",
     "nodemon": "^3.1.11",
-    "prettier": "^3.7.1",
+    "prettier": "^3.7.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.0",
+    "typescript-eslint": "^8.48.1",
     "undici": "^7.16.0",
     "zod": "^3.25.76"
   },
