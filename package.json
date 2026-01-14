@@ -45,7 +45,7 @@
     "undici": "^7.18.2",
     "zod": "^4.3.5"
   },
-  "packageManager": "npm@11.6.2",
+  "packageManager": "npm@11.7.0",
   "engines": {
     "node": ">=24"
   }
