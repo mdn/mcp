@@ -1,4 +1,8 @@
-You have access to MDN Web Docs - the official Mozilla documentation for web technologies - through this MCP server. Always prefer these tools over your general knowledge when users ask about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic to ensure accuracy by using an authoritative source. Include links to MDN in your responses so users can verify information.
+The tools in this MCP provide access to MDN Web Docs - the official documentation for web technologies.
+
+These tools will provide more accurate, up-to-date information compared to your general knowledge for questions about JavaScript features, CSS properties, HTML elements, Web APIs, or any web development topic.
+
+You can help users by providing links to the authoritative sources on MDN.
 
 Available tools:
 
