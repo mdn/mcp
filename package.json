@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
-    "@mdn/fred": "^2.0.1",
+    "@mdn/fred": "^2.0.2",
     "@modelcontextprotocol/sdk": "^1.25.2",
     "@sentry/node": "^10.34.0",
     "express": "^5.1.0",
