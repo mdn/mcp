@@ -17,8 +17,8 @@
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
     "@mdn/fred": "^2.0.2",
-    "@modelcontextprotocol/sdk": "^1.25.2",
-    "@sentry/node": "^10.34.0",
+    "@modelcontextprotocol/sdk": "^1.25.3",
+    "@sentry/node": "^10.36.0",
     "express": "^5.1.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2"
