@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
+import { LoggingMixin } from "./logging/mixin.js";
 import { SentryMixin } from "./sentry/wrapped-server.js";
 
 const instructions = await readFile(
@@ -10,7 +11,7 @@ const instructions = await readFile(
   "utf8",
 );
 
-const ExtendedServer = SentryMixin(McpServer);
+const ExtendedServer = SentryMixin(LoggingMixin(McpServer));
 const server = new ExtendedServer(
   {
     name: "mdn",
