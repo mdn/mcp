@@ -2,7 +2,7 @@ import z from "zod";
 
 import { NonSentryError } from "../sentry/error.js";
 
-/** @param {import("../server.js").default} server */
+/** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetCompatTool(server) {
   server.registerTool(
     "get-compat",

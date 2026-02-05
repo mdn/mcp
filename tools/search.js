@@ -5,7 +5,7 @@ import z from "zod";
  * @import { Doc } from "@mdn/rari";
  */
 
-/** @param {import("../server.js").default} server */
+/** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerSearchTool(server) {
   server.registerTool(
     "search",

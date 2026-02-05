@@ -19,7 +19,7 @@ const turndownService = new TurndownService({
 });
 turndownService.use(turndownPluginGfm.gfm);
 
-/** @param {import("../server.js").default} server */
+/** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetDocTool(server) {
   server.registerTool(
     "get-doc",

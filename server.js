@@ -12,16 +12,18 @@ const instructions = await readFile(
   "utf8",
 );
 
-const ExtendedServer = SentryMixin(LoggingMixin(McpServer));
-const server = new ExtendedServer(
-  {
-    name: "mdn",
-    version: "0.0.1",
-  },
-  {
-    instructions,
-  },
-);
-registerTools(server);
+export const ExtendedServer = SentryMixin(LoggingMixin(McpServer));
 
-export default server;
+export function createServer() {
+  const server = new ExtendedServer(
+    {
+      name: "mdn",
+      version: "0.0.1",
+    },
+    {
+      instructions,
+    },
+  );
+  registerTools(server);
+  return server;
+}
