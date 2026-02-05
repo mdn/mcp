@@ -12,7 +12,6 @@ import turndownPluginGfm from "turndown-plugin-gfm";
 import z from "zod";
 
 import { NonSentryError } from "../sentry/error.js";
-import server from "../server.js";
 
 const turndownService = new TurndownService({
   headingStyle: "atx",
@@ -20,89 +19,92 @@ const turndownService = new TurndownService({
 });
 turndownService.use(turndownPluginGfm.gfm);
 
-server.registerTool(
-  "get-doc",
-  {
-    title: "Get documentation",
-    description: "Retrieve a page of MDN documentation as markdown.",
-    inputSchema: {
-      path: z
-        .string()
-        .describe("path or full URL: e.g. '/en-US/docs/Web/API/Headers'"),
+/** @param {InstanceType<import("../server.js").ExtendedServer>} server */
+export function registerGetDocTool(server) {
+  server.registerTool(
+    "get-doc",
+    {
+      title: "Get documentation",
+      description: "Retrieve a page of MDN documentation as markdown.",
+      inputSchema: {
+        path: z
+          .string()
+          .describe("path or full URL: e.g. '/en-US/docs/Web/API/Headers'"),
+      },
     },
-  },
-  async ({ path }) => {
-    const url = new URL(path, "https://developer.mozilla.org");
-    if (url.host !== "developer.mozilla.org") {
-      throw new NonSentryError(`Error: ${url} doesn't look like an MDN url`);
-    }
-    if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
-      throw new NonSentryError(
-        `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
-      );
-    }
-    if (!url.pathname.endsWith("/index.json")) {
-      url.pathname += "/index.json";
-    }
-
-    const res = await fetch(url);
-    if (!res.ok) {
-      if (res.status === 404) {
-        throw new NonSentryError(`Error: We couldn't find ${path}`);
+    async ({ path }) => {
+      const url = new URL(path, "https://developer.mozilla.org");
+      if (url.host !== "developer.mozilla.org") {
+        throw new NonSentryError(`Error: ${url} doesn't look like an MDN url`);
       }
-      throw new Error(`${res.status}: ${res.statusText} for ${path}`);
-    }
+      if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
+        throw new NonSentryError(
+          `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
+        );
+      }
+      if (!url.pathname.endsWith("/index.json")) {
+        url.pathname += "/index.json";
+      }
 
-    /** @type {import("@mdn/rari").DocPage} */
-    const json = await res.json();
-    const context = {
-      ...json,
-      // @ts-expect-error
-      l10n: (x) => x,
-    };
-    // TODO: expose better API for this from fred
-    const renderedHtml = await collectResult(
-      render(
-        await asyncLocalStorage.run(
-          {
-            componentsUsed: new Set(),
-            componentsWithStylesInHead: new Set(),
-          },
-          () =>
-            runWithContext(
-              {},
-              () => html`
-                <h1>${context.doc.title}</h1>
-                ${context.doc.body?.map((section) =>
-                  new ContentSection().render(context, section),
-                )}
-              `,
-            ),
+      const res = await fetch(url);
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new NonSentryError(`Error: We couldn't find ${path}`);
+        }
+        throw new Error(`${res.status}: ${res.statusText} for ${path}`);
+      }
+
+      /** @type {import("@mdn/rari").DocPage} */
+      const json = await res.json();
+      const context = {
+        ...json,
+        // @ts-expect-error
+        l10n: (x) => x,
+      };
+      // TODO: expose better API for this from fred
+      const renderedHtml = await collectResult(
+        render(
+          await asyncLocalStorage.run(
+            {
+              componentsUsed: new Set(),
+              componentsWithStylesInHead: new Set(),
+            },
+            () =>
+              runWithContext(
+                {},
+                () => html`
+                  <h1>${context.doc.title}</h1>
+                  ${context.doc.body?.map((section) =>
+                    new ContentSection().render(context, section),
+                  )}
+                `,
+              ),
+          ),
         ),
-      ),
-    );
-    const markdown = turndownService.turndown(renderedHtml);
+      );
+      const markdown = turndownService.turndown(renderedHtml);
 
-    let frontmatter = "";
-    const { browserCompat } = context.doc;
-    if (browserCompat) {
-      frontmatter += "---\n";
-      if (browserCompat.length > 1) {
-        frontmatter += "compat-keys:\n";
-        frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
-      } else {
-        frontmatter += `compat-key: ${browserCompat[0]}\n`;
+      let frontmatter = "";
+      const { browserCompat } = context.doc;
+      if (browserCompat) {
+        frontmatter += "---\n";
+        if (browserCompat.length > 1) {
+          frontmatter += "compat-keys:\n";
+          frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
+        } else {
+          frontmatter += `compat-key: ${browserCompat[0]}\n`;
+        }
+        frontmatter += "---\n";
       }
-      frontmatter += "---\n";
-    }
 
-    return {
-      content: [
-        {
-          type: "text",
-          text: frontmatter + markdown,
-        },
-      ],
-    };
-  },
-);
+      return {
+        content: [
+          {
+            type: "text",
+            text: frontmatter + markdown,
+          },
+        ],
+      };
+    },
+  );
+}

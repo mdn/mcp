@@ -1,6 +1,6 @@
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
-import server from "./server.js";
+import { createServer } from "./server.js";
 
 /**
  * @param {import("express").Request} req
@@ -18,6 +18,7 @@ export default async function handleRequest(req, res) {
     transport.close();
   });
 
+  const server = createServer();
   await server.connect(transport);
   await transport.handleRequest(req, res, req.body);
 }
