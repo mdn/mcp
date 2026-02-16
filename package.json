@@ -31,7 +31,7 @@
     "@types/node": "^24.10.11",
     "@types/turndown": "^5.0.6",
     "concurrently": "^9.2.1",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^62.5.2",
