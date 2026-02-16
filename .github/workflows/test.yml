@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
 
-# No GITHUB_TOKEN permissions, as we only use it to increase API limit.
+    # No GITHUB_TOKEN permissions, as we only use it to increase API limit.
 permissions: {}
 
 jobs:
@@ -24,6 +24,7 @@ jobs:
         with:
           cache: npm
           node-version-file: ".nvmrc"
+          check-latest: true
 
       - name: Install
         run: npm ci
@@ -54,6 +55,7 @@ jobs:
         with:
           cache: npm
           node-version-file: ".nvmrc"
+          check-latest: true
 
       - name: Install
         run: npm ci
