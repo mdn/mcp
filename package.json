@@ -36,7 +36,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^62.5.2",
     "eslint-plugin-n": "^17.23.2",
-    "eslint-plugin-unicorn": "^62.0.0",
+    "eslint-plugin-unicorn": "^63.0.0",
     "lefthook": "^2.1.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.8.1",
