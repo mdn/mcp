@@ -12,6 +12,10 @@ export function registerGetCompatTool(server) {
       inputSchema: {
         key: z
           .string()
+          .regex(
+            /^[a-zA-Z0-9._-]+$/,
+            "BCD key must only contain alphanumeric characters, dots, hyphens, and underscores",
+          )
           .describe("BCD feature path from MDN (e.g., 'api.fetch')"),
       },
     },

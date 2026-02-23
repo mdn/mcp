@@ -95,6 +95,20 @@ describe("get-compat tool", () => {
     assert.ok(text.includes(key), "response includes key");
   });
 
+  it("should handle key with invalid format", async () => {
+    const key = "/api/fetch";
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-compat",
+      arguments: { key },
+    });
+
+    assert.deepEqual(isError, true);
+    /** @type {string} */
+    const text = content[0].text;
+    assert.match(text, /^MCP error/, "response starts with 'MCP error'");
+  });
+
   it("should handle bcd api server error", async () => {
     const key = "javascript.builtins.Array.Array";
 
