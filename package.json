@@ -12,7 +12,7 @@
     "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc",
     "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
-    "test:watch": "node --test --watch test/**/*.test.js"
+    "test:watch": "node --test --watch 'test/**/*.test.js'"
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
