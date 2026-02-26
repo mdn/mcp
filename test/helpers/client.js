@@ -8,14 +8,17 @@ export function createServer() {
   return listen(0);
 }
 
-/** @param {number} port */
-export async function createClient(port) {
+/**
+ * @param {number} port
+ * @param {string} [path]
+ */
+export async function createClient(port, path = "") {
   const client = new Client({
     name: "test-client",
     version: "0.0.1",
   });
   const transport = new StreamableHTTPClientTransport(
-    new URL(`http://localhost:${port}/mcp`),
+    new URL(`http://localhost:${port}/${path}`),
   );
   await client.connect(transport);
   return client;

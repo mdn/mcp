@@ -15,7 +15,7 @@ As this MCP is experimental it may be withdrawn at any time, in particular, the 
 Add the remote server to your tool of choice, e.g. in Claude Code:
 
 ```
-claude mcp add --transport http mdn https://mdn-mcp-0445ad8e765a.herokuapp.com/mcp
+claude mcp add --transport http mdn https://mdn-mcp-0445ad8e765a.herokuapp.com/
 ```
 
 ## Using locally
@@ -26,7 +26,7 @@ claude mcp add --transport http mdn https://mdn-mcp-0445ad8e765a.herokuapp.com/m
 Add the server to your tool of choice, e.g. in Claude Code:
 
 ```
-claude mcp add --transport http mdn-local http://localhost:3002/mcp
+claude mcp add --transport http mdn-local http://localhost:3002/
 ```
 
 ## Local development

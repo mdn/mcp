@@ -24,6 +24,12 @@ describe("server", () => {
     assert.deepEqual(ping, {});
   });
 
+  it("should still be accessible at /mcp", async () => {
+    const clientLegacyPath = await createClient(server.port, "mcp");
+    const ping = await clientLegacyPath.ping();
+    assert.deepEqual(ping, {});
+  });
+
   after(() => {
     server.listener.close();
   });
