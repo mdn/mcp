@@ -1,5 +1,7 @@
 import z from "zod";
 
+import { fetched } from "../glean/generated/getCompat.js";
+import { submitEvent } from "../glean/glean.js";
 import { NonSentryError } from "../sentry/error.js";
 
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
@@ -19,7 +21,7 @@ export function registerGetCompatTool(server) {
           .describe("BCD feature path from MDN (e.g., 'api.fetch')"),
       },
     },
-    async ({ key }) => {
+    async ({ key }, request) => {
       const url = new URL(
         `${key}.json`,
         "https://bcd.developer.mozilla.org/bcd/api/v0/current/",
@@ -30,12 +32,16 @@ export function registerGetCompatTool(server) {
         if (res.status === 404) {
           throw new NonSentryError(
             `Error: We couldn't find "${key}" in the Browser Compatibility Data.`,
+            "404",
           );
         }
         throw new Error(`Error: ${res.status}: ${res.statusText}`);
       }
 
       const json = await res.json();
+
+      submitEvent(fetched, request, { key });
+
       return {
         content: [
           {
