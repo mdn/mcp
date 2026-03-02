@@ -16,6 +16,9 @@ concurrently(
       command: `npm run test:watch`,
       name: "tests",
       prefixColor: "red",
+      env: {
+        GLEAN_ENABLED: "false",
+      },
     },
   ],
   {

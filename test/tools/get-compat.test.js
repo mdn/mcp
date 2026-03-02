@@ -1,9 +1,11 @@
 /* eslint-disable jsdoc/reject-any-type */
 import assert from "node:assert/strict";
-import { after, before, describe, it } from "node:test";
+import { after, before, describe, it, mock } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import { silentError } from "../../glean/generated/error.js";
+import { fetched } from "../../glean/generated/getCompat.js";
 import arrayCompat from "../fixtures/bcd-array.json" with { type: "json" };
 import { createClient, createServer } from "../helpers/client.js";
 
@@ -131,6 +133,55 @@ describe("get-compat tool", () => {
     /** @type {string} */
     const text = content[0].text;
     assert.ok(text.startsWith("Error:"), "response starts with 'Error:'");
+  });
+
+  describe("glean", () => {
+    it("should send fetched event", async () => {
+      const key = "javascript.builtins.Array.Array";
+      const record = mock.method(fetched, "record");
+
+      mockPool
+        .intercept({
+          path: `/bcd/api/v0/current/${key}.json`,
+          method: "GET",
+        })
+        .reply(200, arrayCompat);
+
+      await client.callTool({
+        name: "get-compat",
+        arguments: { key },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        key,
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for missing key", async () => {
+      const key = "javascript.builtins.Array.foobar";
+      const record = mock.method(silentError, "record");
+
+      mockPool
+        .intercept({
+          path: `/bcd/api/v0/current/${key}.json`,
+          method: "GET",
+        })
+        .reply(404);
+
+      await client.callTool({
+        name: "get-compat",
+        arguments: { key },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-compat",
+        reason: "404",
+        user_agent: "node",
+      });
+    });
   });
 
   after(() => {

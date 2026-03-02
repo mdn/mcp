@@ -11,6 +11,8 @@ import TurndownService from "turndown";
 import turndownPluginGfm from "turndown-plugin-gfm";
 import z from "zod";
 
+import { fetched } from "../glean/generated/getDoc.js";
+import { submitEvent } from "../glean/glean.js";
 import { NonSentryError } from "../sentry/error.js";
 
 const turndownService = new TurndownService({
@@ -32,14 +34,18 @@ export function registerGetDocTool(server) {
           .describe("path or full URL: e.g. '/en-US/docs/Web/API/Headers'"),
       },
     },
-    async ({ path }) => {
+    async ({ path }, request) => {
       const url = new URL(path, "https://developer.mozilla.org");
       if (url.host !== "developer.mozilla.org") {
-        throw new NonSentryError(`Error: ${url} doesn't look like an MDN url`);
+        throw new NonSentryError(
+          `Error: ${url} doesn't look like an MDN url`,
+          "non_mdn_host",
+        );
       }
       if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
         throw new NonSentryError(
           `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
+          "non_doc_path",
         );
       }
       if (!url.pathname.endsWith("/index.json")) {
@@ -49,7 +55,7 @@ export function registerGetDocTool(server) {
       const res = await fetch(url);
       if (!res.ok) {
         if (res.status === 404) {
-          throw new NonSentryError(`Error: We couldn't find ${path}`);
+          throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
         }
         throw new Error(`${res.status}: ${res.statusText} for ${path}`);
       }
@@ -96,6 +102,8 @@ export function registerGetDocTool(server) {
         }
         frontmatter += "---\n";
       }
+
+      submitEvent(fetched, request, { path: json.url });
 
       return {
         content: [

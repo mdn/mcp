@@ -1,9 +1,11 @@
 /* eslint-disable jsdoc/reject-any-type */
 import assert from "node:assert/strict";
-import { after, before, beforeEach, describe, it } from "node:test";
+import { after, before, beforeEach, describe, it, mock } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import { silentError } from "../../glean/generated/error.js";
+import { fetched } from "../../glean/generated/getDoc.js";
 import clipboardDoc from "../fixtures/clipboard-api.json" with { type: "json" };
 import glossaryDoc from "../fixtures/glossary.json" with { type: "json" };
 import headersDoc from "../fixtures/headers.json" with { type: "json" };
@@ -276,6 +278,94 @@ describe("get-doc tool", () => {
         "  - api.ClipboardEvent",
         "  - api.ClipboardItem",
       ]);
+    });
+  });
+
+  describe("glean", () => {
+    it("should send fetched event", async () => {
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Web/API/Headers/index.json",
+          method: "GET",
+        })
+        .reply(200, headersDoc);
+      const record = mock.method(fetched, "record");
+
+      await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/docs/Web/API/Headers",
+        },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        path: "/en-US/docs/Web/API/Headers",
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for wrong base url", async () => {
+      const record = mock.method(silentError, "record");
+
+      const path = "https://example.com/en-US/docs/MDN/Kitchensink";
+      await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-doc",
+        reason: "non_mdn_host",
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for non-doc path", async () => {
+      const record = mock.method(silentError, "record");
+
+      await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path: "/en-US/observatory",
+        },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-doc",
+        reason: "non_doc_path",
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for missing doc", async () => {
+      const record = mock.method(silentError, "record");
+      const path = "/en-US/docs/MDN/Knisnehctik";
+
+      mockPool
+        .intercept({
+          path: path + "/index.json",
+          method: "GET",
+        })
+        .reply(404);
+
+      await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-doc",
+        reason: "404",
+        user_agent: "node",
+      });
     });
   });
 

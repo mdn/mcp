@@ -1,5 +1,8 @@
 import * as Sentry from "@sentry/node";
 
+import { silentError } from "../glean/generated/error.js";
+import { submitEvent } from "../glean/glean.js";
+
 import { NonSentryError } from "./error.js";
 
 /**
@@ -23,7 +26,13 @@ export const SentryMixin = (McpServer) =>
             // @ts-expect-error: ts can't seem to handle passing through args like this
             return await callback(...callbackArgs);
           } catch (error) {
-            if (!(error instanceof NonSentryError)) {
+            if (error instanceof NonSentryError) {
+              const request = callbackArgs[1];
+              submitEvent(silentError, request, {
+                tool: name,
+                reason: error.gleanReason,
+              });
+            } else {
               Sentry.captureException(error);
             }
             throw error;
