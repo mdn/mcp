@@ -1,0 +1,99 @@
+# Schema
+$schema: moz://mozilla.org/schemas/glean/metrics/2-0-0
+
+get_doc:
+  fetched:
+    type: event
+    description: Recorded when an MDN documentation page is successfully fetched.
+    data_sensitivity:
+      - interaction
+    notification_emails:
+      - leo@mozilla.com
+      - mdn-team@mozilla.com
+    bugs:
+      - https://github.com/mdn/mcp/issues/98
+    data_reviews:
+      - https://bugzilla.mozilla.org/show_bug.cgi?id=2020347
+    expires: never
+    extra_keys:
+      path:
+        description: Normalised path of the page fetched from MDN.
+        type: string
+      user_agent:
+        description: The HTTP User-Agent of the AI harness making the request.
+        type: string
+
+search:
+  completed:
+    type: event
+    description: Recorded when a search of MDN documentation is completed.
+    data_sensitivity:
+      - interaction
+    notification_emails:
+      - leo@mozilla.com
+      - mdn-team@mozilla.com
+    bugs:
+      - https://github.com/mdn/mcp/issues/98
+    data_reviews:
+      - https://bugzilla.mozilla.org/show_bug.cgi?id=2020347
+    expires: never
+    extra_keys:
+      result_count:
+        description: The number of results returned.
+        type: quantity
+      top_score:
+        description: The search relevancy score of the top result.
+        type: quantity
+      top_path:
+        description: The path to the top result.
+        type: string
+      user_agent:
+        description: The HTTP User-Agent of the AI harness making the request.
+        type: string
+
+get_compat:
+  fetched:
+    type: event
+    description: Recorded when a BCD key is successfully fetched.
+    data_sensitivity:
+      - interaction
+    notification_emails:
+      - leo@mozilla.com
+      - mdn-team@mozilla.com
+    bugs:
+      - https://github.com/mdn/mcp/issues/98
+    data_reviews:
+      - https://bugzilla.mozilla.org/show_bug.cgi?id=2020347
+    expires: never
+    extra_keys:
+      key:
+        description: The BCD key that was fetched.
+        type: string
+      user_agent:
+        description: The HTTP User-Agent of the AI harness making the request.
+        type: string
+
+error:
+  silent_error:
+    type: event
+    description: Recorded when a non-critical error occurs.
+    data_sensitivity:
+      - technical
+    notification_emails:
+      - leo@mozilla.com
+      - mdn-team@mozilla.com
+    bugs:
+      - https://github.com/mdn/mcp/issues/98
+    data_reviews:
+      - https://bugzilla.mozilla.org/show_bug.cgi?id=2020347
+    expires: never
+    extra_keys:
+      tool:
+        description: The MCP tool where the error occurred.
+        type: string
+      reason:
+        description: A hard-coded reason the error occurred.
+        type: string
+      user_agent:
+        description: The HTTP User-Agent of the AI harness making the request.
+        type: string
