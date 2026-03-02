@@ -1,5 +1,8 @@
 import z from "zod";
 
+import { completed } from "../glean/generated/search.js";
+import { submitEvent } from "../glean/glean.js";
+
 /**
  * @import { SearchResponse, SearchDocument } from "@mdn/fred/components/site-search/types.js";
  * @import { Doc } from "@mdn/rari";
@@ -16,7 +19,7 @@ export function registerSearchTool(server) {
         query: z.string().describe("search terms: e.g. 'array methods'"),
       },
     },
-    async ({ query }) => {
+    async ({ query }, request) => {
       const url = new URL(`https://developer.mozilla.org/api/v1/search`);
       url.searchParams.set("q", query);
 
@@ -62,6 +65,16 @@ export function registerSearchTool(server) {
 ${getBrowserCompat(document)}${document.summary}`,
               )
               .join("\n\n");
+
+      submitEvent(completed, request, {
+        result_count: searchResponse.metadata.total.value,
+        ...(searchResponse.documents[0]
+          ? {
+              top_score: Math.round(searchResponse.documents[0].score),
+              top_path: searchResponse.documents[0].mdn_url,
+            }
+          : undefined),
+      });
 
       return {
         content: [
