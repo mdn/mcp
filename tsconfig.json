@@ -10,6 +10,18 @@
     "moduleResolution": "nodenext",
     // fix for badly-formed types in dependencies:
     "skipLibCheck": true,
+    // fix badly defined imports:
+    "paths": {
+      "@mozilla/glean/node": [
+        "./node_modules/@mozilla/glean/dist/types/entry/node.d.ts"
+      ],
+      "@mozilla/glean/private/metrics/event": [
+        "./node_modules/@mozilla/glean/dist/types/core/metrics/types/event.d.ts"
+      ],
+      "@mozilla/glean/private/metrics/events_database/recorded_event": [
+        "./node_modules/@mozilla/glean/dist/types/core/metrics/events_database/recorded_event.d.ts"
+      ]
+    },
     // rules:
     "strict": true,
     "noUncheckedIndexedAccess": true,
