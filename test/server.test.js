@@ -24,6 +24,18 @@ describe("server", () => {
     assert.deepEqual(ping, {});
   });
 
+  it("should still be accessible at /mcp", async () => {
+    const clientLegacyPath = await createClient(server.port, "mcp");
+    const ping = await clientLegacyPath.ping();
+    assert.deepEqual(ping, {});
+  });
+
+  it("should redirect get requests to the repo", async () => {
+    const res = await fetch(`http://localhost:${server.port}`);
+    assert.ok(res.redirected);
+    assert.strictEqual(res.url, "https://github.com/mdn/mcp");
+  });
+
   after(() => {
     server.listener.close();
   });

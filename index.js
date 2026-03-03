@@ -11,7 +11,11 @@ import handleRequest from "./transport.js";
 const app = express();
 app.use(express.json());
 
-app.post("/mcp", handleRequest);
+app.post(["/", "/mcp"], handleRequest);
+
+app.get("/", (_req, res) => {
+  res.redirect(302, "https://github.com/mdn/mcp");
+});
 
 Sentry.setupExpressErrorHandler(app);
 
@@ -32,7 +36,7 @@ export default async function listen(requestedPort) {
   /* node:coverage enable */
 
   const { port } = address;
-  console.log(`MDN MCP server running on http://localhost:${port}/mcp`);
+  console.log(`MDN MCP server running on http://localhost:${port}/`);
   return {
     listener,
     port,
