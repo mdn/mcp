@@ -13,6 +13,10 @@ app.use(express.json());
 
 app.post(["/", "/mcp"], handleRequest);
 
+app.get("/", (_req, res) => {
+  res.redirect(302, "https://github.com/mdn/mcp");
+});
+
 Sentry.setupExpressErrorHandler(app);
 
 const PORT = Number.parseInt(process.env.PORT || "3002");

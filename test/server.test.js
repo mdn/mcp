@@ -30,6 +30,12 @@ describe("server", () => {
     assert.deepEqual(ping, {});
   });
 
+  it("should redirect get requests to the repo", async () => {
+    const res = await fetch(`http://localhost:${server.port}`);
+    assert.ok(res.redirected);
+    assert.strictEqual(res.url, "https://github.com/mdn/mcp");
+  });
+
   after(() => {
     server.listener.close();
   });
