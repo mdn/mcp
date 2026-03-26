@@ -10,5 +10,7 @@ jobs:
   auto-merge:
     if: github.repository_owner == 'mdn'
     uses: mdn/workflows/.github/workflows/auto-merge.yml@main
+    with:
+      auto-merge: true
     secrets:
       GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}
