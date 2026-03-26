@@ -1,4 +1,4 @@
-// @ts-expect-error: fred needs to expose types
+// @ts-expect-error: fred needs to expose types: https://github.com/mdn/fred/issues/1404
 import { renderSimplified } from "@mdn/fred/out/static/ssr/index.js";
 import TurndownService from "turndown";
 // @ts-expect-error
