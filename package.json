@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
-    "@mdn/fred": "^2.2.1",
+    "@mdn/fred": "^2.4.0",
     "@modelcontextprotocol/sdk": "^1.27.1",
-    "@sentry/node": "^10.43.0",
+    "@sentry/node": "^10.45.0",
     "express": "^5.1.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2"
@@ -41,8 +41,8 @@
     "nodemon": "^3.1.14",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0",
-    "undici": "^7.24.0",
+    "typescript-eslint": "^8.57.1",
+    "undici": "^7.24.5",
     "zod": "^4.3.6"
   },
   "packageManager": "npm@11.6.2",
