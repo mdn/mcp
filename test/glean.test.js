@@ -13,7 +13,7 @@ describe("glean", () => {
 
   before(async () => {
     server = await createServer();
-    optOutClient = await createClient(server.port, {
+    optOutClient = await createClient(server.port, undefined, {
       requestInit: {
         headers: { "X-Moz-1st-Party-Data-Opt-Out": "1" },
       },

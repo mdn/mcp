@@ -1,11 +1,5 @@
-import { html, render } from "@lit-labs/ssr";
-import { collectResult } from "@lit-labs/ssr/lib/render-result.js";
-// @ts-expect-error: fred needs to expose types
-import { ContentSection } from "@mdn/fred/components/content-section/server.js";
-// @ts-expect-error
-import { asyncLocalStorage } from "@mdn/fred/components/server/async-local-storage.js";
-// @ts-expect-error
-import { runWithContext } from "@mdn/fred/symmetric-context/server.js";
+// @ts-expect-error: fred needs to expose types: https://github.com/mdn/fred/issues/1404
+import { renderSimplified } from "@mdn/fred/out/static/ssr/index.js";
 import TurndownService from "turndown";
 // @ts-expect-error
 import turndownPluginGfm from "turndown-plugin-gfm";
@@ -61,33 +55,8 @@ export function registerGetDocTool(server) {
       }
 
       /** @type {import("@mdn/rari").DocPage} */
-      const json = await res.json();
-      const context = {
-        ...json,
-        // @ts-expect-error
-        l10n: (x) => x,
-      };
-      // TODO: expose better API for this from fred
-      const renderedHtml = await collectResult(
-        render(
-          await asyncLocalStorage.run(
-            {
-              componentsUsed: new Set(),
-              componentsWithStylesInHead: new Set(),
-            },
-            () =>
-              runWithContext(
-                {},
-                () => html`
-                  <h1>${context.doc.title}</h1>
-                  ${context.doc.body?.map((section) =>
-                    new ContentSection().render(context, section),
-                  )}
-                `,
-              ),
-          ),
-        ),
-      );
+      const context = await res.json();
+      const renderedHtml = await renderSimplified(context.url, context);
       const markdown = turndownService.turndown(renderedHtml);
 
       let frontmatter = "";
@@ -103,7 +72,7 @@ export function registerGetDocTool(server) {
         frontmatter += "---\n";
       }
 
-      submitEvent(fetched, request, { path: json.url });
+      submitEvent(fetched, request, { path: context.url });
 
       return {
         content: [
