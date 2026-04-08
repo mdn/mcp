@@ -7,11 +7,19 @@ import z from "zod";
 
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerSearchTool(server) {
+  const title = "Search";
   server.registerTool(
     "search",
     {
-      title: "Search",
+      title,
       description: "Search MDN for documentation about web technologies.",
+      annotations: {
+        title,
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         query: z.string().describe("search terms: e.g. 'array methods'"),
       },
