@@ -48,6 +48,33 @@ describe("all tools", () => {
     );
   });
 
+  it("should have annotations", async () => {
+    // https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy
+    // E. MCP servers must provide all applicable annotations for their tools,
+    // in particular readOnlyHint, destructiveHint, and title.
+    const { tools } = await client.listTools();
+    for (const tool of tools) {
+      const { annotations } = tool;
+      assert.equal(
+        annotations?.title,
+        tool.title,
+        `${tool.name} annotations.title doesn't match title`,
+      );
+      for (const hint of /** @type {const} */ ([
+        "readOnlyHint",
+        "destructiveHint",
+        "idempotentHint",
+        "openWorldHint",
+      ])) {
+        assert.equal(
+          typeof annotations?.[hint],
+          "boolean",
+          `${tool.name} annotations.${hint} is not defined`,
+        );
+      }
+    }
+  });
+
   it("should have arguments with descriptions", async () => {
     const { tools } = await client.listTools();
     for (const tool of tools) {
