@@ -6,11 +6,19 @@ import { NonSentryError } from "../sentry/error.js";
 
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetCompatTool(server) {
+  const title = "Get browser compatibility data";
   server.registerTool(
     "get-compat",
     {
-      title: "Get browser compatibility data",
+      title,
       description: "Retrieve MDN's Browser Compatibility Data.",
+      annotations: {
+        title,
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         key: z
           .string()

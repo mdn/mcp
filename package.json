@@ -44,7 +44,7 @@
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.58.0",
-    "undici": "^7.24.6",
+    "undici": "^8.0.2",
     "zod": "^4.3.6"
   },
   "packageManager": "npm@11.6.2",

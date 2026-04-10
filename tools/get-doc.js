@@ -17,11 +17,19 @@ turndownService.use(turndownPluginGfm.gfm);
 
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetDocTool(server) {
+  const title = "Get documentation";
   server.registerTool(
     "get-doc",
     {
-      title: "Get documentation",
+      title,
       description: "Retrieve a page of MDN documentation as markdown.",
+      annotations: {
+        title,
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         path: z
           .string()
