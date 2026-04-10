@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/reject-any-type */
 import assert from "node:assert/strict";
-import { after, before, describe, it } from "node:test";
+import { after, before, describe, it, mock } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import { completed } from "../../glean/generated/search.js";
 import clipboardApiMetadata from "../fixtures/clipboard-api-metadata.json" with { type: "json" };
 import clipboardMetadata from "../fixtures/clipboard-metadata.json" with { type: "json" };
 import searchResultEmpty from "../fixtures/search-result-empty.json" with { type: "json" };
@@ -171,6 +172,60 @@ describe("search tool", () => {
       ),
       "includes compat keys",
     );
+  });
+
+  describe("glean", () => {
+    it("should send completed event with result count", async () => {
+      const record = mock.method(completed, "record");
+
+      mockPool
+        .intercept({
+          path: "/api/v1/search?q=clipboard+api",
+          method: "GET",
+        })
+        .reply(200, searchResult);
+      mockPool
+        .intercept({
+          path: "/en-US/docs/Web/API/Clipboard/metadata.json",
+          method: "GET",
+        })
+        .reply(500);
+
+      await client.callTool({
+        name: "search",
+        arguments: { query: "clipboard api" },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        result_count: 4197,
+        top_score: 252,
+        top_path: "/en-US/docs/Web/API/Clipboard_API",
+        user_agent: "node",
+      });
+    });
+
+    it("should send completed event with zero result count", async () => {
+      const record = mock.method(completed, "record");
+
+      mockPool
+        .intercept({
+          path: "/api/v1/search?q=testempty",
+          method: "GET",
+        })
+        .reply(200, searchResultEmpty);
+
+      await client.callTool({
+        name: "search",
+        arguments: { query: "testempty" },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        result_count: 0,
+        user_agent: "node",
+      });
+    });
   });
 
   after(() => {

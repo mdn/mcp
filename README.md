@@ -10,6 +10,8 @@ This MCP is being run as an experiment. While it is an experiment, we will be st
 
 As this MCP is experimental it may be withdrawn at any time, in particular, the URL will change before it becomes production ready.
 
+To opt out of first-party analytics, send the `X-Moz-1st-Party-Data-Opt-Out: 1` header along with requests to the MCP.
+
 ## Using the remote server
 
 Add the remote server to your tool of choice, e.g. in Claude Code:

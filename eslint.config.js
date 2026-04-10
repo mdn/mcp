@@ -17,6 +17,7 @@ const gitignorePath = path.resolve(__dirname, ".gitignore");
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath),
+  { ignores: ["glean/generated/"] },
   jsdoc.configs["flat/recommended"],
   n.configs["flat/recommended"],
   unicorn.configs["recommended"],

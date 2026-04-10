@@ -12,12 +12,14 @@
     "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc",
     "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
-    "test:watch": "node --test --watch 'test/**/*.test.js'"
+    "test:watch": "node --test --watch 'test/**/*.test.js'",
+    "glean:generate": "glean translate glean/metrics.yml -f javascript -o glean/generated/ && glean translate glean/metrics.yml -f typescript -o glean/generated/ && sed -i 's/ DO NOT COMMIT\\.//g' glean/generated/*"
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
     "@mdn/fred": "^2.4.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "@mozilla/glean": "^2.0.5",
     "@sentry/node": "^10.47.0",
     "express": "^5.1.0",
     "turndown": "^7.2.2",
