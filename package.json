@@ -19,7 +19,7 @@
     "@lit-labs/ssr": "^4.0.0",
     "@mdn/fred": "^2.4.1",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "@mozilla/glean": "^2.0.5",
+    "@mozilla/glean": "^5.0.8",
     "@sentry/node": "^10.48.0",
     "express": "^5.1.0",
     "turndown": "^7.2.4",
