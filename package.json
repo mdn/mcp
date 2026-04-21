@@ -13,7 +13,7 @@
     "tsc": "tsc",
     "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
     "test:watch": "node --test --watch 'test/**/*.test.js'",
-    "glean:generate": "glean translate glean/metrics.yml -f javascript -o glean/generated/ && glean translate glean/metrics.yml -f typescript -o glean/generated/ && sed -i 's/ DO NOT COMMIT\\.//g' glean/generated/*"
+    "glean:generate": "glean translate glean/metrics.yaml -f javascript -o glean/generated/ && glean translate glean/metrics.yaml -f typescript -o glean/generated/ && sed -i 's/ DO NOT COMMIT\\.//g' glean/generated/*"
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
