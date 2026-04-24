@@ -1,0 +1,15 @@
+{
+  "name": "mdn",
+  "description": "Provides up-to-date search and retrieval of MDN's web platform documentation and Browser Compatibility Data.",
+  "author": {
+    "name": "MDN Web Docs",
+    "url": "https://github.com/mdn"
+  },
+  "repository": "https://github.com/mdn/mcp",
+  "mcpServers": {
+    "mdn": {
+      "type": "http",
+      "url": "https://mcp.mdn.mozilla.net/"
+    }
+  }
+}
