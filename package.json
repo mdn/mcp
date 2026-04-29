@@ -17,10 +17,10 @@
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.0.0",
-    "@mdn/fred": "^2.4.3",
+    "@mdn/fred": "^2.5.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@mozilla/glean": "^2.0.5",
-    "@sentry/node": "^10.49.0",
+    "@sentry/node": "^10.50.0",
     "express": "^5.1.0",
     "turndown": "^7.2.4",
     "turndown-plugin-gfm": "^1.0.2"
