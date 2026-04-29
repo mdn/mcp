@@ -1,11 +1,13 @@
 {
+  "$schema": "https://www.schemastore.org/claude-code-plugin-manifest.json",
   "name": "mdn",
-  "description": "Provides up-to-date search and retrieval of MDN's web platform documentation and Browser Compatibility Data.",
+  "description": "Search and access up-to-date MDN Web Docs including browser compatibility data.",
   "author": {
     "name": "MDN Web Docs",
     "url": "https://github.com/mdn"
   },
   "repository": "https://github.com/mdn/mcp",
+  "license": "MPL-2.0",
   "mcpServers": {
     "mdn": {
       "type": "http",
