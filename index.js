@@ -14,7 +14,7 @@ app.use(express.json());
 app.post(["/", "/mcp"], handleRequest);
 
 app.get("/", (_req, res) => {
-  res.redirect(302, "https://github.com/mdn/mcp");
+  res.redirect(302, "https://developer.mozilla.org/en-US/mcp");
 });
 
 Sentry.setupExpressErrorHandler(app);
