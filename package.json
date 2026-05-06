@@ -43,9 +43,9 @@
     "nodemon": "^3.1.14",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.58.2",
+    "typescript-eslint": "^8.59.1",
     "undici": "^8.0.2",
-    "zod": "^4.3.6"
+    "zod": "^4.4.2"
   },
   "packageManager": "npm@11.6.2",
   "engines": {
