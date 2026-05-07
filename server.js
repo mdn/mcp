@@ -19,6 +19,18 @@ export function createServer() {
     {
       name: "mdn",
       version: "0.0.1",
+      icons: [
+        {
+          src: "https://developer.mozilla.org/favicon.svg",
+          mimeType: "image/svg+xml",
+          sizes: ["any"],
+        },
+        {
+          src: "https://developer.mozilla.org/apple-touch-icon.png",
+          mimeType: "image/png",
+          sizes: ["192x192"],
+        },
+      ],
     },
     {
       instructions,
