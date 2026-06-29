@@ -21,7 +21,7 @@ pre-push:
           - name: eslint
             run: npx eslint --cache
           - name: tsc
-            run: npx tsc
+            run: npx --package=typescript tsc
 
 post-merge:
   only:
