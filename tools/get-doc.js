@@ -58,8 +58,29 @@ export function registerGetDocTool(server) {
           url.pathname += "/index.json";
         }
 
-        const res = await fetch(url);
+        const res = await fetch(url, { redirect: "manual" });
         if (!res.ok) {
+          if (res.status >= 300 && res.status <= 399) {
+            const location = res.headers.get("location");
+            if (typeof location === "string") {
+              const next = new URL(location, url);
+              if (next.host === "developer.mozilla.org") {
+                path = next.pathname;
+                continue;
+              } else {
+                next.pathname = next.pathname.replace(/\/index\.json$/, "");
+                return {
+                  content: [
+                    {
+                      type: "text",
+                      text: `The MDN path \`${originalPath}\` redirects to \`${next}\`, consider fetching the contents of that page.`,
+                    },
+                  ],
+                };
+              }
+            }
+            throw new Error(`Error: Malformed redirect from ${path}`);
+          }
           if (res.status === 404) {
             throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
           }
@@ -67,19 +88,7 @@ export function registerGetDocTool(server) {
         }
 
         /** @type {import("@mdn/rari").DocPage} */
-        let context;
-        try {
-          context = await res.json();
-        } catch (error) {
-          if (error instanceof SyntaxError && res.redirected) {
-            // we've been redirected to something which isn't json
-            const resUrl = new URL(res.url);
-            // try again with this new URL
-            path = resUrl.pathname;
-            continue;
-          }
-          throw error;
-        }
+        const context = await res.json();
         const renderedHtml = await renderSimplified(context.url, context);
         const markdown = turndownService.turndown(renderedHtml);
 
