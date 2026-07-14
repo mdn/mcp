@@ -245,6 +245,37 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
+  it("should handle a redirect to an external url", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-external/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location: "https://example.com/path/index.json",
+        },
+      });
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-external",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(
+      text.includes("`/en-US/docs/redirects-to-external`"),
+      "response includes request path",
+    );
+    assert.ok(
+      text.includes("`https://example.com/path`"),
+      "response includes redirect path",
+    );
+  });
+
   it("should handle a redirect loop", async () => {
     mockPool
       .intercept({
