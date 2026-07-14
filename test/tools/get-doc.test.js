@@ -208,6 +208,40 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
+  it("should handle a redirect to a new index.json", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-json/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location: "/en-US/docs/Web/API/Headers/index.json",
+        },
+      });
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-json",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(
+      text.startsWith(
+        "`/en-US/docs/redirects-to-json` redirected to `/en-US/docs/Web/API/Headers`:\n# Headers",
+      ),
+    );
+  });
+
   it("should handle a redirect to a section in HTML", async () => {
     mockPool
       .intercept({
@@ -242,7 +276,11 @@ describe("get-doc tool", () => {
     });
     assert.equal(isError, undefined);
     const [_, text] = frontmatterSplit(content[0].text);
-    assert.ok(text.startsWith("# Headers"));
+    assert.ok(
+      text.startsWith(
+        "`/en-US/docs/redirects-to-section` redirected to `/en-US/docs/Web/API/Headers#modification_restrictions`, the contents of the full page follows:\n# Headers",
+      ),
+    );
   });
 
   it("should handle a redirect to an external url", async () => {
