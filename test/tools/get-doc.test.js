@@ -245,6 +245,40 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
+  it("should handle a redirect loop", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirect-loop/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: { location: "/en-US/docs/redirect-loop" },
+      })
+      .persist();
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirect-loop",
+        method: "GET",
+      })
+      .reply(200, "<!doctype html>")
+      .persist();
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirect-loop",
+      },
+    });
+    assert.equal(isError, true);
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(
+      text.startsWith("Error: `/en-US/docs/redirect-loop`"),
+      "response starts with 'Error: `<originalPath>`'",
+    );
+  });
+
   describe("bcd keys", () => {
     it("should have none", async () => {
       mockPool
