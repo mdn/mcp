@@ -208,6 +208,43 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
+  it("should handle a redirect to a section in HTML", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-section/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location:
+            "/en-US/docs/Web/API/Headers#modification_restrictions/index.json",
+        },
+      });
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers",
+        method: "GET",
+      })
+      .reply(200, "<!doctype html>");
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-section",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(text.startsWith("# Headers"));
+  });
+
   describe("bcd keys", () => {
     it("should have none", async () => {
       mockPool
