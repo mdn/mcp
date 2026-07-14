@@ -15,6 +15,8 @@ const turndownService = new TurndownService({
 });
 turndownService.use(turndownPluginGfm.gfm);
 
+const BASE_URL = "https://developer.mozilla.org";
+
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetDocTool(server) {
   const title = "Get documentation";
@@ -37,59 +39,75 @@ export function registerGetDocTool(server) {
       },
     },
     async ({ path }, request) => {
-      const url = new URL(path, "https://developer.mozilla.org");
-      if (url.host !== "developer.mozilla.org") {
-        throw new NonSentryError(
-          `Error: ${url} doesn't look like an MDN url`,
-          "non_mdn_host",
-        );
-      }
-      if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
-        throw new NonSentryError(
-          `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
-          "non_doc_path",
-        );
-      }
-      if (!url.pathname.endsWith("/index.json")) {
-        url.pathname += "/index.json";
-      }
-
-      const res = await fetch(url);
-      if (!res.ok) {
-        if (res.status === 404) {
-          throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
+      const originalPath = path;
+      for (let i = 0; i < 5; i++) {
+        const url = new URL(path, BASE_URL);
+        if (url.host !== "developer.mozilla.org") {
+          throw new NonSentryError(
+            `Error: ${url} doesn't look like an MDN url`,
+            "non_mdn_host",
+          );
         }
-        throw new Error(`${res.status}: ${res.statusText} for ${path}`);
-      }
-
-      /** @type {import("@mdn/rari").DocPage} */
-      const context = await res.json();
-      const renderedHtml = await renderSimplified(context.url, context);
-      const markdown = turndownService.turndown(renderedHtml);
-
-      let frontmatter = "";
-      const { browserCompat } = context.doc;
-      if (browserCompat) {
-        frontmatter += "---\n";
-        if (browserCompat.length > 1) {
-          frontmatter += "compat-keys:\n";
-          frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
-        } else {
-          frontmatter += `compat-key: ${browserCompat[0]}\n`;
+        if (!/^\/?([a-z-]+?\/)?docs\//i.test(url.pathname)) {
+          throw new NonSentryError(
+            `Error: ${path} doesn't look like the path to a piece of MDN documentation`,
+            "non_doc_path",
+          );
         }
-        frontmatter += "---\n";
+        if (!url.pathname.endsWith("/index.json")) {
+          url.pathname += "/index.json";
+        }
+
+        const res = await fetch(url);
+        if (!res.ok) {
+          if (res.status === 404) {
+            throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
+          }
+          throw new Error(`${res.status}: ${res.statusText} for ${path}`);
+        }
+
+        /** @type {import("@mdn/rari").DocPage} */
+        let context;
+        try {
+          context = await res.json();
+        } catch (error) {
+          if (error instanceof SyntaxError && res.redirected) {
+            // we've been redirected to something which isn't json
+            const resUrl = new URL(res.url);
+            // try again with this new URL
+            path = resUrl.pathname;
+            continue;
+          }
+          throw error;
+        }
+        const renderedHtml = await renderSimplified(context.url, context);
+        const markdown = turndownService.turndown(renderedHtml);
+
+        let frontmatter = "";
+        const { browserCompat } = context.doc;
+        if (browserCompat) {
+          frontmatter += "---\n";
+          if (browserCompat.length > 1) {
+            frontmatter += "compat-keys:\n";
+            frontmatter += browserCompat.map((key) => `  - ${key}\n`).join("");
+          } else {
+            frontmatter += `compat-key: ${browserCompat[0]}\n`;
+          }
+          frontmatter += "---\n";
+        }
+
+        submitEvent(fetched, request, { path: context.url });
+
+        return {
+          content: [
+            {
+              type: "text",
+              text: frontmatter + markdown,
+            },
+          ],
+        };
       }
-
-      submitEvent(fetched, request, { path: context.url });
-
-      return {
-        content: [
-          {
-            type: "text",
-            text: frontmatter + markdown,
-          },
-        ],
-      };
+      throw new Error(`Error: \`${originalPath}\` redirected too many times`);
     },
   );
 }
