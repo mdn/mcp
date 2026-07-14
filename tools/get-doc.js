@@ -40,6 +40,7 @@ export function registerGetDocTool(server) {
     },
     async ({ path }, request) => {
       const originalPath = path;
+      let redirected = false;
       for (let i = 0; i < 5; i++) {
         const url = new URL(path, BASE_URL);
         if (url.host !== "developer.mozilla.org") {
@@ -64,11 +65,13 @@ export function registerGetDocTool(server) {
             const location = res.headers.get("location");
             if (typeof location === "string") {
               const next = new URL(location, url);
+              next.pathname = next.pathname.replace(/\/index\.json$/, "");
+              next.hash = next.hash.replace(/\/index\.json$/, "");
               if (next.host === "developer.mozilla.org") {
-                path = next.pathname;
+                path = next.pathname + next.hash;
+                redirected = true;
                 continue;
               } else {
-                next.pathname = next.pathname.replace(/\/index\.json$/, "");
                 return {
                   content: [
                     {
@@ -78,6 +81,7 @@ export function registerGetDocTool(server) {
                   ],
                 };
               }
+              /* node:coverage ignore next 3 */
             }
             throw new Error(`Error: Malformed redirect from ${path}`);
           }
@@ -104,6 +108,12 @@ export function registerGetDocTool(server) {
           }
           frontmatter += "---\n";
         }
+        let note = "";
+        if (redirected && !path.endsWith(originalPath)) {
+          note = url.hash
+            ? `\`${originalPath}\` redirected to \`${path}\`, the contents of the full page follows:\n`
+            : `\`${originalPath}\` redirected to \`${path}\`:\n`;
+        }
 
         submitEvent(fetched, request, { path: context.url });
 
@@ -111,7 +121,7 @@ export function registerGetDocTool(server) {
           content: [
             {
               type: "text",
-              text: frontmatter + markdown,
+              text: frontmatter + note + markdown,
             },
           ],
         };
