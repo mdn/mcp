@@ -256,12 +256,6 @@ describe("get-doc tool", () => {
       });
     mockPool
       .intercept({
-        path: "/en-US/docs/Web/API/Headers",
-        method: "GET",
-      })
-      .reply(200, "<!doctype html>");
-    mockPool
-      .intercept({
         path: "/en-US/docs/Web/API/Headers/index.json",
         method: "GET",
       })
