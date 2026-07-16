@@ -318,13 +318,6 @@ describe("get-doc tool", () => {
         headers: { location: "/en-US/docs/redirect-loop" },
       })
       .persist();
-    mockPool
-      .intercept({
-        path: "/en-US/docs/redirect-loop",
-        method: "GET",
-      })
-      .reply(200, "<!doctype html>")
-      .persist();
 
     /** @type {any} */
     const { content, isError } = await client.callTool({
