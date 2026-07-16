@@ -208,7 +208,7 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
-  it("should handle a redirect to a new index.json", async () => {
+  it("handles redirect to other index.json", async () => {
     mockPool
       .intercept({
         path: "/en-US/docs/redirects-to-json/index.json",
@@ -242,7 +242,7 @@ describe("get-doc tool", () => {
     );
   });
 
-  it("should handle a redirect to a section in HTML", async () => {
+  it("handles broken redirect to a fragment followed by /index.json", async () => {
     mockPool
       .intercept({
         path: "/en-US/docs/redirects-to-section/index.json",
