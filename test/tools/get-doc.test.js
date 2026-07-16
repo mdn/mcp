@@ -237,7 +237,7 @@ describe("get-doc tool", () => {
     const [_, text] = frontmatterSplit(content[0].text);
     assert.ok(
       text.startsWith(
-        "`/en-US/docs/redirects-to-json` redirected to `/en-US/docs/Web/API/Headers`:\n# Headers",
+        "(`/en-US/docs/redirects-to-json` redirected to `/en-US/docs/Web/API/Headers`.)\n# Headers",
       ),
     );
   });
@@ -272,7 +272,7 @@ describe("get-doc tool", () => {
     const [_, text] = frontmatterSplit(content[0].text);
     assert.ok(
       text.startsWith(
-        "`/en-US/docs/redirects-to-section` redirected to `/en-US/docs/Web/API/Headers#modification_restrictions`, the contents of the full page follows:\n# Headers",
+        "(`/en-US/docs/redirects-to-section` redirected to `/en-US/docs/Web/API/Headers#modification_restrictions`, the contents of the full page follows.)\n# Headers",
       ),
     );
   });

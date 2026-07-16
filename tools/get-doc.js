@@ -9,13 +9,15 @@ import { fetched } from "../glean/generated/getDoc.js";
 import { submitEvent } from "../glean/glean.js";
 import { NonSentryError } from "../sentry/error.js";
 
+const BASE_URL = "https://developer.mozilla.org";
+const MDN_HOST = "developer.mozilla.org";
+const MAX_REDIRECTS = 5;
+
 const turndownService = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
 });
 turndownService.use(turndownPluginGfm.gfm);
-
-const BASE_URL = "https://developer.mozilla.org";
 
 /** @param {InstanceType<import("../server.js").ExtendedServer>} server */
 export function registerGetDocTool(server) {
@@ -41,9 +43,9 @@ export function registerGetDocTool(server) {
     async ({ path }, request) => {
       const originalPath = path;
       let redirected = false;
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < MAX_REDIRECTS; i++) {
         const url = new URL(path, BASE_URL);
-        if (url.host !== "developer.mozilla.org") {
+        if (url.host !== MDN_HOST) {
           throw new NonSentryError(
             `Error: ${url} doesn't look like an MDN url`,
             "non_mdn_host",
@@ -65,9 +67,11 @@ export function registerGetDocTool(server) {
             const location = res.headers.get("location");
             if (typeof location === "string") {
               const next = new URL(location, url);
+              // strip "/index.json" from path to get the page path:
               next.pathname = next.pathname.replace(/\/index\.json$/, "");
+              // dex can append "/index.json" to the hash, so remove that:
               next.hash = next.hash.replace(/\/index\.json$/, "");
-              if (next.host === "developer.mozilla.org") {
+              if (next.host === MDN_HOST) {
                 path = next.pathname + next.hash;
                 redirected = true;
                 continue;
@@ -81,10 +85,13 @@ export function registerGetDocTool(server) {
                   ],
                 };
               }
-              /* node:coverage ignore next 3 */
+              /* node:coverage disable */
             }
-            throw new Error(`Error: Malformed redirect from ${path}`);
+            throw new Error(
+              `Error: Malformed ${res.status} redirect from ${path}, missing location header.`,
+            );
           }
+          /* node:coverage enable */
           if (res.status === 404) {
             throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
           }
@@ -110,9 +117,7 @@ export function registerGetDocTool(server) {
         }
         let note = "";
         if (redirected && !path.endsWith(originalPath)) {
-          note = url.hash
-            ? `\`${originalPath}\` redirected to \`${path}\`, the contents of the full page follows:\n`
-            : `\`${originalPath}\` redirected to \`${path}\`:\n`;
+          note = `(\`${originalPath}\` redirected to \`${path}\`${url.hash ? ", the contents of the full page follows" : ""}.)\n`;
         }
 
         submitEvent(fetched, request, { path: context.url });
@@ -126,7 +131,9 @@ export function registerGetDocTool(server) {
           ],
         };
       }
-      throw new Error(`Error: \`${originalPath}\` redirected too many times`);
+      throw new Error(
+        `Error: \`${originalPath}\` redirected more than ${MAX_REDIRECTS} times`,
+      );
     },
   );
 }
