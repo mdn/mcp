@@ -208,6 +208,133 @@ describe("get-doc tool", () => {
     assert.ok(text.startsWith("# Headers"));
   });
 
+  it("handles redirect to other index.json", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-json/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location: "/en-US/docs/Web/API/Headers/index.json",
+        },
+      });
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-json",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(
+      text.startsWith(
+        "(`/en-US/docs/redirects-to-json` redirected to `/en-US/docs/Web/API/Headers`.)\n# Headers",
+      ),
+    );
+  });
+
+  it("handles broken redirect to a fragment followed by /index.json", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-section/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location:
+            "/en-US/docs/Web/API/Headers#modification_restrictions/index.json",
+        },
+      });
+    mockPool
+      .intercept({
+        path: "/en-US/docs/Web/API/Headers/index.json",
+        method: "GET",
+      })
+      .reply(200, headersDoc);
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-section",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(
+      text.startsWith(
+        "(`/en-US/docs/redirects-to-section` redirected to `/en-US/docs/Web/API/Headers#modification_restrictions`, the contents of the full page follows.)\n# Headers",
+      ),
+    );
+  });
+
+  it("should handle a redirect to an external url", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirects-to-external/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: {
+          location: "https://example.com/path/index.json",
+        },
+      });
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirects-to-external",
+      },
+    });
+    assert.equal(isError, undefined);
+    const [_, text] = frontmatterSplit(content[0].text);
+    assert.ok(
+      text.includes("`/en-US/docs/redirects-to-external`"),
+      "response includes request path",
+    );
+    assert.ok(
+      text.includes("`https://example.com/path`"),
+      "response includes redirect path",
+    );
+  });
+
+  it("should handle a redirect loop", async () => {
+    mockPool
+      .intercept({
+        path: "/en-US/docs/redirect-loop/index.json",
+        method: "GET",
+      })
+      .reply(302, "", {
+        headers: { location: "/en-US/docs/redirect-loop" },
+      })
+      .persist();
+
+    /** @type {any} */
+    const { content, isError } = await client.callTool({
+      name: "get-doc",
+      arguments: {
+        path: "/en-US/docs/redirect-loop",
+      },
+    });
+    assert.equal(isError, true);
+    /** @type {string} */
+    const text = content[0].text;
+    assert.ok(
+      text.startsWith("Error: `/en-US/docs/redirect-loop`"),
+      "response starts with 'Error: `<originalPath>`'",
+    );
+  });
+
   describe("bcd keys", () => {
     it("should have none", async () => {
       mockPool
