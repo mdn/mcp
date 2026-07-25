@@ -42,7 +42,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^24.13.2",
     "@types/turndown": "^5.0.6",
-    "concurrently": "^10.0.3",
+    "concurrently": "^10.0.4",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.17.1",
