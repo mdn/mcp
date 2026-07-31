@@ -38,7 +38,7 @@
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
     "@eslint/js": "^10.0.1",
-    "@modelcontextprotocol/inspector": "^0.22.0",
+    "@modelcontextprotocol/inspector": "^1.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^24.13.2",
     "@types/turndown": "^5.0.6",
