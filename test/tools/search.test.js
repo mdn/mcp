@@ -4,6 +4,7 @@ import { after, before, describe, it, mock } from "node:test";
 
 import { MockAgent, setGlobalDispatcher } from "undici";
 
+import { silentError } from "../../glean/generated/error.js";
 import { completed } from "../../glean/generated/search.js";
 import clipboardApiMetadata from "../fixtures/clipboard-api-metadata.json" with { type: "json" };
 import clipboardMetadata from "../fixtures/clipboard-metadata.json" with { type: "json" };
@@ -112,6 +113,27 @@ describe("search tool", () => {
     assert.ok(text.includes("502"), "response includes error code");
     assert.ok(text.includes(query), "response includes query");
     assert.ok(text.includes("try again"), "response suggests next action");
+  });
+
+  it("should gracefully handle blocked request", async () => {
+    const query = "malicious_payload";
+    mockPool
+      .intercept({
+        path: `/api/v1/search?q=${query}`,
+        method: "GET",
+      })
+      .reply(406);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "search",
+      arguments: {
+        query,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.deepEqual(text, `Error: We couldn't search for "${query}"`);
   });
 
   it("should include single compat key", async () => {
@@ -223,6 +245,30 @@ describe("search tool", () => {
       assert.equal(record.mock.calls.length, 1);
       assert.deepEqual(record.mock.calls[0]?.arguments[0], {
         result_count: 0,
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for blocked request", async () => {
+      const record = mock.method(silentError, "record");
+      const query = "malicious_payload";
+
+      mockPool
+        .intercept({
+          path: `/api/v1/search?q=${query}`,
+          method: "GET",
+        })
+        .reply(406);
+
+      await client.callTool({
+        name: "search",
+        arguments: { query },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "search",
+        reason: "406",
         user_agent: "node",
       });
     });

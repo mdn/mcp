@@ -148,6 +148,28 @@ describe("get-doc tool", () => {
       assert.deepEqual(text, `Error: We couldn't find ${path}`);
     });
 
+    it("should handle blocked request", async () => {
+      const path = "/en-US/docs/malicious_payload";
+
+      mockPool
+        .intercept({
+          path: path + "/index.json",
+          method: "GET",
+        })
+        .reply(406);
+
+      /** @type {any} */
+      const { content } = await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+      /** @type {string} */
+      const text = content[0].text;
+      assert.deepEqual(text, `Error: We couldn't fetch ${path}`);
+    });
+
     it("should handle upstream server error", async () => {
       const path = "/en-US/docs/MDN/Knisnehctik";
 
@@ -491,6 +513,32 @@ describe("get-doc tool", () => {
       assert.deepEqual(record.mock.calls[0]?.arguments[0], {
         tool: "get-doc",
         reason: "404",
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for blocked request", async () => {
+      const record = mock.method(silentError, "record");
+      const path = "/en-US/docs/malicious_payload";
+
+      mockPool
+        .intercept({
+          path: path + "/index.json",
+          method: "GET",
+        })
+        .reply(406);
+
+      await client.callTool({
+        name: "get-doc",
+        arguments: {
+          path,
+        },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-doc",
+        reason: "406",
         user_agent: "node",
       });
     });
