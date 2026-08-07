@@ -95,6 +95,10 @@ export function registerGetDocTool(server) {
           if (res.status === 404) {
             throw new NonSentryError(`Error: We couldn't find ${path}`, "404");
           }
+          if (res.status === 406) {
+            // fastly waf returns 406 when it blocks a request
+            throw new NonSentryError(`Error: We couldn't fetch ${path}`, "406");
+          }
           throw new Error(`${res.status}: ${res.statusText} for ${path}`);
         }
 
