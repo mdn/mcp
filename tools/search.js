@@ -2,6 +2,7 @@ import z from "zod";
 
 import { completed } from "../glean/generated/search.js";
 import { submitEvent } from "../glean/glean.js";
+import { NonSentryError } from "../sentry/error.js";
 
 /**
  * @import { SearchResponse, SearchDocument } from "@mdn/fred/components/site-search/types.js";
@@ -33,6 +34,13 @@ export function registerSearchTool(server) {
 
       const res = await fetch(url);
       if (!res.ok) {
+        if (res.status === 406) {
+          // fastly waf returns 406 when it blocks a request
+          throw new NonSentryError(
+            `Error: We couldn't search for "${query}"`,
+            "406",
+          );
+        }
         throw new Error(
           `${res.status}: ${res.statusText} for "${query}", perhaps try again.`,
         );
