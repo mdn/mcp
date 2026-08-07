@@ -111,6 +111,31 @@ describe("get-compat tool", () => {
     assert.match(text, /^MCP error/, "response starts with 'MCP error'");
   });
 
+  it("should handle blocked request", async () => {
+    const key = "malicious_payload";
+
+    mockPool
+      .intercept({
+        path: `/bcd/api/v0/current/${key}.json`,
+        method: "GET",
+      })
+      .reply(406);
+
+    /** @type {any} */
+    const { content } = await client.callTool({
+      name: "get-compat",
+      arguments: {
+        key,
+      },
+    });
+    /** @type {string} */
+    const text = content[0].text;
+    assert.deepEqual(
+      text,
+      `Error: We couldn't fetch "${key}" from the Browser Compatibility Data.`,
+    );
+  });
+
   it("should handle bcd api server error", async () => {
     const key = "javascript.builtins.Array.Array";
 
@@ -179,6 +204,30 @@ describe("get-compat tool", () => {
       assert.deepEqual(record.mock.calls[0]?.arguments[0], {
         tool: "get-compat",
         reason: "404",
+        user_agent: "node",
+      });
+    });
+
+    it("should send error for blocked request", async () => {
+      const key = "malicious_payload";
+      const record = mock.method(silentError, "record");
+
+      mockPool
+        .intercept({
+          path: `/bcd/api/v0/current/${key}.json`,
+          method: "GET",
+        })
+        .reply(406);
+
+      await client.callTool({
+        name: "get-compat",
+        arguments: { key },
+      });
+
+      assert.equal(record.mock.calls.length, 1);
+      assert.deepEqual(record.mock.calls[0]?.arguments[0], {
+        tool: "get-compat",
+        reason: "406",
         user_agent: "node",
       });
     });
