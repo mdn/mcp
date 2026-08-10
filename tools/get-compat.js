@@ -43,6 +43,13 @@ export function registerGetCompatTool(server) {
             "404",
           );
         }
+        if (res.status === 406) {
+          // fastly waf returns 406 when it blocks a request
+          throw new NonSentryError(
+            `Error: We couldn't fetch "${key}" from the Browser Compatibility Data.`,
+            "406",
+          );
+        }
         throw new Error(`Error: ${res.status}: ${res.statusText}`);
       }
 
