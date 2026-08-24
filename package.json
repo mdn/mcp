@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@lit-labs/ssr": "^4.1.0",
-    "@mdn/fred": "^2.7.0",
+    "@mdn/fred": "^2.8.0",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "@mozilla/glean": "^2.0.5",
     "@sentry/node": "^10.70.0",
