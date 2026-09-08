@@ -56,5 +56,12 @@
     "typescript-eslint": "^8.69.0",
     "undici": "8.0.2",
     "zod": "^4.5.4"
+  },
+  "allowScripts": {
+    "@mdn/rari": true,
+    "@modelcontextprotocol/inspector": true,
+    "fsevents": true,
+    "lefthook": true,
+    "unrs-resolver": true
   }
 }
