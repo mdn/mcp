@@ -60,7 +60,7 @@
   "allowScripts": {
     "@mdn/rari": true,
     "@modelcontextprotocol/inspector": true,
-    "fsevents": true,
+    "fsevents": false,
     "lefthook": true,
     "unrs-resolver": true
   }
