@@ -30,10 +30,33 @@ describe("server", () => {
     assert.deepEqual(ping, {});
   });
 
-  it("should redirect get requests to the repo", async () => {
-    const res = await fetch(`http://localhost:${server.port}`);
-    assert.ok(res.redirected);
-    assert.strictEqual(res.url, "https://developer.mozilla.org/en-US/mcp");
+  it("should redirect ordinary visits to the landing page", async () => {
+    for (const path of ["/", "/mcp"]) {
+      for (const accept of ["*/*", "text/html"]) {
+        const res = await fetch(`http://localhost:${server.port}${path}`, {
+          headers: { Accept: accept },
+        });
+        assert.ok(res.redirected);
+        assert.strictEqual(res.url, "https://developer.mozilla.org/en-US/mcp");
+      }
+    }
+  });
+
+  it("should reject optional MCP notification streams without redirecting", async () => {
+    for (const path of ["/", "/mcp"]) {
+      for (const accept of [
+        "text/event-stream",
+        "application/json, text/event-stream",
+      ]) {
+        const res = await fetch(`http://localhost:${server.port}${path}`, {
+          headers: { Accept: accept },
+          redirect: "manual",
+        });
+        assert.equal(res.status, 405);
+        assert.equal(res.headers.get("allow"), "POST");
+        assert.equal(res.headers.get("location"), null);
+      }
+    }
   });
 
   after(() => {
