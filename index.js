@@ -13,7 +13,12 @@ app.use(express.json());
 
 app.post(["/", "/mcp"], handleRequest);
 
-app.get("/", (_req, res) => {
+app.get(["/", "/mcp"], (req, res) => {
+  // Redirecting SSE clients to HTML can cause an endless reconnect loop.
+  if (req.accepts(["html", "text/event-stream"]) === "text/event-stream") {
+    res.set("Allow", "POST").sendStatus(405);
+    return;
+  }
   res.redirect(302, "https://developer.mozilla.org/en-US/mcp");
 });
 
