@@ -55,8 +55,53 @@ describe("server", () => {
         assert.equal(res.status, 405);
         assert.equal(res.headers.get("allow"), "POST");
         assert.equal(res.headers.get("location"), null);
+        assert.equal(res.headers.get("access-control-allow-origin"), "*");
       }
     }
+  });
+
+  it("should allow browser MCP preflights", async () => {
+    const res = await fetch(`http://localhost:${server.port}/`, {
+      method: "OPTIONS",
+      headers: {
+        Origin: "https://example.com",
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers":
+          "content-type,mcp-protocol-version,x-moz-1st-party-data-opt-out",
+      },
+    });
+    assert.equal(res.status, 204);
+    assert.equal(res.headers.get("access-control-allow-origin"), "*");
+    assert.equal(
+      res.headers.get("access-control-allow-headers"),
+      "Content-Type, MCP-Protocol-Version, X-Moz-1st-Party-Data-Opt-Out",
+    );
+  });
+
+  it("should allow browsers to read MCP responses", async () => {
+    const res = await fetch(`http://localhost:${server.port}/`, {
+      method: "POST",
+      headers: {
+        Origin: "https://example.com",
+        "Content-Type": "application/json",
+        Accept: "application/json, text/event-stream",
+        "MCP-Protocol-Version": "2025-11-25",
+      },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "ping" }),
+    });
+    assert.equal(res.status, 200);
+    assert.equal(res.headers.get("access-control-allow-origin"), "*");
+    assert.deepEqual(await res.json(), { jsonrpc: "2.0", id: 1, result: {} });
+  });
+
+  it("should include CORS headers on JSON parsing errors", async () => {
+    const res = await fetch(`http://localhost:${server.port}/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{",
+    });
+    assert.equal(res.status, 400);
+    assert.equal(res.headers.get("access-control-allow-origin"), "*");
   });
 
   after(() => {
