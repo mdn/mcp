@@ -22,6 +22,8 @@ Add the remote server to your tool of choice. For example, in Claude Code:
 claude mcp add --transport http mdn https://mcp.mdn.mozilla.net/
 ```
 
+Browser clients can connect directly using Streamable HTTP, without a CORS proxy.
+
 ## Using locally
 
 - Install dependencies: `npm install`

@@ -11,8 +11,8 @@
     "dev:server": "nodemon index.js",
     "dev:inspector": "mcp-inspector --config mcp.json",
     "tsc": "tsc",
-    "test": "node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
-    "test:watch": "node --test --watch 'test/**/*.test.js'",
+    "test": "cross-env NODE_ENV=test node --test --experimental-test-coverage --test-coverage-lines 100 --test-coverage-exclude 'test/**/*' 'test/**/*.test.js'",
+    "test:watch": "cross-env NODE_ENV=test node --test --watch 'test/**/*.test.js'",
     "glean:generate": "glean translate glean/metrics.yaml -f javascript -o glean/generated/ && glean translate glean/metrics.yaml -f typescript -o glean/generated/ && sed -i 's/ DO NOT COMMIT\\.//g' glean/generated/*"
   },
   "packageManager": "npm@11.16.0",
@@ -43,6 +43,7 @@
     "@types/node": "^24.13.2",
     "@types/turndown": "^5.0.6",
     "concurrently": "^10.0.6",
+    "cross-env": "^10.1.0",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import-x": "^4.17.1",

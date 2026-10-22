@@ -9,6 +9,20 @@ import express from "express";
 import handleRequest from "./transport.js";
 
 const app = express();
+
+app.all(["/", "/mcp"], (req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.set(
+      "Access-Control-Allow-Headers",
+      "Content-Type, MCP-Protocol-Version, X-Moz-1st-Party-Data-Opt-Out",
+    );
+    res.sendStatus(204);
+    return;
+  }
+  next();
+});
+
 app.use(express.json());
 
 app.post(["/", "/mcp"], handleRequest);
