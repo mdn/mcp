@@ -15,9 +15,9 @@
     "test:watch": "cross-env NODE_ENV=test node --test --watch 'test/**/*.test.js'",
     "glean:generate": "glean translate glean/metrics.yaml -f javascript -o glean/generated/ && glean translate glean/metrics.yaml -f typescript -o glean/generated/ && sed -i 's/ DO NOT COMMIT\\.//g' glean/generated/*"
   },
-  "packageManager": "npm@11.16.0",
+  "packageManager": "npm@11.20.0",
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "devEngines": {
     "packageManager": {
@@ -40,7 +40,7 @@
     "@eslint/js": "^10.0.1",
     "@modelcontextprotocol/inspector": "^2.15.0",
     "@types/express": "^5.0.6",
-    "@types/node": "^24.13.2",
+    "@types/node": "^26.6.6",
     "@types/turndown": "^5.0.6",
     "concurrently": "^10.0.6",
     "cross-env": "^10.1.0",
@@ -64,5 +64,10 @@
     "fsevents": false,
     "lefthook": true,
     "unrs-resolver": true
+  },
+  "overrides": {
+    "@lit-labs/ssr": {
+      "@types/node": "$@types/node"
+    }
   }
 }
